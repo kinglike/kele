@@ -29,7 +29,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | 7. Models
 |
 */
-$this->load->add_package_path(APPPATH.'third_party/ion_auth/');
+// $this->load->add_package_path(APPPATH.'third_party/ion_auth/');
 
 /*
 | -------------------------------------------------------------------
@@ -40,7 +40,10 @@ $this->load->add_package_path(APPPATH.'third_party/ion_auth/');
 |  $autoload['packages'] = array(APPPATH.'third_party', '/usr/local/shared');
 |
 */
-$autoload['packages'] = array('ion_auth');
+$autoload['packages'] = array(
+    APPPATH.'third_party/ion_auth/',
+    APPPATH.'third_party/rest_server'
+);
 
 /*
 | -------------------------------------------------------------------
@@ -90,7 +93,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url','language');
+$autoload['helper'] = array('url','language','array', 'inflector', 'string');
 
 /*
 | -------------------------------------------------------------------
