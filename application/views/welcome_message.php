@@ -136,7 +136,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				
 				echo '<div class="col-xs-3">';
 				echo '<img class="img-rounded" src=/uploads/'.$value->MainPic.'>';
-				//echo '<br>'.$value->country->name;
+				echo '<br>'.$value->id;
 				//var_dump($public);
 				echo '</div>';
 			}

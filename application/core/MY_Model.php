@@ -39,22 +39,64 @@ class MY_Model extends CI_Model
 
         if ($where) { $this->db->where($where); }
         if ($order) { $this->db->order_by($order); }
-        $this->db->limit(10, 20);
 
-        
         $this->db->from($table);
         $count = $this->db->count_all_results();
-
+        //var_dump($count);
         $query = $this->db->get($table);
+        //var_dump($query);
+
+        
+
         $data = $query->result();
 
-        $data=array(
+        //$this->db->from($table);
+        //$return->data = $data;
+        //$return->count = $count;
+
+        $return = array(
             'data'  =>  $data,
             'count' =>  $count 
         );
-        return $data;      
+        return $return;      
     }
+    public function pagination($table,$fields = '*',$where='',$order='',$limit=0,$offset=1)
+    {
+        if ( is_array($fields) ) {
+            $fields = implode(',', $fields);
+        }
+        $this->db->select($fields);
 
+        if ($where) { $this->db->where($where); }
+        if ($order) { $this->db->order_by($order); }
+
+        $this->db->from($table);
+        $count = $this->db->count_all_results();
+        //var_dump($count);
+
+ 
+        $this->db->limit($limit, $offset);
+        $query = $this->db->get($table);
+        //var_dump($query);
+
+        
+
+        $data = $query->result();
+
+        //$this->db->from($table);
+
+
+
+
+        //$return->data = $data;
+        //$return->count = $count;
+
+        $return = array(
+            'data'  =>  $data,
+            'count' =>  $count 
+        );
+        return $return;      
+    }
     public  function delete($table,$where)
     {
         $this->db->where($where);

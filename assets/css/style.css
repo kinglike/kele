@@ -1,4 +1,3 @@
-body { padding-top: 70px; }
 
 .navbar-inverse {
     background-color: #cf4646;
@@ -27,3 +26,55 @@ body { padding-top: 70px; }
   .navbar-inverse .navbar-toggle:focus {
     background-color: transparent;
   }
+
+body{ padding-top: 70px;margin: 0; text-align:center; font-size:12px; color:#333333   }
+a{text-decoration:none;font-size:9pt;color:#333333}
+a:visited{text-decoration:none;color:#333333 font-family: ΢���ź�; }
+a:link{ color: #000000; font-family:΢���ź� }
+a:hover{color:#CC0000;text-decoration:underline; font-family:΢���ź�}
+td{font-size:9pt;line-height:12pt;}
+ul,li,dl,dt,dd,form,input,h1,h2,h3,h4,h5,h6,p,span{ margin:0; padding:0; list-style:none}
+#head         { width: 1000px; background-color: #DE0025; height:80px; color:#FFE4DD; margin-left:auto; margin-right:auto }
+.logo        { width: 120px; float: left; padding-top:23px; text-align:right }
+.logowz      { float: right; width: 860px; text-align: left; font-family: ΢���ź�; 
+               font-size: 18px; padding-top: 31px }
+#cont        { width: 1000px; margin-left: auto; margin-right: auto; margin-top: 10px; 
+               background-image: url('images/contbg.gif');overflow:hidden; }
+.contz       { float: left; width: 140px;overflow:hidden; padding-top:18px }
+.year        { width: 140px ;overflow:hidden;}
+.year dt     { width: 140px; line-height: 30px; text-align: center; font-size: 15px; 
+               font-family: ΢���ź�; font-weight: bold; 
+               background-image: url('images/icn_1.gif'); background-repeat: 
+               no-repeat; background-position: left center }
+.year dd     { width: 140px; text-align: center; line-height: 26px; font-family: ΢���ź�; 
+               font-size: 15px; font-weight: bold }
+.year dd a:link,.year dd a:visited { font-size: 15px; font-weight: bold;color:#333333 }
+.nation      { width: 140px; margin-top: 5px ;overflow:hidden;}
+.nation dt     { width: 140px; line-height: 30px; text-align: center; font-size: 15px; 
+               font-family: ΢���ź�; font-weight: bold; 
+               background-image: url('images/icn_1.gif'); background-repeat: 
+               no-repeat; background-position: left center }
+.nation dd     { width: 140px; text-align: left; line-height: 26px; font-family: ΢���ź�; 
+               font-size: 15px; font-weight: bold; text-indent:30px }
+.nation dd a:link,.nation dd a:visited { font-size: 15px; font-weight: bold;color:#333333 }
+.conty       { float: right; width: 832px;overflow:hidden; padding-left:11px; padding-right:11px; padding-top:20px }
+.ntitle      { width: 832px; line-height: 35px; padding-bottom:5px; background-image:url('images/h1bg.gif'); background-repeat:repeat-x; background-position-y:bottom; }
+.ntitle h1    { width: 632px; line-height: 35px; font-size: 20px; 
+               font-family: ΢���ź�; text-align: left; text-indent:15px; float:left }
+.ntitle dt   { background-position: right center; float: right; width: 180px; text-align:right; color:#8C1C00; padding-right:20px; background-image:url('images/shc.jpg'); background-repeat:no-repeat }
+.conty dl    { width: 832px; margin-left: auto; margin-right: auto;overflow:hidden; background-color:#FFFFFF; padding-bottom:15px }
+.conty dl dt { float: left; width: 832px; height: 29px; text-align: left; line-height: 29px; 
+               text-indent: 35px; font-size: 15px; font-family: ΢���ź�; 
+               font-weight: bold; background-image: url('images/ybg.gif') }
+.conty dl dd { float: left; width: 166px; height: 250px; background-image: 
+               url('images/pbg.gif'); text-align:center; line-height:30px; padding-top:28px; font-size:13px; font-family:΢���ź�; margin-top:5px; font-weight:bold }
+.nzl         { float: right; width: 832px ;overflow:hidden; padding-bottom:10px}
+.nzl dt { float: left; width: 166px; height: 250px; background-image: 
+               url('images/pbg.gif'); text-align:center; line-height:30px; padding-top:28px; font-size:13px; font-family:΢���ź�; font-weight:bold }
+.nzl dd      { float: right; width: 660px; text-align: left; font-size: 14px; font-family:΢���ź�; line-height: 24px }
+.npic        { width: 832px; margin-left: auto; margin-right: auto; padding-top: 12px;padding-bottom: 15px;overflow:hidden; }
+.fsbb        { width: 832px; margin-left: auto; margin-right: auto; padding-top: 10px; padding-bottom: 15px;overflow:hidden; }
+.fsbb li     { float: left; width: 230px; height: 300px; text-align: center; font-family: 
+               ΢���ź�; font-size: 14px; font-weight: bold; line-height:30px }
+.fsbb li img { border: 2px solid #F2F2F2; padding: 2px }
+#footer      { width: 1000px; line-height: 25px; margin-left: auto; margin-right: auto;  margin-top: 10px ; clear: both; }
