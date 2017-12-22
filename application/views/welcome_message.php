@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>Bootstrap 101 Template</title>
+    <title>可口可乐-铝瓶收藏资料库</title>
 
     <!-- Bootstrap -->
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
@@ -28,7 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="/assets/js/bootstrap.min.js"></script>
 	
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top site-navbar">
+<nav class="navbar navbar-default navbar-fixed-top site-navbar">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -110,42 +110,101 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <div class="container">
 
-	<div class="row">
+	<div class="row" >
 
-		<div class="col-sm-4" style="line-height:50px;">
-		<?php
-			//var_dump($country);
+		<div class="col-sm-2" style="border-right:5px solid #DE0025;">
 
-			foreach ($country as $key => $value) {
-				echo "  <div class='col-xs-6'>";
-				echo "<img src=/uploads".$value->banner.">";
-				echo $value->name;
-				echo "</div>";
-			}
-		?>
+				<div class="panel panel-danger">
+					<div class="panel-heading">按发行国家</div>
+
+					<div class="panel-body">
+							<table class="table">
+
+							<?php
+								//var_dump($country);
+
+								foreach ($country as $key => $value) {
+									echo ' <tr><td>';
+									echo "<img src=/uploads".$value->banner.">";
+									echo '</td><td>';
+									echo $value->name;
+									echo "<td></tr>";
+								}
+							?>
+							</table>
+						</div>
+						<div class="panel-footer">更多>></div>
+				</div>
+
+				<div class="panel panel-danger">
+					<div class="panel-heading">按发行年份</div>
+
+					<div class="panel-body">
+							<table class="table">
+
+							<?php
+								//var_dump($country)
+								for ($i=2017; $i > 2005; $i--) { 
+									
+									echo ' <tr><td>';
+									echo $i;
+									echo "<td></tr>";
+								}
+							?>
+							</table>
+						</div>
+						<div class="panel-footer">更多>></div>
+				</div>
+
 		</div>
 
-		<div class="col-sm-8">
-		<div class="row">
-			<?php
-			//var_dump($public);
-				//for ($i=0; $i < count($public); $i++) { 
-					# code...
-				foreach ($public as $key => $value) {
-					# code...
-				
-				echo '<div class="col-xs-3">';
-				echo '<img class="img-rounded" src=/uploads/'.$value->MainPic.'>';
-				echo '<br>'.$value->id;
-				//var_dump($public);
-				echo '</div>';
-			}
-			?>
-		</div>
-		<div class="row"> 
-		<?php echo $this->pagination->create_links();;?>
-		</div>
+
+		<div class="col-sm-10">
+
+				<div class="panel panel-success">
+								<div class="panel-heading">最新收录</div>
+								<div class="panel-body">
+
+								<?php
+								//var_dump($public);
+									//for ($i=0; $i < count($public); $i++) { 
+										# code...
+									foreach ($publicNews as $key => $value) {
+										# code...
+									//border:1px solid #E5e5e5;background:#ffffff;border-radius:10px;box-shadow: 1px 1px 1px 1px #E5e5e5;padding-top:15px;margin:15px;
+									echo '<div class="col-xs-6  col-md-2 col-list " >';
+									echo '<img src=/uploads/'.$value->MainPic.'>';
+									echo '<button type="button" class="btn btn-danger btn-link btn-block">'.$value->ShortName.'</button>';
+									//var_dump($public);
+									echo '</div>';
+								}
+								?>
+								</div>
+				</div>
+
+				<div class="panel panel-success">
+						<div class="panel-heading">最受关注</div>
+						<div class="panel-body">
+
+						<?php
+						//var_dump($public);
+							//for ($i=0; $i < count($public); $i++) { 
+								# code...
+							foreach ($publicNews as $key => $value) {
+								# code...
+							
+							echo '<div class="col-xs-6 col-md-2 col-list">';
+							echo '<img src=/uploads/'.$value->MainPic.'>';
+							echo '<button type="button" class="btn btn-danger btn-link btn-block">'.$value->ShortName.'</button>';
+							//var_dump($public);
+							echo '</div>';
+						}
+						?>
+						</div>
+				</div>
 	</div>
+
+
 </div>
 
 </body>

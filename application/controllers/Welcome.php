@@ -27,17 +27,23 @@ class Welcome extends CI_Controller {
 
 		// $publishes = $this->Publish->limit($limit,$offset)->relate('country')->get_all(); 
 
-		$limit=10;
-		$offset=$this->uri->segment(3, 0);
+		$limit=20;
+		$page=$this->input->get('p');//$this->uri->segment(3, 0);
 
-		$country = $this->Country->select('country');
-		$publish = $this->Publish->pagination('publish','*','','',$limit,$offset);
+		$country = $this->Country->select('country','*','','',15);
+		$publishNews = $this->Publish->select('publish','*','','',10);
+		
+
+		//var_dump($publishNews);
+		$publish = $this->Publish->pagination('publish','*','','',$limit,$page);
 
 		$user = $this->ion_auth->user()->row();
 		$user_groups = $this->ion_auth->get_users_groups()->result();
 		$is_admin = $this->ion_auth->is_admin();
 
 		$data['country'] = $country['data'];
+		$data['publicNews'] = $publishNews['data'];
+
 		$data['public'] = $publish['data'];
 		$data['user'] = $user;
 		$data['is_admin'] = $is_admin;
@@ -48,7 +54,7 @@ class Welcome extends CI_Controller {
 		$config['total_rows'] = $publish['count'];
 		$config['per_page'] = $limit;
 		$config['num_links'] = 4;
-		$config['page_query_string'] = TRUE;
+
 
 
 

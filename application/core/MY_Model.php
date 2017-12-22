@@ -30,19 +30,27 @@ class MY_Model extends CI_Model
     }
 
 
-    public function select($table,$fields = '*',$where='',$order='')
+    public function select($table,$fields = '*',$where='',$order='',$limit='')
     {
         if ( is_array($fields) ) {
             $fields = implode(',', $fields);
         }
         $this->db->select($fields);
 
-        if ($where) { $this->db->where($where); }
-        if ($order) { $this->db->order_by($order); }
+        if ($where) { 
+            $this->db->where($where); 
+        }
+        if ($order) { 
+            $this->db->order_by($order); 
+        }
+
 
         $this->db->from($table);
         $count = $this->db->count_all_results();
         //var_dump($count);
+        if ($limit) {
+            $this->db->limit($limit,0);
+        }    
         $query = $this->db->get($table);
         //var_dump($query);
 
@@ -60,7 +68,7 @@ class MY_Model extends CI_Model
         );
         return $return;      
     }
-    public function pagination($table,$fields = '*',$where='',$order='',$limit=0,$offset=1)
+    public function pagination($table,$fields = '*',$where='',$order='',$limit=20,$page=1)
     {
         if ( is_array($fields) ) {
             $fields = implode(',', $fields);
@@ -74,7 +82,7 @@ class MY_Model extends CI_Model
         $count = $this->db->count_all_results();
         //var_dump($count);
 
- 
+        $offset = ($page<=1) ? 0 : ($page-1)*$limit;
         $this->db->limit($limit, $offset);
         $query = $this->db->get($table);
         //var_dump($query);
