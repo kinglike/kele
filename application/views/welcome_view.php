@@ -1,6 +1,6 @@
 <?php
-		//加载模版Layout
-		echo modules::run('layout/header/index',array('menu'	=>	'index'));
+//加载模版Layout
+echo modules::run('layout/header/index',array('menu'=>'index'));
 ?>
 
 <div class="container">
@@ -100,7 +100,14 @@
 	</div>
 
 
-</div>
 
+
+	
+</div>
+					</div>
+<?php
+//加载模版Layout
+echo modules::run('layout/footer/index');
+?>
 </body>
 </html>

@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<a href="/">首页 <span class="sr-only">(current)</span></a>
 		</li>
         <li <?php if ($menu=='publish') echo 'class="active"'?>>
-					<a href="#">资料库</a>
+					<a href="/publish/">资料库</a>
 				</li>
 				<li>
 					<a href="#">新品预告</a>
@@ -74,7 +74,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<li>	
 		<?php
 			if ($is_admin) {
-				echo "<a href='auth/'>后台管理</a>";
+				echo "<a href='/auth/'>后台管理</a>";
 			}
 			?>
 		</li>
@@ -92,14 +92,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <li><a href="#">我的收藏</a></li>
             <li><a href="#">我的关注</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="auth/logout">退出</a></li>
+            <li><a href="/auth/logout">退出</a></li>
           </ul>
         </li>
 
 			<?
 			} else {
 				
-				echo "<li><a href='auth/login'>登陆</a></li>";
+				echo "<li><a href='/auth/login'>登陆</a></li>";
 			}
 		?>
 

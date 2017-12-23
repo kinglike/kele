@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Welcome extends MX_Controller {
+class Welcome extends HOME_Controller {
 
 	public function index()
 	{
@@ -31,7 +31,7 @@ class Welcome extends MX_Controller {
 		$limit=20;
 		$page=$this->input->get('p');//$this->uri->segment(3, 0);
 
-		$country = $this->Country->select('country','*','','',15);
+		$country = $this->Country->select('country','*','','',18);
 		$publishNews = $this->Publish->select('publish','*','','',10);
 		
 
