@@ -42,6 +42,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $autoload['packages'] = array(
     APPPATH.'third_party/ion_auth/',
+    APPPATH.'third_party/MX/',
     APPPATH.'third_party/rest_server'
 );
 

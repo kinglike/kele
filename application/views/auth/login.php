@@ -1,3 +1,7 @@
+<?php
+		//加载模版Layout
+		echo modules::run('layout/header/index',array('menu'	=>	'login'));
+?>
 <h1><?php echo lang('login_heading');?></h1>
 <p><?php echo lang('login_subheading');?></p>
 

@@ -1,14 +1,15 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
+class Welcome extends HOME_Controller {
 
 	public function index()
 	{
 		$this->load->model('Country_model', 'Country');
 		$this->load->model('Publish_model', 'Publish');
 		$this->load->model('Post_model', 'Post');
-		
+
+
 		//$country =$this->Publish->with('country')->get_many_by('country_id','0'); 
 
 		// $this->Post->insert(array(
@@ -37,17 +38,13 @@ class Welcome extends CI_Controller {
 		//var_dump($publishNews);
 		$publish = $this->Publish->pagination('publish','*','','',$limit,$page);
 
-		$user = $this->ion_auth->user()->row();
-		$user_groups = $this->ion_auth->get_users_groups()->result();
-		$is_admin = $this->ion_auth->is_admin();
+
 
 		$data['country'] = $country['data'];
 		$data['publicNews'] = $publishNews['data'];
 
 		$data['public'] = $publish['data'];
-		$data['user'] = $user;
-		$data['is_admin'] = $is_admin;
-		$data['user_groups'] = $user_groups;
+
 		//echo $publish['count'];
 		//var_dump($publish);
 		$config['base_url'] = 'http://www.kele.com/index.php/welcome/index/';
@@ -99,7 +96,7 @@ class Welcome extends CI_Controller {
 		//var_dump($tt);
 
 		
-		$this->load->view('welcome_message',$data);
+		$this->load->view('welcome_view',$data);
 	}
 
 

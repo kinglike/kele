@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class BAS_Controller extends CI_Controller{
+class BAS_Controller extends MX_Controller{
 
     public function __construct(){
         parent::__construct();
@@ -22,7 +22,7 @@ class HOME_Controller extends  BAS_Controller{
 
 }
 
-class MY_Controller extends  HOME_Controller
+class ADMIN_Controller extends  BAS_Controller
 {
     public function __construct(){
         parent::__construct();
