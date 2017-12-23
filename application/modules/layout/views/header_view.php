@@ -47,7 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li <?php if ($menu=='index') echo 'class="active"'?>>
-					<a href="#">首页 <span class="sr-only">(current)</span></a>
+					<a href="/">首页 <span class="sr-only">(current)</span></a>
 		</li>
         <li <?php if ($menu=='publish') echo 'class="active"'?>>
 					<a href="#">资料库</a>
@@ -88,7 +88,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $user->username; ?> <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">修改密码</a></li>
+            <li><a href="auth/change_password">修改密码</a></li>
             <li><a href="#">我的收藏</a></li>
             <li><a href="#">我的关注</a></li>
             <li role="separator" class="divider"></li>

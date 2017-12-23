@@ -4,10 +4,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * 框架模版
  */
 class Header extends MX_Controller {
-	public function __construct()
-	{
-		parent::__construct();
-	}
+    function __construct() {
+        parent::__construct();  
+        
+        $this->load->module('auth');
+    }
 	public function index($param)
 	{
 

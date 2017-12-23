@@ -16,6 +16,8 @@ class BAS_Controller extends MX_Controller{
         $this->IS_AJAX  =$this->input->is_ajax_request();
 
     }
+
+
 }
 
 class HOME_Controller extends  BAS_Controller{

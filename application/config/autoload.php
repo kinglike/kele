@@ -41,9 +41,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $autoload['packages'] = array(
-    APPPATH.'third_party/ion_auth/',
+    //APPPATH.'third_party/ion_auth/',
     APPPATH.'third_party/MX/',
-    APPPATH.'third_party/rest_server'
+    // APPPATH.'third_party/rest_server'
 );
 
 /*
@@ -63,7 +63,7 @@ $autoload['packages'] = array(
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database','ion_auth', 'form_validation','email');
+$autoload['libraries'] = array('database','form_validation','email','session');
 
 /*
 | -------------------------------------------------------------------
