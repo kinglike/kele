@@ -12,7 +12,7 @@ echo modules::run('layout/header/index',array('menu'=>'index'));
 				<div class="panel panel-danger">
 					<div class="panel-heading">按发行国家</div>
 
-					<div class="panel-body">
+					<div class="panel-body" style="padding:0px;">
 							<table class="table">
 
 							<?php
@@ -34,21 +34,24 @@ echo modules::run('layout/header/index',array('menu'=>'index'));
 				<div class="panel panel-danger">
 					<div class="panel-heading">按发行年份</div>
 
-					<div class="panel-body">
-							<table class="table">
+					<div class="panel-body" style="text-align:center;padding:20px 0 20px 0;">
+							<!-- <table class="table"> -->
 
 							<?php
-								//var_dump($country)
-								for ($i=2017; $i > 2005; $i--) { 
-									
-									echo ' <tr><td>';
-									echo $i;
-									echo "<td></tr>";
+							    foreach ($year as $key => $value) {
+									echo '<button type="button" class="btn btn-default" style="margin:5px;">';
+									echo '<a href="">'.$value->name.'</a>';
+									echo '</button>';
 								}
+								//var_dump($country)
+								// foreach ($year as $key => $value) {
+								// 	echo ' <tr><td>';
+								// 	echo $value->name;
+								// 	echo "<td></tr>";
+								// }
 							?>
-							</table>
+							<!-- </table> -->
 						</div>
-						<div class="panel-footer">更多>></div>
 				</div>
 
 		</div>

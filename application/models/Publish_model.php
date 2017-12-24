@@ -2,15 +2,21 @@
 
 class Publish_model extends MY_Model { 
 
-    // public $_table = 'country';
-     //public $primary_key = 'PublishId';
-    //  public $_table = 'publish';
-    //  public $primary_key = 'id';    
-    //  public $belongs_to = array( 'country' );
 
-    public function getPublishList()
+    /**
+     * 获取发行数据
+     * $country 国家ID
+     * $year    年份
+     * $series  系列ID
+     * $keywork 查询名称关键字
+     * $limit   每页显示
+     * $page    当前页码
+     * 
+     */
+    public function getData($country,$year,$series,$keywork,$limit,$page)
     {
-        # code...
+        $sql = "select * from publish";
+        $query = $this->db->query("SELECT * FROM users;");
     }
 
 }

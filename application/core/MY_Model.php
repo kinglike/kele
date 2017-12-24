@@ -44,6 +44,8 @@ class MY_Model extends CI_Model
             $this->db->order_by($order); 
         }
 
+        //echo $order;
+
 
         $this->db->from($table);
         $count = $this->db->count_all_results();

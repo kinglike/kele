@@ -8,56 +8,49 @@ class Welcome extends HOME_Controller {
 		$this->load->model('Country_model', 'Country');
 		$this->load->model('Publish_model', 'Publish');
 		$this->load->model('Post_model', 'Post');
-
-
-		//$country =$this->Publish->with('country')->get_many_by('country_id','0'); 
-
-		// $this->Post->insert(array(
-		// 	'name' => "I'm too sexy for my shirt"
-		// ));
-
-		//$total_posts = $this->Publish->count('publish'); 
-
-		$this->load->library('pagination');
+		$this->load->model('Year_model', 'Year');
 
 
 
-
-
-		//$publishes = $this->Publish->with('country')->limit($limit,$offset)->get_many_by('country_id','1'); 
-
-		// $publishes = $this->Publish->limit($limit,$offset)->relate('country')->get_all(); 
-
-		$limit=20;
-		$page=$this->input->get('p');//$this->uri->segment(3, 0);
 
 		$country = $this->Country->select('country','*','','',18);
 		$publishNews = $this->Publish->select('publish','*','','',10);
-		
+		$year = $this->Year->select('year');
 
-		//var_dump($publishNews);
-		$publish = $this->Publish->pagination('publish','*','','',$limit,$page);
+
 
 
 
 		$data['country'] = $country['data'];
 		$data['publicNews'] = $publishNews['data'];
-
-		$data['public'] = $publish['data'];
-
-		//echo $publish['count'];
-		//var_dump($publish);
-		$config['base_url'] = 'http://www.kele.com/index.php/welcome/index/';
-		$config['total_rows'] = $publish['count'];
-		$config['per_page'] = $limit;
-		$config['num_links'] = 4;
+		$data['year'] = $year['data'];
+		$data['public'] = $publishNews['data'];
 
 
 
 
+		//处理国家分表
+		// $publishAll = $this->Year->select('publish');
 
-		//echo $offset;
-		$this->pagination->initialize($config);
+		// foreach ($publishAll['data'] as $key => $value) {
+		// 	$c= $value->Countrys;
+		// 	$pid = $value->id;
+		// 	$cArr = explode(",",$c);
+
+		// 		for ($i=0; $i <count($cArr) ; $i++) { 
+		// 		# code...
+		// 		echo $pid.','.$cArr[$i]."<br>";
+		// 		$data=array(
+		// 			'publish_id'	=>$pid,
+		// 			'country_id'	=>$cArr[$i]
+		// 		);
+		// 		//var_dump($data);
+
+		// 		$this->Publish->insert('re_publish_country',$data);
+
+		// 		}			 
+		// }
+
 		//$this->Post->update(2, array( 'name' => "It" ));
 
 		//初始化数据
