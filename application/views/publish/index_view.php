@@ -36,9 +36,9 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
     echo "全部";
     echo '</button>';
 
-    foreach ($year as $key => $value) {
+    foreach ($years as $key => $value) {
         echo '<button type="button" class="btn btn-default btn-xs" style="margin:5px;">';
-        echo $value->name;
+        echo $value->id;
         echo '</button>';
     }
 

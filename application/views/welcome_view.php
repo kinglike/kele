@@ -38,9 +38,9 @@ echo modules::run('layout/header/index',array('menu'=>'index'));
 							<!-- <table class="table"> -->
 
 							<?php
-							    foreach ($year as $key => $value) {
+							    foreach ($years as $key => $value) {
 									echo '<button type="button" class="btn btn-default" style="margin:5px;">';
-									echo '<a href="">'.$value->name.'</a>';
+									echo '<a href="">'.$value->id.'</a>';
 									echo '</button>';
 								}
 								//var_dump($country)

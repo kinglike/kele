@@ -17,21 +17,22 @@ class Publish extends HOME_Controller {
 	public function index()
 	{
 		$country = $this->Country->select('country');
-		$year = $this->Year->select('year');
+		$years = $this->Year->select('years');
 
 		$data['country'] = $country['data'];
-		$data['year'] = $year['data'];
+		$data['years'] = $years['data'];
 
 
 
 		$limit=12;	//每页几个
 		$page = $this->input->get('p');//$this->uri->segment(3, 0);
-		$year_get = $this->input->get('y');
+		$years_get = $this->input->get('y');
 		$keyword_get = $this->input->get('k');
 		$country_get = $this->input->get('c');
+		$series_get	= $this->input->get('s');
 
 
-		$publish = $this->Publish->getData('publish','*','','',$limit,$page);
+		$publish = $this->Publish->getData($country_get,$years_get,$series_get,$keyword_get,$limit,$page);
 
 		$config['base_url'] = '/publish/index/?y='.$year_get.'&k='.$keyword_get.'&c='.$country_get;
 		$config['total_rows'] = $publish['count'];
@@ -39,7 +40,7 @@ class Publish extends HOME_Controller {
 		$config['num_links'] = 4;
 
 		$data['country'] = $country['data'];
-		$data['year'] = $year['data'];
+		$data['years'] = $years['data'];
 		$data['publish'] = $publish['data'];
 
 		$this->pagination->initialize($config);

@@ -15,7 +15,7 @@ class Welcome extends HOME_Controller {
 
 		$country = $this->Country->select('country','*','','',18);
 		$publishNews = $this->Publish->select('publish','*','','',10);
-		$year = $this->Year->select('year');
+		$years = $this->Year->select('years');
 
 
 
@@ -23,14 +23,14 @@ class Welcome extends HOME_Controller {
 
 		$data['country'] = $country['data'];
 		$data['publicNews'] = $publishNews['data'];
-		$data['year'] = $year['data'];
+		$data['years'] = $years['data'];
 		$data['public'] = $publishNews['data'];
 
 
 
 
 		//处理国家分表
-		// $publishAll = $this->Year->select('publish');
+		$publishAll = $this->Year->select('publish');
 
 		// foreach ($publishAll['data'] as $key => $value) {
 		// 	$c= $value->Countrys;
@@ -51,29 +51,28 @@ class Welcome extends HOME_Controller {
 		// 		}			 
 		// }
 
-		//$this->Post->update(2, array( 'name' => "It" ));
+		//处理专辑关联表
+		//  foreach ($publishAll['data'] as $key => $value) {
+		//  	$c= $value->SeriesId;
+		//  	$pid = $value->id;
+		//  	$cArr = explode(",",$c);
 
-		//初始化数据
-		//$public = $this->Publish->getPublishList();
-
-		//var_dump($publish);
-		// foreach ($publish as $key => $value) {
-		// 	$c= $value->Countrys;
-		// 	$pid = $value->id;
-		// 	//分割自负
-		// 	$cArr = explode(",",$c);
-		// 	//var_dump($cArr);
-
-		// 	for ($i=0; $i <count($cArr) ; $i++) { 
+		// 		for ($i=0; $i <count($cArr) ; $i++) { 
 		// 		# code...
-		// 		//echo $pid.','.$cArr[$i]."<br>";
+		// 		echo $pid.','.$cArr[$i]."<br>";
+		// 		$data=array(
+		// 			'publish_id'	=>$pid,
+		// 			'series_id'		=>$cArr[$i]
+		// 		);
+		// 		//var_dump($data);
 
-				
-		// 	}
+		// 		$this->Publish->insert('re_publish_series',$data);
 
-		// 	# code...
+		// 		}			 
 		// }
 
+
+		//用户ion_auth插件
 		// $username = 'benedmunds';
 		// $password = '12345678';
 		// $email = 'ben.edmunds@gmail.com';

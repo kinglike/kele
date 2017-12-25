@@ -15,8 +15,16 @@ class Publish_model extends MY_Model {
      */
     public function getData($country,$year,$series,$keywork,$limit,$page)
     {
+
         $sql = "select * from publish";
-        $query = $this->db->query("SELECT * FROM users;");
+        $query = $this->db->query( $sql);
+
+        
+    }
+
+    public function getDataCount(T$country,$year,$series,$keywork)
+    {
+        # code...
     }
 
 }
