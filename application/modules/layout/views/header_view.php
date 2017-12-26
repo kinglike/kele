@@ -96,7 +96,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </ul>
         </li>
 
-			<?
+			<?php
 			} else {
 				
 				echo "<li><a href='/auth/login'>登陆</a></li>";

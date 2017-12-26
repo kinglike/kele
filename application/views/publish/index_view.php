@@ -59,7 +59,7 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
     <div class="alert alert-danger" style="text-algin:center" role="alert">
     <h3>:( 暂时没有信息</h3> 
     </div>
-    <?
+    <?php
     }
   ?>
 
@@ -69,20 +69,20 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
         # code...
         echo '<div class="col-xs-6  col-md-2 " style="text-align: center;border-top:1px solid #E5e5e5;">';
         echo '<a href="#" class="thumbnail" style="border:0px;padding:20px 0 10px 0;">';
-        echo '<img src="/uploads/'.$value->MainPic.'" alt="...">';
+        echo '<img src="/uploads/'.$value->main_pic.'" alt="...">';
         echo '</a>';
 
         echo '<div class="caption" style="padding-bottom:20px;">';
-        echo '<h5 >'.$value->ShortName.'</h5>';
-        // echo '<p>'.$value->LongName.'</p>';
+        echo '<h5 >'.$value->short_name.'</h5>';
+        // echo '<p>'.$value->long_name.'</p>';
         echo '<p>';
-        echo '<a href="#" class="btn btn-danger btn-xs" role="button" data-toggle="tooltip" data-placement="top" title="'.$value->LongName.'">详细</a> ';
-        echo '<a href="#" class="btn btn-default btn-xs" role="button">'.$value->Pyear.'年</a>';
+        echo '<a href="#" class="btn btn-danger btn-xs" role="button" data-toggle="tooltip" data-placement="top" title="'.$value->long_name.'">详细</a> ';
+        echo '<a href="#" class="btn btn-default btn-xs" role="button">'.$value->years_id.'年</a>';
         echo '</p>';
         echo '</div>';
 
-        // echo '<img src="/uploads/'.$value->MainPic.'" style="text-algin:center;padding:0px;margin:auto;">';
-        // echo '<button type="button" class="btn btn-danger btn-link btn-block">'.$value->ShortName.'</button>';
+        // echo '<img src="/uploads/'.$value->main_pic.'" style="text-algin:center;padding:0px;margin:auto;">';
+        // echo '<button type="button" class="btn btn-danger btn-link btn-block">'.$value->short_name.'</button>';
         //var_dump($public);
         echo '</div>';
     }

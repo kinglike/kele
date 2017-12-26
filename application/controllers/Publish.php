@@ -33,15 +33,26 @@ class Publish extends HOME_Controller {
 
 
 		$publish = $this->Publish->getData($country_get,$years_get,$series_get,$keyword_get,$limit,$page);
+		$total =  $this->Publish->getDataCount($country_get,$years_get,$series_get,$keyword_get);
+		// var_dump($total);
 
-		$config['base_url'] = '/publish/index/?y='.$year_get.'&k='.$keyword_get.'&c='.$country_get;
-		$config['total_rows'] = $publish['count'];
+	
+
+		$config['base_url'] = '/publish/index/?y='.$years_get.'&k='.$keyword_get.'&c='.$country_get.'&p='.$page;
+		$config['total_rows'] = $total;
 		$config['per_page'] = $limit;
 		$config['num_links'] = 4;
 
 		$data['country'] = $country['data'];
 		$data['years'] = $years['data'];
-		$data['publish'] = $publish['data'];
+		$data['publish'] = $publish;
+
+
+		$data['p']=$page;
+		$data['y']=$years_get;
+		$data['k']=$keyword_get;
+		$data['c']=$country_get;
+		$data['s']=$series_get;
 
 		$this->pagination->initialize($config);
 

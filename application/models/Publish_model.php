@@ -16,15 +16,26 @@ class Publish_model extends MY_Model {
     public function getData($country,$year,$series,$keywork,$limit,$page)
     {
 
-        $sql = "select * from publish";
-        $query = $this->db->query( $sql);
-
+        $offset = ($page<=1) ? 0 : ($page-1)*$limit;
+        $sql = "select * from publish limit ".$offset ." ,".$limit."";
+        $query = $this->db->query($sql);
+        return $query->result();
         
     }
 
-    public function getDataCount(T$country,$year,$series,$keywork)
+    public function getDataCount($country,$year,$series,$keywork)
     {
-        # code...
+        $sql = "select count(*) cnt from publish";
+        $query = $this->db->query($sql);
+        //return $this->db->count_all_results();
+		if( ($query->row_array())==null ){
+            return "0";
+       }
+       else
+       {
+           $result=$query->result();
+          return $result[0]->cnt;
+       }
     }
 
 }

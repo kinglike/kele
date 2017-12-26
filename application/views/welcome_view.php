@@ -71,8 +71,8 @@ echo modules::run('layout/header/index',array('menu'=>'index'));
 										# code...
 									//border:1px solid #E5e5e5;background:#ffffff;border-radius:10px;box-shadow: 1px 1px 1px 1px #E5e5e5;padding-top:15px;margin:15px;
 									echo '<div class="col-xs-6  col-md-2 col-list " >';
-									echo '<img src=/uploads/'.$value->MainPic.'>';
-									echo '<button type="button" class="btn btn-danger btn-link btn-block">'.$value->ShortName.'</button>';
+									echo '<img src=/uploads/'.$value->main_pic.'>';
+									echo '<button type="button" class="btn btn-danger btn-link btn-block">'.$value->short_name.'</button>';
 									//var_dump($public);
 									echo '</div>';
 								}
@@ -91,11 +91,11 @@ echo modules::run('layout/header/index',array('menu'=>'index'));
 							foreach ($publicNews as $key => $value) {
 								# code...
 							
-							echo '<div class="col-xs-6 col-md-2 col-list">';
-							echo '<img src=/uploads/'.$value->MainPic.'>';
-							echo '<button type="button" class="btn btn-danger btn-link btn-block">'.$value->ShortName.'</button>';
-							//var_dump($public);
-							echo '</div>';
+								echo '<div class="col-xs-6  col-md-2 col-list " >';
+								echo '<img src=/uploads/'.$value->main_pic.'>';
+								echo '<button type="button" class="btn btn-danger btn-link btn-block">'.$value->short_name.'</button>';
+								//var_dump($public);
+								echo '</div>';
 						}
 						?>
 						</div>
