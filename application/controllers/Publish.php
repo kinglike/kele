@@ -19,44 +19,53 @@ class Publish extends HOME_Controller {
 		$country = $this->Country->select('country');
 		$years = $this->Year->select('years');
 
-		$data['country'] = $country['data'];
-		$data['years'] = $years['data'];
+		$data['countryArr'] = $country['data'];
+		$data['yearArr'] = $years['data'];
 
-
+		//var_dump($country['data']);
 
 		$limit=12;	//每页几个
-		$page = $this->input->get('p');//$this->uri->segment(3, 0);
-		$years_get = $this->input->get('y');
-		$keyword_get = $this->input->get('k');
-		$country_get = $this->input->get('c');
-		$series_get	= $this->input->get('s');
+		$page_get = $this->input->get('page');//$this->uri->segment(3, 0);
+		$year_get = $this->input->get('year');
+		$keyword_get = $this->input->get('keyword');
+		$country_get = $this->input->get('country');
+		$series_get	= $this->input->get('series');
 
 
-		$publish = $this->Publish->getData($country_get,$years_get,$series_get,$keyword_get,$limit,$page);
-		$total =  $this->Publish->getDataCount($country_get,$years_get,$series_get,$keyword_get);
-		// var_dump($total);
+		$publish = $this->Publish->getData($country_get,$year_get,$series_get,$keyword_get,$limit,$page_get);
+		$total =  $this->Publish->getDataCount($country_get,$year_get,$series_get,$keyword_get);
+
 
 	
 
-		$config['base_url'] = '/publish/index/?y='.$years_get.'&k='.$keyword_get.'&c='.$country_get.'&p='.$page;
+		$config['base_url'] = '/publish/index/?year='.$year_get.'&keyword='.$keyword_get.'&country='.$country_get;
 		$config['total_rows'] = $total;
 		$config['per_page'] = $limit;
 		$config['num_links'] = 4;
 
-		$data['country'] = $country['data'];
-		$data['years'] = $years['data'];
+
 		$data['publish'] = $publish;
 
 
-		$data['p']=$page;
-		$data['y']=$years_get;
-		$data['k']=$keyword_get;
-		$data['c']=$country_get;
-		$data['s']=$series_get;
+		$data['total'] = $total;
+		$data['page']=$page_get;
+		$data['year']=$year_get;
+		$data['keyword']=$keyword_get;
+		$data['country']=$country_get;
+		$data['series']=$series_get;
 
 		$this->pagination->initialize($config);
 
 		//var_dump($year);
 		$this->load->view('publish/index_view',$data);  
-    }
+	}
+	
+
+	public function detail()
+	{
+		# code...
+
+		$data['id']=$this->uri->segment(3, 0);
+		$this->load->view('publish/detail_view',$data);  
+	}
 }

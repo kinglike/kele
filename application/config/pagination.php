@@ -17,9 +17,9 @@ $config['use_global_url_suffix']		= FALSE;			// default: FALSE
 // Customizing query string format
 $config['use_page_numbers']				= TRUE;				// default: TRUE
 $config['page_query_string']			= TRUE;				// default: TRUE
-$config['enable_query_strings']			= TRUE;				// default: FALSE
-$config['query_string_segment']			= 'p';				// default: 'per_page'
-$config['reuse_query_string']			= TRUE;				// default: FALSE
+$config['enable_query_strings']			= FALSE;				// default: FALSE
+$config['query_string_segment']			= 'page';				// default: 'per_page'
+$config['reuse_query_string']			= FALSE;				// default: FALSE
 
 // Adding Enclosing Markup
 $config['full_tag_open']				= '<ul class="pagination">';			// default: '<p>'

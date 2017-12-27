@@ -17,15 +17,47 @@ class Publish_model extends MY_Model {
     {
 
         $offset = ($page<=1) ? 0 : ($page-1)*$limit;
-        $sql = "select * from publish limit ".$offset ." ,".$limit."";
+
+        $sql = " select a.*,b.name from publish a ,country b,re_publish_country c ";
+        $sql.= " where a.id= c.publish_id and b.id=c.country_id ";
+
+        if ($country!='') {
+            $sql.=" and c.country_id =  ".$country."";
+        }
+          
+        
+        if ($year!='') {
+            $sql.=" and a.years_id = ".$year." ";
+        }
+
+        $sql.=" GROUP BY a.id  order by a.id ";
+    
+        $sql.=" limit ".$offset ." ,".$limit."";
         $query = $this->db->query($sql);
+
         return $query->result();
         
     }
 
     public function getDataCount($country,$year,$series,$keywork)
     {
-        $sql = "select count(*) cnt from publish";
+ 
+        $sql = " select count(*) cnt from (";
+        $sql.= " select a.id cnt from publish a ,country b,re_publish_country c ";
+        $sql.= " where a.id= c.publish_id and b.id=c.country_id ";
+
+        if ($country!='') {
+            $sql.=" and c.country_id =  ".$country."";
+        }
+          
+        
+        if ($year!='') {
+            $sql.=" and a.years_id = ".$year." ";
+        }
+
+        $sql.=" GROUP BY a.id  order by a.id ";
+    
+        $sql.= ") f";
         $query = $this->db->query($sql);
         //return $this->db->count_all_results();
 		if( ($query->row_array())==null ){

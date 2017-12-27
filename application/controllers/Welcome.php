@@ -14,7 +14,7 @@ class Welcome extends HOME_Controller {
 
 
 		$country = $this->Country->select('country','*','','',18);
-		$publishNews = $this->Publish->select('publish','*','','',10);
+		$publishNews = $this->Publish->select('publish','*','','',12);
 		$years = $this->Year->select('years');
 
 

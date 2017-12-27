@@ -12,15 +12,24 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
 
 
     <?php
-    //var_dump($country);
-    echo '<button type="button" class="btn btn-danger btn-xs" style="margin:5px;">';
+    // var_dump($country);
+    $isActive = ($country == '') ?'btn-danger':'btn-default';
+    echo '<a href="/publish/index/?year='.$year.'&keyword='.$keyword.'&country=&page=1">';
+
+    echo '<button type="button" class="btn '.$isActive.' btn-xs" style="margin:5px;">';
     echo "全部";
     echo '</button>';
+    echo '</a>';
 
-    foreach ($country as $key => $value) {
-        echo '<button type="button" class="btn btn-default btn-xs" style="margin:5px;">';
+    foreach ($countryArr as $key => $value) {
+        $isActive = ($country == $value->id) ?'btn-danger':'btn-default';
+        echo '<a href="/publish/index/?year='.$year.'&keyword='.$keyword.'&country='.$value->id.'&page=1">';
+
+        echo '<button type="button" class="btn '.$isActive.' btn-xs" style="margin:5px;">';
         echo $value->name;
         echo '</button>';
+        echo '</a>';
+
     }
     ?>
 </div>
@@ -32,14 +41,21 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
 
     <?php
     //var_dump($country);
-    echo '<button type="button" class="btn btn-info btn-xs" style="margin:5px;">';
+    $isActive = ($year == '') ?'btn-danger':'btn-default';
+    echo '<a href="/publish/index/?year=&keyword='.$keyword.'&country='.$country.'&page=1">';
+    echo '<button type="button" class="btn '.$isActive.' btn-xs" style="margin:5px;">';
     echo "全部";
     echo '</button>';
+    echo '</a>';
 
-    foreach ($years as $key => $value) {
-        echo '<button type="button" class="btn btn-default btn-xs" style="margin:5px;">';
+    foreach ($yearArr as $key => $value) {
+        $isActive = ($year == $value->id) ?'btn-danger':'btn-default';
+        echo '<a href="/publish/index/?year='.$value->id.'&keyword='.$keyword.'&country='.$country.'&page=1">';
+        echo '<button type="button" class="btn '. $isActive.' btn-xs" style="margin:5px;">';
         echo $value->id;
         echo '</button>';
+        echo '</a>';
+
     }
 
     ?>
@@ -65,10 +81,12 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
 
 
   <?php 
+
+    //var_dump($publish);
     foreach ($publish as $key => $value) {
         # code...
         echo '<div class="col-xs-6  col-md-2 " style="text-align: center;border-top:1px solid #E5e5e5;">';
-        echo '<a href="#" class="thumbnail" style="border:0px;padding:20px 0 10px 0;">';
+        echo '<a href="/publish/detail/'.$value->id.'" class="thumbnail" style="border:0px;padding:20px 0 10px 0;">';
         echo '<img src="/uploads/'.$value->main_pic.'" alt="...">';
         echo '</a>';
 
@@ -89,8 +107,12 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
   ?>
 </div>
 <div class="row" style="text-align: center;border-top:1px solid #E5e5e5;" > 
-
+    <div class="col-xs-2" style="margin:20px 0;">
+    <button type="button" class="btn btn-danger"><?php echo "共 ".$total." 个"; ?></button>
+    </div>
+    <div >
     <?php echo $this->pagination->create_links();?>
+    </div>
 
 </div>
 
