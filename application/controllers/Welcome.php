@@ -5,32 +5,16 @@ class Welcome extends HOME_Controller {
 
 	public function index()
 	{
-		$this->load->model('Country_model', 'Country');
 		$this->load->model('Publish_model', 'Publish');
-		$this->load->model('Post_model', 'Post');
-		$this->load->model('Year_model', 'Year');
-
-
-
-
-		$country = $this->Country->select('country','*','','',18);
 		$publishNews = $this->Publish->select('publish','*','','',12);
-		$years = $this->Year->select('years');
-
-
-
-
-
-		$data['country'] = $country['data'];
 		$data['publicNews'] = $publishNews['data'];
-		$data['years'] = $years['data'];
-		$data['public'] = $publishNews['data'];
 
+		$this->load->view('welcome_view',$data);
 
 
 
 		//处理国家分表
-		$publishAll = $this->Year->select('publish');
+		// $publishAll = $this->Year->select('publish');
 
 		// foreach ($publishAll['data'] as $key => $value) {
 		// 	$c= $value->Countrys;
@@ -88,7 +72,6 @@ class Welcome extends HOME_Controller {
 		//var_dump($tt);
 
 		
-		$this->load->view('welcome_view',$data);
 	}
 
 
