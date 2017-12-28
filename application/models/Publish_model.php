@@ -70,6 +70,16 @@ class Publish_model extends MY_Model {
        }
     }
 
+
+    public function getDetail($id)
+    {
+        # code...
+        $sql = "select * from publish where id = ".$id."";
+        $query = $this->db->query($sql);
+
+        return $query->result();
+    }
+
 }
 /* End of file '/User_model.php' */
 /* Location: ./application/models//User_model.php */

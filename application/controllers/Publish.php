@@ -65,7 +65,13 @@ class Publish extends HOME_Controller {
 	{
 		# code...
 
-		$data['id']=$this->uri->segment(3, 0);
+		$id = $this->uri->segment(3, 0);;
+		$info = $this->Publish->getDetail($id);
+
+		$data['id']=$id;
+		$data['info'] = $info;
+
+
 		$this->load->view('publish/detail_view',$data);  
 	}
 }
