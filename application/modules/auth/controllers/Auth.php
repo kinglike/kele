@@ -682,7 +682,8 @@ class Auth extends MX_Controller {
 		);
 
 		
-      echo Modules::run('templates', $data);
+	  //echo Modules::run('templates', $data);
+	  $this->_render_page('auth/edit_user', $data);
 	}
 
 	// create a new group

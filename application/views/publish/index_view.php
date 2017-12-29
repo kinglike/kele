@@ -13,55 +13,14 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
 
     <?php
     echo modules::run('layout/country/publish',$country);
-
-    // var_dump($country);
-    // $isActive = ($country == '') ?'btn-danger':'btn-default';
-    // echo '<a href="/publish/index/?year='.$year.'&keyword='.$keyword.'&country=&page=1">';
-
-    // echo '<button type="button" class="btn '.$isActive.' btn-xs" style="margin:5px;">';
-    // echo "全部";
-    // echo '</button>';
-    // echo '</a>';
-
-    // foreach ($countryArr as $key => $value) {
-    //     $isActive = ($country == $value->id) ?'btn-danger':'btn-default';
-    //     echo '<a href="/publish/index/?year='.$year.'&keyword='.$keyword.'&country='.$value->id.'&page=1">';
-
-    //     echo '<button type="button" class="btn '.$isActive.' btn-xs" style="margin:5px;">';
-    //     echo $value->name;
-    //     echo '</button>';
-    //     echo '</a>';
-
-    // }
     ?>
 </div>
 
 
 <div class="row">
 
-
-
     <?php
         echo modules::run('layout/years/publish',$year);
-
-    //var_dump($country);
-    // $isActive = ($year == '') ?'btn-danger':'btn-default';
-    // echo '<a href="/publish/index/?year=&keyword='.$keyword.'&country='.$country.'&page=1">';
-    // echo '<button type="button" class="btn '.$isActive.' btn-xs" style="margin:5px;">';
-    // echo "全部";
-    // echo '</button>';
-    // echo '</a>';
-
-    // foreach ($yearArr as $key => $value) {
-    //     $isActive = ($year == $value->id) ?'btn-danger':'btn-default';
-    //     echo '<a href="/publish/index/?year='.$value->id.'&keyword='.$keyword.'&country='.$country.'&page=1">';
-    //     echo '<button type="button" class="btn '. $isActive.' btn-xs" style="margin:5px;">';
-    //     echo $value->id;
-    //     echo '</button>';
-    //     echo '</a>';
-
-    // }
-
     ?>
 
 </div>
@@ -99,7 +58,10 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
         // echo '<p>'.$value->long_name.'</p>';
         echo '<p>';
         echo '<a href="#" class="btn btn-danger btn-xs" role="button" data-toggle="tooltip" data-placement="top" title="'.$value->long_name.'">详细</a> ';
-        echo '<a href="#" class="btn btn-default btn-xs" role="button">'.$value->years_id.'年</a>';
+        echo '<a href="#" class="btn btn-default btn-xs" role="button">'.$value->years_id.'年</a> ';
+        // if ($this->ion_auth->is_admin()) {
+        //     echo '<button class="btn btn-success btn-xs"><span class="glyphicon glyphicon-ok" ></span></button>';
+        // }
         echo '</p>';
         echo '</div>';
 

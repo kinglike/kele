@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </head>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/assets/js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/assets/js/bootstrap.min.js"></script>
 	
@@ -71,13 +71,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
       <ul class="nav navbar-nav navbar-right">
 
-		<li>	
 		<?php
 			if ($is_admin) {
-				echo "<a href='/auth/'>后台管理</a>";
+        echo '<li ';
+        if ($menu=="admin")
+        {
+          echo 'class="active"';
+        }
+        echo '>';
+
+				echo "<a href='/admin/main'>后台管理</a>";
+        echo '		</li>';
 			}
 			?>
-		</li>
+
 			<?php
 			if ($user)
 			{
@@ -88,7 +95,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $user->username; ?> <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="auth/change_password">修改密码</a></li>
+            <li><a href="/auth/change_password">修改密码</a></li>
             <li><a href="#">我的收藏</a></li>
             <li><a href="#">我的关注</a></li>
             <li role="separator" class="divider"></li>
