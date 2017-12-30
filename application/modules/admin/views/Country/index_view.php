@@ -27,7 +27,9 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
   <button type="submit" class="btn btn-default">查询</button>
   </div>
 
+  <a href="/admin/country/add">
   <button type="button " class="btn btn-primary">新增国家</button>
+  </a>
 
   </div>
 
@@ -66,8 +68,3 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 
 
 </div>
-
-
-
-
-
