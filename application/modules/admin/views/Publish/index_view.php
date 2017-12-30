@@ -57,7 +57,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 
                 <button type="button" class="btn btn-danger"><?php echo "共 ".$total." 个"; ?></button>
 
-                <a href="/admin/country/add">
+                <a href="/admin/publish/add">
                 <button type="button " class="btn btn-primary">新增铝瓶</button>
                 </a>
         </div>

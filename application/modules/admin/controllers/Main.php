@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Main extends MX_Controller
+class Main extends ADMIN_Controller
 {
 	function __construct()
     {

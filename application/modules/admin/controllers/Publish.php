@@ -1,12 +1,14 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Publish extends MX_Controller
+class Publish extends ADMIN_Controller
 {
 	function __construct()
     {
         parent::__construct();
         $this->load->model('Country_model', 'Country');
-        $this->load->model('Publish_model', 'Publish');
+		$this->load->model('Publish_model', 'Publish');
+		$this->load->model('Years_model', 'Years');
+
 		$this->load->library('pagination');
 
     }
@@ -47,5 +49,27 @@ class Publish extends MX_Controller
 
 		//var_dump($year);
 		$this->load->view('publish/index_view',$data);  
-    }
+	}
+	
+	public function add()
+    {
+        if ($this->is_post_request())
+        {
+            $param = array(
+                'menu'=>'country',
+                'message'=>'新增成功',
+                'url'=>'/admin/country'
+            );
+            echo modules::run('admin/message/index',$param);
+        }else
+        {
+			$years = $this->Years->select('years','id');
+			$country = $this->Country->select('country','id,name');
+			$data['country'] =  $country['data'];
+			$data['years'] =  $years['data'];
+
+            $this->load->view('publish/add_view',$data);
+        }
+        
+    } 
 }

@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Message extends MX_Controller
+class Message extends ADMIN_Controller
 {
 	function __construct()
     {

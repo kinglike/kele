@@ -25,11 +25,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
     <h3 class="panel-title">消息提示</h3>
   </div>
   <div class="panel-body">
-        <div class="alert alert-success" role="alert">
         <?php echo $message;?>
-        </div>
-
-
       <a href="<?php echo $url?>">点击返回</a>
   </div>
 </div>

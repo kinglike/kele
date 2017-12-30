@@ -14,7 +14,22 @@ class BAS_Controller extends MX_Controller{
 
         //$this->IS_POST  =is_post_request();
         $this->IS_AJAX  =$this->input->is_ajax_request();
+        $this->IS_POST = $this->is_post_request();
 
+    }
+
+    /**
+     * 判断是否POST
+     */
+    function is_post_request()
+    {
+        if (strtolower($_SERVER['REQUEST_METHOD']) == 'post')
+        {
+            return true;
+        }else
+        {
+            return false;
+        }
     }
 
 
@@ -28,6 +43,17 @@ class ADMIN_Controller extends  BAS_Controller
 {
     public function __construct(){
         parent::__construct();
-        
+        $this->is_admin();
     }
+
+
+    public function is_admin()
+    {
+        if (!$this->ion_auth->is_admin()) 
+        {
+            //$this->load->view('main_view');
+            redirect("/");
+        }
+    }
+
 }
