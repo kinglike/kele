@@ -32,4 +32,14 @@ class Years extends MX_Controller {
         $data['year'] = $year;
         $this->load->view('years/publish_view',$data);
     }
+
+    public function admin($year)
+    {
+        # code...
+
+        $yearArr = $this->Years->select('years');
+        $data['yearArr'] = $yearArr['data'];
+        $data['year'] = $year;
+        $this->load->view('years/admin_view',$data);
+    }
 }

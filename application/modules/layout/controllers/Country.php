@@ -24,4 +24,12 @@ class Country extends MX_Controller {
         $data['country'] = $id;
         $this->load->view('country/publish_view',$data);
     }
+
+    public function admin($id)
+    {
+        $countryArr = $this->Country->select('country');
+        $data['countryArr'] = $countryArr['data'];
+        $data['country'] = $id;
+        $this->load->view('country/admin_view',$data);
+    }
 }
