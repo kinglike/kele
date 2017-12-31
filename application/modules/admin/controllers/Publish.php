@@ -55,12 +55,29 @@ class Publish extends ADMIN_Controller
     {
         if ($this->is_post_request())
         {
+			$longName = $this->input->post('longName');
+			$shortName = $this->input->post('shortName');
+			$yearsId = $this->input->post('yearsId');
+			$countryId = $this->input->post('countryId');
+			$mainPic = $this->input->post("mainPic");
+			$introduce = $this->input->post('introduce');
+
+			$data = array(
+				'long_name' => $longName,
+				'short_name' => $shortName,
+				'years_id'	=> $yearsId,
+				'main_pic'	=>$mainPic,
+				'introduce' =>$introduce
+			);
+			//cho $countryId;
+			//var_dump($countryId);
+
             $param = array(
                 'menu'=>'country',
                 'message'=>'新增成功',
                 'url'=>'/admin/country'
             );
-            echo modules::run('admin/message/index',$param);
+            //echo modules::run('admin/message/index',$param);
         }else
         {
 			$years = $this->Years->select('years','id');

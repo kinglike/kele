@@ -23,12 +23,7 @@ class Upload extends ADMIN_Controller
         //     ]
         // }
 
-        $d = "{
-            errno: 0,
-            data: [
-                '/uploads/PicCountry/0ced743b72e64f0d9064e0c8c0bc1c2e.gif'
-            ]
-        }";
+        $d = '{"errno":0,"data":["/uploads/PicCountry/0ced743b72e64f0d9064e0c8c0bc1c2e.gif"]}';
         echo $d;
     }
 

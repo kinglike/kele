@@ -37,8 +37,8 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
             <label class="text-danger">发行名称（全称）</label>
             <?php
             $data = array(
-                'name'      => 'countryName',
-                'id'        => 'countryName',
+                'name'      => 'longName',
+                'id'        => 'longName',
                 'class'     =>'form-control',
                 'placeholder'=>'发行名称（全称）',
                 'maxlength' => '20',
@@ -52,8 +52,8 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
             <label class="text-danger">发行名称（简称）</label>
             <?php
             $data = array(
-                'name'      => 'countryName',
-                'id'        => 'countryName',
+                'name'      => 'shortName',
+                'id'        => 'shortName',
                 'class'     =>'form-control',
                 'placeholder'=>'发行名称（简称）',
                 'maxlength' => '20',
@@ -98,7 +98,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 
             foreach ($country as $key => $value) {
               $data = array(
-                'name'      => 'countryId',
+                'name'      => 'countryId[]',
                 'type'      =>'checkbox',
                 'id'        => $value->id,
                 'value'     => $value->id,
@@ -128,9 +128,9 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 
               // echo form_textarea($data);
             ?>
-            <div id="editor">
-                <p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
-            </div>
+            <div id="editor"></div>
+            <textarea id="introduce" name="introduce" class="hidden8"></textarea>
+
         </div>
 
         <div class="form-group">
@@ -152,6 +152,16 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 <script type="text/javascript">
         var E = window.wangEditor
         var editor = new E('#editor')
+
+        //var editor = new E('#div1')
+        var $introduce = $('#introduce')
+        editor.customConfig.onchange = function (html) {
+            // 监控变化，同步更新到 textarea
+            $introduce.val(html)
+        }
+        //editor.create()
+        // 初始化 textarea 的值
+        //$text1.val(editor.txt.html())
         // 或者 var editor = new E( document.getElementById('editor') )
         editor.customConfig.uploadImgServer = '/admin/upload';  // 上传图片到服务器
         editor.customConfig.showLinkImg = false;
