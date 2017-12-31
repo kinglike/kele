@@ -37,7 +37,7 @@ class MY_Model extends CI_Model
         }
         $this->db->select($fields);
 
-        if ($where) { 
+        if (is_array($where)) { 
             $this->db->where($where); 
         }
         if ($order) { 
@@ -47,9 +47,9 @@ class MY_Model extends CI_Model
         //echo $order;
 
 
-        $this->db->from($table);
-        $count = $this->db->count_all_results();
-        //var_dump($count);
+        // $this->db->from($table);
+        // $count = $this->db->count_all_results();
+        // //var_dump($count);
         if ($limit) {
             $this->db->limit($limit,0);
         }    
@@ -65,8 +65,8 @@ class MY_Model extends CI_Model
         //$return->count = $count;
 
         $return = array(
-            'data'  =>  $data,
-            'count' =>  $count 
+            'data'  =>  $data
+            //'count' =>  $count 
         );
         return $return;      
     }

@@ -26,6 +26,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="/assets/js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/assets/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/ui-dialog.css">
+    <script src="/assets/js/dialog-min.js"></script>
+    <script src="/assets/js/jquery.validate.min.js"></script>
+    <script src="/assets/js/jquery-form.js"></script>
 	
 <body>
 <nav class="navbar navbar-default navbar-fixed-top site-navbar">

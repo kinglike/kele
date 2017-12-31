@@ -49,11 +49,18 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
             echo '<td>'. $value->name.'</td>';
             
             echo '<td>';
-            echo "<img src=/uploads".$value->banner.">";
+            echo "<img src=/uploads".$value->banner." style='width:32px;height:21px;'>";
             echo '</td>';
             echo '<td>';
+
+            echo '<a href="/admin/country/edit/'.$value->id.'">';
             echo '<button type="button" class="btn btn-primary  btn-xs">编辑</button> ';
+            echo '</a>';
+
+            echo '<a href="javascript:;" onclick="del_country(\''.$value->id.'\')">';
             echo '<button type="button" class="btn btn-danger  btn-xs">删除</button>';
+            echo '</a>';
+
             echo '</td>';
             echo '</tr>';
         }
@@ -68,3 +75,40 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 
 
 </div>
+
+<script type="text/javascript">
+        function del_country(CountryId)
+        {
+            dialog({
+                title: '提示',
+                width:'300',
+                content: '是否要删除记录',
+                okValue: ' 确定 ',
+                ok: function () {
+                    //提示确定后执行
+
+                    $.ajax({
+                        url: "/admin/country/del/",
+                        type: "post",
+                        dataType: "json",
+                        data:{CountryId:CountryId},
+                        success: function (data) {
+                            dialog({
+                                title: '提示',
+                                content: data.message,
+                                width:300,
+                                okValue: ' 确定 ',
+                                ok: function () {
+                                    //提示确定后执行
+                                    window.location.href = data.jump;
+                                }
+                            }).showModal();
+                        }
+                    });
+                },
+                cancelValue: ' 取 消 ',
+                cancel: function () {
+                }
+            }).showModal();
+        }
+    </script>

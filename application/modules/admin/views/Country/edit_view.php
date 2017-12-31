@@ -31,13 +31,20 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
     <h3 class="panel-title">填写新增信息</h3>
   </div>
   <div class="panel-body">
-    <?php echo form_open('/admin/country/add',array('id'=>'CountryForm','name'=>'CountryForm')); ?>
+
+    <?php 
+    var_dump($country);
+    foreach ($country as $key => $value) {
+        # code...
+    
+    echo form_open('/admin/country/edit',array('id'=>'CountryForm','name'=>'CountryForm')); ?>
         <div class="form-group">
             <label for="exampleInputEmail1">国家名称</label>
             <?php
             $data = array(
                 'name'      => 'CountryName',
                 'id'        => 'CountryName',
+                'value'     =>$value->name,
                 'class'     =>'form-control',
                 'placeholder'=>'输入国家中文名称',
                 'maxlength' => '20',
@@ -45,14 +52,20 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
                 'style'     => 'width:50%'
             );
             echo form_input($data);
+            echo form_hidden('CountryId', $value->id);
+
             ?>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputFile">当前国旗</label>
+            <img src="<?php echo "/uploads".$value->banner?>">
         </div>
         <div class="form-group">
             <label for="exampleInputFile">国家国旗</label>
             <input type="file"  name="Banner" id="Banner" >
 
         </div>
-
+        <?php }?>
         <button type="submit" class="btn btn-primary" id="CountrySubmit">提交</button>
         </form>
   </div>
@@ -89,7 +102,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
             {
                 $("#CountryForm").ajaxSubmit({
                     type: "post",
-                    url: "/admin/country/add",
+                    url: "/admin/country/edit",
                     dataType: "json",
                     data:$('#CountryForm').serialize(),
                     success: picResponse
