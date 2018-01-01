@@ -1,6 +1,6 @@
 
 
-<div class="navbar-fixed-top"  style="width:200px;top:70px;margin-left:10px;">
+<div  style="width:200px;top:70px;margin-left:10px;">
 
 <div class="panel panel-default ">
   <div class="panel-heading">资料维护</div>

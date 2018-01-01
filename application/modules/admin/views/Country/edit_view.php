@@ -33,7 +33,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
   <div class="panel-body">
 
     <?php 
-    var_dump($country);
+    //var_dump($country);
     foreach ($country as $key => $value) {
         # code...
     
@@ -63,7 +63,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
         <div class="form-group">
             <label for="exampleInputFile">国家国旗</label>
             <input type="file"  name="Banner" id="Banner" >
-
+            (不修改可以不选择)
         </div>
         <?php }?>
         <button type="submit" class="btn btn-primary" id="CountrySubmit">提交</button>
@@ -85,11 +85,11 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
             debug:true,
             rules: {
                 CountryName:{required:true},
-                Banner:{required:true}
+                //Banner:{required:true}
             },
             messages: {
                 CountryName:{required:"国家名称必须填写"},
-                Banner:{required:"国家国旗必须选择！"}
+                //Banner:{required:"国家国旗必须选择！"}
             },
             errorElement: "em"
         });
