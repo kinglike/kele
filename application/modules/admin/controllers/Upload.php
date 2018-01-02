@@ -26,8 +26,9 @@ class Upload extends ADMIN_Controller
 
             //var_dump($param);
             $re = $this->do_upload($param);
-            $result = json_decode($re);
-            var_dump($result);
+            //$result = json_decode($re);
+            //var_dump($result->success);
+            echo $re;
 
         }
 
@@ -45,7 +46,9 @@ class Upload extends ADMIN_Controller
         //     ]
         // }
 
-        // $d = '{"errno":0,"data":["/uploads/PicCountry/0ced743b72e64f0d9064e0c8c0bc1c2e.gif"]}';
+        // $d = '{errno:0,data:["/uploads/PicCountry/0ced743b72e64f0d9064e0c8c0bc1c2e.gif"]}';
+        //{errno:0,data:['/uploads/eae6e3a1c58df678763f898a4790662f.png']}
+        //{"errno":0,"data":["/uploads/PicCountry/0ced743b72e64f0d9064e0c8c0bc1c2e.gif"]}
         // echo $d;
     }
 
@@ -93,7 +96,7 @@ class Upload extends ADMIN_Controller
          if (!$right)
          {
              $error=array('error'=>$this->upload->display_errors());
-             echo '{"success":false,"data": "图片上传错误！'.$error['error'].'"}';
+             return '{"success":"false","data": "图片上传错误！'.$error['error'].'"}';
              return;
          }else
          {
@@ -101,14 +104,7 @@ class Upload extends ADMIN_Controller
 
               //$this->Country->insert('copy_country',$data);
 
-              echo '{"success":true,"data":"'.json_encode($data).'"}';
-
-             // $param = array(
-             //     'menu'=>'country',
-             //     'message'=>'新增成功',
-             //     'url'=>'/admin/country'
-             // );
-             // echo modules::run('admin/message/index',$param);
+              return '{"success":"true","data":"'.$picPath.'"}';
 
          }
     }

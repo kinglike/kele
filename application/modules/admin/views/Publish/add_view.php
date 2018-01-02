@@ -150,21 +150,61 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 </div>
 
 <script type="text/javascript">
-        var E = window.wangEditor
-        var editor = new E('#editor')
+        var E = window.wangEditor;
+        var editor = new E('#editor');
 
         //var editor = new E('#div1')
-        var $introduce = $('#introduce')
+        var $introduce = $('#introduce');
         editor.customConfig.onchange = function (html) {
             // 监控变化，同步更新到 textarea
-            $introduce.val(html)
+            $introduce.val(html);
         }
         //editor.create()
         // 初始化 textarea 的值
         //$text1.val(editor.txt.html())
         // 或者 var editor = new E( document.getElementById('editor') )
         editor.customConfig.uploadImgServer = '/admin/upload';  // 上传图片到服务器
-        editor.customConfig.showLinkImg = false;
-        editor.customConfig.debug=true;
+       // editor.customConfig.showLinkImg = false;
+        // editor.customConfig.debug=true;
+        // editor.customConfig.debug = location.href.indexOf('wangeditor_debug_mode=1') > 0
+        // editor.customConfig.customAlert = function (info) {
+        // // info 是需要提示的内容
+        //     alert('自定义提示：' + info)
+        // }
+
+
+        editor.customConfig.uploadImgHooks = {
+            
+                // 如果服务器端返回的不是 {errno:0, data: [...]} 这种格式，可使用该配置
+                // （但是，服务器端返回的必须是一个 JSON 格式字符串！！！否则会报错）
+                customInsert: function (insertImg, result, editor) {
+                    // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
+                    // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
+            
+                    // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
+                    if (result.success == "true")
+                    {
+                        var url = result.data;
+                        insertImg(url);
+                    }else 
+                    {
+                        dialog({
+                            id: 'picfalse',
+                            title: '信息提示',
+                            width:300,
+                            content: result.data,
+                            okValue: '确 定',
+                            ok: function () {
+                               
+                            },
+                            cancel: false
+                        }).showModal();
+
+                    }
+
+                    // result 必须是一个 JSON 格式字符串！！！否则报错
+                }
+        }
+
         editor.create()
     </script>
