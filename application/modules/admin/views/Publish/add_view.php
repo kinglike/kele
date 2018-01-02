@@ -194,6 +194,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
                             width:300,
                             content: result.data,
                             okValue: '确 定',
+                            zIndex:'12222',
                             ok: function () {
                                
                             },

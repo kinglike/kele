@@ -6,12 +6,13 @@ class Upload extends ADMIN_Controller
     {
         // Construct our parent class
         parent::__construct();
+        $this->default_path = "/uploads/";
     }
 
     public function index()
     {
 
-
+        
 
         //var_dump($_FILES);
 
@@ -20,9 +21,9 @@ class Upload extends ADMIN_Controller
             //echo $key;
             //$_FILES[$key]['name'];
 
-            $param['input']=$key;
-            $param['name']=$_FILES[$key]['name'];
-            $param['path']='/uploads/';
+            $param['input'] = $key;
+            $param['name'] = $_FILES[$key]['name'];
+            $param['path'] = $this->default_path;
 
             //var_dump($param);
             $re = $this->do_upload($param);
@@ -53,13 +54,16 @@ class Upload extends ADMIN_Controller
     }
 
 
-    function do_upload($param)
+    public function do_upload($param)
     {
 
 
+       
+        var_dump($param);
         //表单的name名称
         $file_input_name = $param['input']; 
 
+        
         //获取上传到文件名
         $file_upload_name = $param['name'];
 
@@ -97,13 +101,11 @@ class Upload extends ADMIN_Controller
          {
              $error=array('error'=>$this->upload->display_errors());
              return '{"success":"false","data": "图片上传错误！'.$error['error'].'"}';
-             return;
+             //return;
          }else
          {
                $data=array($picPath);
-
               //$this->Country->insert('copy_country',$data);
-
               return '{"success":"true","data":"'.$picPath.'"}';
 
          }

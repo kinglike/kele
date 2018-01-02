@@ -45,13 +45,7 @@ class Country extends ADMIN_Controller
         {
 
             $CountryName=$this->input->post("CountryName");
-
-
-            $u = modules::run('admin/upload/index',array('file'=>$_FILES));
-
-            var_dump($u);
             
-            return;
             if ($_FILES['Banner']['name']<>"")
             {
                 //初始化文件和目录
@@ -89,9 +83,9 @@ class Country extends ADMIN_Controller
                 {
                      $data=array('name'=>$CountryName,'banner'=>$picPath);
 
-                     //$this->Country->insert('copy_country',$data);
+                     $this->Country->insert('copy_country',$data);
 
-                     //echo '{"success":true,"message":"操作成功","jump":"/admin/country/"}';
+                     echo '{"success":true,"message":"操作成功","jump":"/admin/country/"}';
 
                     // $param = array(
                     //     'menu'=>'country',
@@ -126,49 +120,62 @@ class Country extends ADMIN_Controller
 
             $data=array('name'=>$CountryName);
 
+            //echo $_FILES['Banner']['name'];
             if (!empty($_FILES['Banner']['name']))
             {
                 //初始化文件和目录
 
+                $param =array(
+                    'input' => 'Banner',
+                    'name'  => $_FILES['Banner']['name'],
+                    'path'  => '/uploads/'
+                );
+                //var_dump($param);
+                $aa=  modules::run('/admin/upload/do_upload',$param);
+                //echo $aa;
+                //echo $do_upload;
+                //$picPath = json_decode($do_upload);
+                //var_dump($do_upload);
+                //echo $picPath->data;
                 //文件名根据时间MD5
-                $CREATETIME=date("Y-m-d H:i:s");
-                $fileType=pathinfo($_FILES['Banner']['name'], PATHINFO_EXTENSION);
-                $file_name=strtolower(md5($CREATETIME)).".".$fileType;
+                // $CREATETIME=date("Y-m-d H:i:s");
+                // $fileType=pathinfo($_FILES['Banner']['name'], PATHINFO_EXTENSION);
+                // $file_name=strtolower(md5($CREATETIME)).".".$fileType;
 
-                $picPath="/PicCountry1/".$file_name;
-                $path=getcwd()."/Uploads/PicCountry1/";
-                if (!file_exists($path))
-                {
-                    mkdir($path, 0777,true);
-                }
+                // $picPath="/PicCountry1/".$file_name;
+                // $path=getcwd()."/Uploads/PicCountry1/";
+                // if (!file_exists($path))
+                // {
+                //     mkdir($path, 0777,true);
+                // }
 
-                //上传图片
-                $config['upload_path']= $path;
-                $config['allowed_types']='gif|jpg|png';
-                $config['max_size']='1024';
-                $config['max_width']='800';
-                $config['max_height']='800';
-                $config['overwrite']='true';
+                // //上传图片
+                // $config['upload_path']= $path;
+                // $config['allowed_types']='gif|jpg|png';
+                // $config['max_size']='1024';
+                // $config['max_width']='800';
+                // $config['max_height']='800';
+                // $config['overwrite']='true';
 
-                $config['file_name'] = $file_name;// rename.
-                $this->load->library('upload',$config);
-                $right=$this->upload->do_upload("Banner");
+                // $config['file_name'] = $file_name;// rename.
+                // $this->load->library('upload',$config);
+                // $right=$this->upload->do_upload("Banner");
 
-                if (!$right)
-                {
-                    $error=array('error'=>$this->upload->display_errors());
-                    echo '{"success":false,"message": "图片上传错误！'.$error['error'].'"}';
-                    return;
-                }else
-                {
-                    $data['banner']=$picPath;
-                }
+                // if (!$right)
+                // {
+                //     $error=array('error'=>$this->upload->display_errors());
+                //     echo '{"success":false,"message": "图片上传错误！'.$error['error'].'"}';
+                //     return;
+                // }else
+                // {
+                //     $data['banner']=$picPath;
+                // }
             }
 
             $where=array("id"=>$CountryId);
             $this->Country->update('copy_country',$data,$where);
 
-            echo '{"success":true,"message":"操作成功","jump":"/admin/country/"}';
+            //echo '{"success":true,"message":"操作成功","jump":"/admin/country/"}';
 
 
 
