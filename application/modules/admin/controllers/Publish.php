@@ -73,9 +73,9 @@ class Publish extends ADMIN_Controller
 			//var_dump($countryId);
 
             $param = array(
-                'menu'=>'country',
+                'menu'=>'publish',
                 'message'=>'新增成功',
-                'url'=>'/admin/country'
+                'url'=>'/admin/publish'
             );
             //echo modules::run('admin/message/index',$param);
         }else

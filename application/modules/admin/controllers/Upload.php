@@ -7,6 +7,8 @@ class Upload extends ADMIN_Controller
         // Construct our parent class
         parent::__construct();
         $this->default_path = "/uploads/";
+        $this->load->library('upload');
+
     }
 
     public function index()
@@ -59,7 +61,7 @@ class Upload extends ADMIN_Controller
 
 
        
-        var_dump($param);
+        var_dump($_FILES);
         //表单的name名称
         $file_input_name = $param['input']; 
 

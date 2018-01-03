@@ -32,9 +32,9 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
     <h3 class="panel-title">填写新增信息</h3>
   </div>
   <div class="panel-body">
-    <?php echo form_open('/admin/publish/add'); ?>
-        <div class="form-group">
-            <label class="text-danger">发行名称（全称）</label>
+  <?php echo form_open('/admin/publish/add',array('id'=>'PublishForm','name'=>'PublishForm')); ?>
+  <div class="form-group">
+            <label for="name" >发行名称（全称）</label>
             <?php
             $data = array(
                 'name'      => 'longName',
@@ -48,8 +48,9 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
             echo form_input($data);
             ?>
         </div>
+        <div class="text-danger"></div>
         <div class="form-group">
-            <label class="text-danger">发行名称（简称）</label>
+            <label for="name" >发行名称（简称）</label>
             <?php
             $data = array(
                 'name'      => 'shortName',
@@ -63,9 +64,27 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
             echo form_input($data);
             ?>
         </div>
+        <div class="text-danger"></div>
         <div class="form-group">
-            <label class="text-danger">发行年份（单选）</label>
-            <div class="row">
+            <label for="name" >Tags标签（用逗号隔开）</label>
+            <?php
+            $data = array(
+                'name'      => 'tags',
+                'id'        => 'tags',
+                'class'     =>'form-control',
+                'placeholder'=>'Tags标签',
+                'maxlength' => '20',
+                'size'      => '50',
+                'style'     => 'width:50%'
+            );
+            echo form_input($data);
+            ?>
+        </div>
+        <div class="text-danger"></div>
+
+        <div class="form-group">
+            <label for="name" >发行年份（单选）</label>
+             <div class="row">
 
             <?php
             //var_dump($years);
@@ -88,10 +107,13 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 
             ?>
             </div>
+            <div class="text-danger"></div>
+
+
         </div>
 
         <div class="form-group">
-            <label class="text-danger">发行国家（多选）</label>
+            <label for="name" >发行国家（多选）</label>
             <div class="row">
             <?php
             //var_dump($years);
@@ -113,10 +135,12 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 
             ?>
             </div>
+            <div  class="text-danger"></div>
+
         </div>
 
         <div class="form-group">
-            <label class="text-danger">铝瓶介绍</label>
+            <label for="name" >铝瓶介绍</label>
             <?php
               // $data = array (
               //   'name'  =>'aaa',
@@ -129,14 +153,17 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
               // echo form_textarea($data);
             ?>
             <div id="editor"></div>
-            <textarea id="introduce" name="introduce" class="hidden8"></textarea>
+            <textarea id="introduce" name="introduce" class="hidden"></textarea>
 
         </div>
+        <div class="text-danger"></div>
+
 
         <div class="form-group">
-            <label class="text-danger">铝瓶图片</label>
-            <input type="file" id="exampleInputFile">
+            <label for="name" >铝瓶图片</label>
+            <input type="file"  name="mainPic" id="mainPic">        
         </div>
+        <div class="text-danger"></div>
 
         <button type="submit" class="btn btn-primary">提交</button>
         </form>
@@ -150,6 +177,8 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 </div>
 
 <script type="text/javascript">
+
+        $.extend($.validator.defaults,{ignore:""});
         var E = window.wangEditor;
         var editor = new E('#editor');
 
@@ -208,4 +237,50 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
         }
 
         editor.create()
+
+
+        $(function(){
+
+            $("#PublishForm").validate({
+                debug:true,
+                rules: {
+                    longName:{required:true},
+                    shortName:{required:true},
+                    yearsId:{required:true},
+                    'countryId[]':{required:true},
+                    introduce:{required:true},
+                    mainPic:{required:true}
+                },
+                messages: {
+                    longName:{required:"长名称必须填写"},
+                    shortName:{required:"短名称必须填写"},
+                    yearsId:{required:"年份必须选择"},
+                    'countryId[]':{required:"发行国家必须选择"},
+                    introduce:{required:"简介信息必须填写"},
+                    mainPic:{required:"图片必须上传"}
+                },
+                errorPlacement: function(error, element) {
+                    if (element.is(":radio"))
+                    {
+                        console.log(element.parent().parent().parent().next());
+                        //alert(element.parent().parent());
+                        error.appendTo(element.parent().parent().parent().next());  //如果元素色type为radio将错误的信息输出到该元素的父类元素的下一个元素中，就是我们上面的<div class="mblack"> </div>
+            
+                    }
+                        else if (element.is(":checkbox")) //如果元素色type为checkbox将错误的信息输出到该元素的父类元素的下一个元素中，就是我们上面的<div class="mblack"> </div>
+                        {
+                            error.appendTo(element.parent().parent().parent().next());
+                        }
+                    else
+                    {
+                        error.appendTo(element.parent().next());
+
+                    }
+                },
+                highlight: function(element, errorClass) {
+                    $(element).parent().next().find("." + errorClass).removeClass("checked");//表单用户(获取到焦点)操作时如果正确就移除错误的css属性添加正确的css属性
+                }
+                //errorElement: "em"
+            });
+        });
     </script>
