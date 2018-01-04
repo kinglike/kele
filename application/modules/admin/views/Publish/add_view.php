@@ -328,6 +328,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 
         function picResponse(data)
         {
+            console.log(data);
             if (data.success)
             {
                 dialog({

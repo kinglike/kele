@@ -8,6 +8,7 @@ class Publish extends ADMIN_Controller
         $this->load->model('Country_model', 'Country');
 		$this->load->model('Publish_model', 'Publish');
 		$this->load->model('Years_model', 'Years');
+		$this->load->model('Tags_model', 'Tags');
 
 		$this->load->library('pagination');
 
@@ -60,7 +61,7 @@ class Publish extends ADMIN_Controller
 			$shortName = $this->input->post('shortName');
 			$yearsId = $this->input->post('yearsId');
 			$countryId = $this->input->post('countryId');
-			//$mainPic = $this->input->post("mainPic");
+			$tags = $this->input->post("tags");
 			$introduce = $this->input->post('introduce');
 
 			$data = array(
@@ -113,9 +114,46 @@ class Publish extends ADMIN_Controller
 			
 			
 			
-			$id = $this->Publish->insert('publish',$data);
+			//$id = $this->Publish->insert('publish',$data);
 
+			/**
+			 * 处理Tags标签
+			 */
 
+			 $tags = str_replace("，",",",$tags);
+			 $tagsArr = explode(",",$tags);
+			 var_dump($tagsArr);
+			 for ($i=0; $i <count($tagsArr) ; $i++) { 
+				 # code...
+				 $tagsName = $tagsArr[$i];
+
+				 $re_publish_tags = array(
+					 'publish_id' => $id
+				 );
+
+				 /**
+				  * 判断tagsName在tags表中是否存在
+				  */
+
+				  $havaTags = $this->Tags->select('tags','*',array('name'=>$tagsName));
+				  var_dump($havaTags);
+				  return;
+				  if ($havaTags['data'] == null)
+				  {
+					  $tagsId=$this->Tags->insert('tags',array('name'=>$tagsName));
+				  }else
+				  {
+					  $tagsId=$havaTags['data']->id;
+				  }
+				  $re_publish_tags['tags_id'] = $tagsId;
+				  $this->Tags->insert('re_publish_tags',$re_publish_tags);
+
+			 }
+			 
+
+			/**
+			 * 国家和发布关联
+			 */
 			for ($i=0; $i <count($countryId) ; $i++) { 
 				$re_country_data = array(
 					'publish_id' => $id,
