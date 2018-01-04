@@ -26,7 +26,7 @@ class Country_model extends MY_Model {
     {
         $offset = ($page<=1) ? 0 : ($page-1)*$limit;
 
-        $sql = " select * from copy_country b ";
+        $sql = " select * from country b ";
         
         if ($keywork!='') {
             $sql.=" where  b.name like '%".$keywork."%' ";
@@ -41,7 +41,7 @@ class Country_model extends MY_Model {
     public function getDataTotal($keywork)
     {
 
-        $sql = " select count(*) cnt from copy_country b ";
+        $sql = " select count(*) cnt from country b ";
 
         if ($keywork!='') {
             $sql.=" where b.name like '%".$keywork."%' ";

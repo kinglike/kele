@@ -79,7 +79,10 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 
 
 </div>
-
+<?php
+//加载模版Layout
+echo modules::run('layout/footer/index');
+?>
 <script type="text/javascript">
         function del_country(CountryId)
         {

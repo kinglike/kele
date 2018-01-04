@@ -83,7 +83,7 @@ class Country extends ADMIN_Controller
                 {
                      $data=array('name'=>$CountryName,'banner'=>$picPath);
 
-                     $this->Country->insert('copy_country',$data);
+                     $this->Country->insert('country',$data);
 
                      echo '{"success":true,"message":"操作成功","jump":"/admin/country/"}';
 
@@ -160,7 +160,7 @@ class Country extends ADMIN_Controller
             }
 
             $where=array("id"=>$CountryId);
-            $this->Country->update('copy_country',$data,$where);
+            $this->Country->update('country',$data,$where);
 
             echo '{"success":true,"message":"操作成功","jump":"/admin/country/"}';
 
@@ -171,7 +171,7 @@ class Country extends ADMIN_Controller
 
 
             $CountryId=$this->uri->segment(4,0);
-            $CountryInfo=$this->Country->select("copy_country","*",array("id"=>$CountryId));
+            $CountryInfo=$this->Country->select("country","*",array("id"=>$CountryId));
 
             $data['country']=$CountryInfo['data'];
 
@@ -184,7 +184,7 @@ class Country extends ADMIN_Controller
     {
         $CountryId=$this->input->post("CountryId");
         $where=array("id"=>$CountryId);
-        $this->Country->delete("copy_country",$where);
+        $this->Country->delete("country",$where);
         echo '{"success":true,"message":"操作成功","jump":"/admin/country/"}';
 
     }

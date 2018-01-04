@@ -95,7 +95,10 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
         echo '</p>';        
         echo '<p>';
         echo '<a href="#" class="btn btn-primary btn-xs" role="button" >编辑</a> ';
-        echo '<a href="#" class="btn btn-danger btn-xs" role="button" >删除</a> ';
+
+        echo '<a href="javascript:;" class="btn btn-danger btn-xs" role="button" onclick="del_publish(\''.$value->id.'\')">';
+        echo '删除 ';
+        echo '</a>';
         echo '</p>';
         echo '</div>';
 
@@ -124,6 +127,42 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
   })
+
+
+  function del_publish(PublishId)
+        {
+            dialog({
+                title: '提示',
+                width:'300',
+                content: '是否要删除记录',
+                okValue: ' 确定 ',
+                ok: function () {
+                    //提示确定后执行
+
+                    $.ajax({
+                        url: "/admin/publish/del/",
+                        type: "post",
+                        dataType: "json",
+                        data:{PublishId:PublishId},
+                        success: function (data) {
+                            dialog({
+                                title: '提示',
+                                content: data.message,
+                                width:300,
+                                okValue: ' 确定 ',
+                                ok: function () {
+                                    //提示确定后执行
+                                    window.location.href = data.jump;
+                                }
+                            }).showModal();
+                        }
+                    });
+                },
+                cancelValue: ' 取 消 ',
+                cancel: function () {
+                }
+            }).showModal();
+        }
   </script>
 
 
