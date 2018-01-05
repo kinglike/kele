@@ -7,7 +7,7 @@ class Welcome extends HOME_Controller {
 	{
 		$this->load->model('Publish_model', 'Publish');
 		$publishNews = $this->Publish->select('publish','*','','',12);
-		$data['publicNews'] = $publishNews['data'];
+		$data['publicNews'] = $publishNews;
 
 		$this->load->view('welcome_view',$data);
 

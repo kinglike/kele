@@ -84,17 +84,17 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
         # code...
         echo '<div class="col-xs-6  col-md-2 " style="text-align: center;border-top:1px solid #E5e5e5;">';
         echo '<a href="/publish/detail/'.$value->id.'" class="thumbnail" style="border:0px;padding:20px 0 10px 0;">';
-        echo '<img src="/uploads/'.$value->main_pic.'" alt="...">';
+        echo '<img src="/uploads/'.$value->main_pic.'" alt="'.$value->short_name.'" style="width:70px;height:200px;">';
         echo '</a>';
 
         echo '<div class="caption" style="padding-bottom:20px;">';
-        echo '<h5 >'.$value->short_name.'</h5>';
+        echo '<h5 style="height:30px;">'.$value->short_name.'</h5>';
         // echo '<p>'.$value->long_name.'</p>';
         echo '<p>';
         echo '<a href="#" class="btn btn-default btn-xs" role="button">编号:'.$value->id.'00000000</a> ';
         echo '</p>';        
         echo '<p>';
-        echo '<a href="#" class="btn btn-primary btn-xs" role="button" >编辑</a> ';
+        echo '<a href="/admin/publish/edit/'.$value->id.'" class="btn btn-primary btn-xs" role="button" >编辑</a> ';
 
         echo '<a href="javascript:;" class="btn btn-danger btn-xs" role="button" onclick="del_publish(\''.$value->id.'\')">';
         echo '删除 ';

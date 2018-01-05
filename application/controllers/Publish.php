@@ -9,6 +9,8 @@ class Publish extends HOME_Controller {
 		parent::__construct();  
 		$this->load->model('Country_model', 'Country');
 		$this->load->model('Publish_model', 'Publish');
+		$this->load->model('Tags_model', 'Tags');
+
 		$this->load->library('pagination');
 
 	}
@@ -62,9 +64,11 @@ class Publish extends HOME_Controller {
 		$id = $this->uri->segment(3, 0);;
 		$publish = $this->Publish->getDetail($id);
 		$country = $this->Country->getCountry($id);
-
+		$tags = $this->Tags->getTags($id);
+		//var_dump($tags);
 		$data['id'] = $id;
 		$data['publish'] = $publish;
+		$data['tags'] = $tags;
 		$data['country'] = $country;
 
 		$this->load->view('publish/detail_view',$data);  

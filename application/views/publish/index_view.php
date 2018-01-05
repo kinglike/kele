@@ -49,12 +49,12 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
     foreach ($publish as $key => $value) {
         # code...
         echo '<div class="col-xs-6  col-md-2 " style="text-align: center;border-top:1px solid #E5e5e5;">';
-        echo '<a href="/publish/detail/'.$value->id.'" class="thumbnail" style="border:0px;padding:20px 0 10px 0;">';
-        echo '<img src="/uploads/'.$value->main_pic.'" alt="...">';
+        echo '<a href="/publish/detail/'.$value->id.'" class="thumbnail" style="border:0px;padding:20px 0 0px 0;">';
+        echo '<img src="/uploads/'.$value->main_pic.'" alt="'.$value->short_name.'" style="width:70px;height:200px;">';
         echo '</a>';
 
         echo '<div class="caption" style="padding-bottom:20px;">';
-        echo '<h5 >'.$value->short_name.'</h5>';
+        echo '<h5 style="height:38px;line-height:20px;">'.$value->short_name.'</h5>';
         // echo '<p>'.$value->long_name.'</p>';
         echo '<p>';
         echo '<a href="#" class="btn btn-danger btn-xs" role="button" data-toggle="tooltip" data-placement="top" title="'.$value->long_name.'">详细</a> ';

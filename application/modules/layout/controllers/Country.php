@@ -12,7 +12,7 @@ class Country extends MX_Controller {
 	public function index()
 	{
         $country = $this->Country->select('country','*','','',18);
-        $data['country'] = $country['data'];
+        $data['country'] = $country;
         $this->load->view('country/index_view',$data);
     }
 
@@ -20,7 +20,7 @@ class Country extends MX_Controller {
     {
         # code...
         $countryArr = $this->Country->select('country');
-        $data['countryArr'] = $countryArr['data'];
+        $data['countryArr'] = $countryArr;
         $data['country'] = $id;
         $this->load->view('country/publish_view',$data);
     }
@@ -28,7 +28,7 @@ class Country extends MX_Controller {
     public function admin($id)
     {
         $countryArr = $this->Country->select('country');
-        $data['countryArr'] = $countryArr['data'];
+        $data['countryArr'] = $countryArr;
         $data['country'] = $id;
         $this->load->view('country/admin_view',$data);
     }

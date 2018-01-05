@@ -114,7 +114,7 @@ class Publish extends ADMIN_Controller
 			
 			
 			
-			//$id = $this->Publish->insert('publish',$data);
+			$id = $this->Publish->insert('publish',$data);
 
 			/**
 			 * 处理Tags标签
@@ -122,10 +122,10 @@ class Publish extends ADMIN_Controller
 
 			 $tags = str_replace("，",",",$tags);
 			 $tagsArr = explode(",",$tags);
-			 var_dump($tagsArr);
+			 //var_dump($tagsArr);
 			 for ($i=0; $i <count($tagsArr) ; $i++) { 
 				 # code...
-				 $tagsName = $tagsArr[$i];
+				 $tagsName = trim($tagsArr[$i]);
 
 				 $re_publish_tags = array(
 					 'publish_id' => $id
@@ -135,18 +135,24 @@ class Publish extends ADMIN_Controller
 				  * 判断tagsName在tags表中是否存在
 				  */
 
-				  $havaTags = $this->Tags->select('tags','*',array('name'=>$tagsName));
-				  var_dump($havaTags);
-				  return;
-				  if ($havaTags['data'] == null)
-				  {
-					  $tagsId=$this->Tags->insert('tags',array('name'=>$tagsName));
-				  }else
-				  {
-					  $tagsId=$havaTags['data']->id;
-				  }
-				  $re_publish_tags['tags_id'] = $tagsId;
-				  $this->Tags->insert('re_publish_tags',$re_publish_tags);
+				  if ($tagsName != '') {
+				  
+						$havaTags = $this->Tags->select('tags','*',array('name'=>$tagsName),'',1);
+						//var_dump($havaTags);
+						//return;
+						if ($havaTags == null)
+						{
+							$tagsId = $this->Tags->insert('tags',array('name'=>$tagsName));
+							//var_dump($tagsId);
+						}else
+						{
+							$tagsId=$havaTags[0]->id;
+							//var_dump($tagsId);
+						}
+						
+						$re_publish_tags['tags_id'] = $tagsId;
+						$this->Tags->insert('re_publish_tags',$re_publish_tags);
+					}
 
 			 }
 			 
@@ -184,23 +190,127 @@ class Publish extends ADMIN_Controller
         {
 			$years = $this->Years->select('years','id');
 			$country = $this->Country->select('country','id,name');
-			$data['country'] =  $country['data'];
-			$data['years'] =  $years['data'];
+			$data['country'] =  $country;
+			$data['years'] =  $years;
 
             $this->load->view('publish/add_view',$data);
         }
         
-	} 
+	}
+
+
+	function edit()
+    {
+
+        if($this->IS_POST)
+        {
+			$id = $this->input->post('id');
+            $longName = $this->input->post('longName');
+			$code = $this->input->post('code');
+			$shortName = $this->input->post('shortName');
+			$yearsId = $this->input->post('yearsId');
+			$countryId = $this->input->post('countryId');
+			$tags = $this->input->post("tags");
+			$introduce = $this->input->post('introduce');
+
+			$data = array(
+				'long_name' => $longName,
+				'code'	=> $code,
+				'short_name' => $shortName,
+				'years_id'	=> $yearsId,
+				'introduce' =>$introduce
+			);
+			//var_dump($_FILES['mainPic']);
+
+			if (!empty($_FILES['mainPic']['name']))
+            {
+                //初始化文件和目录
+
+                //文件名根据时间MD5
+                $CREATETIME=date("Y-m-d H:i:s");
+                $fileType=pathinfo($_FILES['mainPic']['name'], PATHINFO_EXTENSION);
+                $file_name=strtolower(md5($CREATETIME)).".".$fileType;
+
+                $picPath="/Publish/".$yearsId."/".$file_name;
+                $path=getcwd()."/Uploads/Publish/".$yearsId."/";
+                if (!file_exists($path))
+                {
+                    mkdir($path, 0777,true);
+                }
+
+                //上传图片
+                $config['upload_path']= $path;
+                $config['allowed_types']='gif|jpg|png';
+                $config['max_size']='1024';
+                $config['max_width']='800';
+                $config['max_height']='800';
+                $config['overwrite']='true';
+
+                $config['file_name'] = $file_name;// rename.
+                $this->load->library('upload',$config);
+                $right=$this->upload->do_upload("mainPic");
+
+                if (!$right)
+                {
+                    $error=array('error'=>$this->upload->display_errors());
+                    echo '{"success":false,"message": "图片上传错误！'.$error['error'].'"}';
+                    return;
+                }else
+                {
+                     $data['main_pic']=$picPath;
+                }
+			}
+
+
+
+
+             $where=array("id"=>$id);
+             $this->Publish->update('publish',$data,$where);
+
+            echo '{"success":true,"message":"操作成功","jump":"/admin/publish/"}';
+
+
+
+        }else
+        {
+
+
+			$PublishId=$this->uri->segment(4,0);
+			
+			$PublishInfo=$this->Publish->select("publish","*",array("id"=>$PublishId));
+			$data['publish']=$PublishInfo;
+
+			$years = $this->Years->select('years','id');
+			$data['years'] =  $years;
+
+			$country = $this->Country->select('country','id,name');
+			$data['country'] =  $country;
+
+			$re_country =  $this->Country->select('re_publish_country','*',array('publish_id'=>$PublishId));
+			$data['re_country'] =  $re_country;
+
+			$re_tags =  $this->Tags->getTags($PublishId);
+			$data['re_tags'] =  $re_tags;
+
+            $this->load->view('admin/publish/edit_view',$data);
+
+        }
+	}
+	
+
 	
     function  del()
     {
+		//删除Publish表
         $PublishId=$this->input->post("PublishId");
         $where=array("id"=>$PublishId);
 		$this->Publish->delete("publish",$where);
 		
+		//删除Publish对应关联表 country 和 tags
 		$whereRe=array("publish_id"=>$PublishId);
-		$this->Publish->delete("re_publish_country",$whereRe);
 
+		$this->Publish->delete("re_publish_country",$whereRe);
+		$this->Publish->delete("re_publish_tags",$whereRe);
         echo '{"success":true,"message":"操作成功","jump":"/admin/publish/"}';
 
     }

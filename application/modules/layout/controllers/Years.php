@@ -15,7 +15,7 @@ class Years extends MX_Controller {
 	public function index()
 	{
         $years = $this->Years->select('years');
-		$data['years'] = $years['data'];
+		$data['years'] = $years;
         $this->load->view('years/index_view',$data);
     }
 
@@ -28,7 +28,7 @@ class Years extends MX_Controller {
         # code...
 
         $yearArr = $this->Years->select('years');
-        $data['yearArr'] = $yearArr['data'];
+        $data['yearArr'] = $yearArr;
         $data['year'] = $year;
         $this->load->view('years/publish_view',$data);
     }
@@ -38,7 +38,7 @@ class Years extends MX_Controller {
         # code...
 
         $yearArr = $this->Years->select('years');
-        $data['yearArr'] = $yearArr['data'];
+        $data['yearArr'] = $yearArr;
         $data['year'] = $year;
         $this->load->view('years/admin_view',$data);
     }

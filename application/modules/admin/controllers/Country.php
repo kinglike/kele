@@ -173,7 +173,7 @@ class Country extends ADMIN_Controller
             $CountryId=$this->uri->segment(4,0);
             $CountryInfo=$this->Country->select("country","*",array("id"=>$CountryId));
 
-            $data['country']=$CountryInfo['data'];
+            $data['country']=$CountryInfo;
 
             $this->load->view('admin/country/edit_view',$data);
 

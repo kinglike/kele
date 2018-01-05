@@ -30,7 +30,7 @@ class Publish_model extends MY_Model {
             $sql.=" and a.years_id = ".$year." ";
         }
 
-        $sql.=" GROUP BY a.id  order by a.id ";
+        $sql.=" GROUP BY a.id  order by a.id desc";
     
         $sql.=" limit ".$offset ." ,".$limit."";
         $query = $this->db->query($sql);
@@ -55,7 +55,7 @@ class Publish_model extends MY_Model {
             $sql.=" and a.years_id = ".$year." ";
         }
 
-        $sql.=" GROUP BY a.id  order by a.id ";
+        $sql.=" GROUP BY a.id  order by a.id  ";
     
         $sql.= ") f";
         $query = $this->db->query($sql);

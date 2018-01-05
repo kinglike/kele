@@ -44,31 +44,16 @@ class MY_Model extends CI_Model
             $this->db->order_by($order); 
         }
 
-        //echo $order;
-
-
-        // $this->db->from($table);
-        // $count = $this->db->count_all_results();
-        // //var_dump($count);
         if ($limit) {
             $this->db->limit($limit,0);
         }    
-        $query = $this->db->get($table);
-        //var_dump($query);
 
+        $query = $this->db->get($table);
         
 
-        $data = $query->result();
+        $result = $query->result();
 
-        //$this->db->from($table);
-        //$return->data = $data;
-        //$return->count = $count;
-
-        $return = array(
-            'data'  =>  $data
-            //'count' =>  $count 
-        );
-        return $return;      
+        return $result;      
     }
     public function pagination($table,$fields = '*',$where='',$order='',$limit=20,$page=1)
     {
@@ -94,9 +79,6 @@ class MY_Model extends CI_Model
         $data = $query->result();
 
         //$this->db->from($table);
-
-
-
 
         //$return->data = $data;
         //$return->count = $count;
