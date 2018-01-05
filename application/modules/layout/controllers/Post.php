@@ -15,12 +15,13 @@ class Post extends MX_Controller {
 	public function index($param)
 	{
         $users = $this->ion_auth->user()->row();
-        if ($users) {
+        // if ($users) {
 
-            $data['users'] =  $users;
-            $data['publishId']=$param['publishId'];
-        }
-
+        //     $data['users'] =  $users;
+        //     $data['publishId']=$param['publishId'];
+        // }
+        $data['users'] =  $users;
+        $data['publishId']=$param['publishId'];
         $where = array(
             'publish_id'    =>$param['publishId'],
             'status'    =>1,

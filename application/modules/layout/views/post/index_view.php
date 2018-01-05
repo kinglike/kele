@@ -1,10 +1,10 @@
 
 <?php if ($users == null) {
 
-    echo '<div class="row">';
+    echo '<div class="row center-block">';
     echo '<a href="/auth/login">';
-    echo '<button type="submit" id="PostSubmit" class="btn btn-danger btn-sm" style="margin-right:10px;">';
-    echo "请登录";
+    echo '<button type="submit" id="PostSubmit" class="btn btn-danger btn-sm" style="margin:0 auto;">';
+    echo "请登录后评论";
     echo '</button>';
     echo '</a>';
     echo "</div>";
