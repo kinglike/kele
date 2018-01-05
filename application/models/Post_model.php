@@ -2,9 +2,6 @@
 
 class Post_model extends MY_Model { 
 
-    protected $soft_delete = TRUE;
-    public $before_create = array( 'created_at', 'updated_at' );
-    public $before_update = array( 'updated_at' );
     
     // public $_table = 'country';
      //public $primary_key = 'CountryId';

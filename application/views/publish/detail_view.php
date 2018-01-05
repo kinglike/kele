@@ -16,8 +16,8 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
 ?>
 
 <ol class="breadcrumb">
-  <li><a href="#">首页</a></li>
-  <li><a href="#">资料库</a></li>
+  <li><a href="/">首页</a></li>
+  <li><a href="/publish">资料库</a></li>
   <li class="active"><?php echo $value->long_name;?></li>
 </ol>
 <div class="row">
@@ -128,18 +128,20 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
       <div class="row" >
 
           <div class="col-md-12">
-                <ul class="nav nav-tabs text-danger">
+                <!-- <ul class="nav nav-tabs text-danger">
                   <li role="presentation" class="active"><a href="#">介绍</a></li>
-
-                </ul>
+                </ul> -->
                 <div class="bs-callout bs-callout-danger">
-                  <p style="font-size:16px;line-height:28px;magrin-top:100px;"><?php echo $value->introduce;?></p>
-
+                  <p style="font-size:16px;line-height:28px;magrin-top:100px;word-wrap:break-word; white-space:normal; word-break:break-all;"><?php echo $value->introduce;?></p>
                 </div>
           </div>
        </div>
 
-
+      <!-- 第二行 -->
+      <?php
+      //加载模版Layout
+      echo modules::run('layout/post/index',array('publishId'=>$value->id));
+      ?>
 
 
 
@@ -155,3 +157,7 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
 </div>
 
 </div>
+<?php
+//加载模版Layout
+echo modules::run('layout/footer/index');
+?>

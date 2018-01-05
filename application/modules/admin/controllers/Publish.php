@@ -264,7 +264,71 @@ class Publish extends ADMIN_Controller
 
 
 
-             $where=array("id"=>$id);
+			 $where=array("id"=>$id);
+
+			 $whereRe = array('publish_id' => $id);
+			 
+			 //删除Tags 重新添加Re表
+			 $this->Publish->delete("re_publish_tags",$whereRe);
+			/**
+			 * 处理Tags标签
+			 */
+
+			$tags = str_replace("，",",",$tags);
+			$tagsArr = explode(",",$tags);
+			//var_dump($tagsArr);
+			for ($i=0; $i <count($tagsArr) ; $i++) { 
+				# code...
+				$tagsName = trim($tagsArr[$i]);
+
+				$re_publish_tags = array(
+					'publish_id' => $id
+				);
+
+				/**
+				 * 判断tagsName在tags表中是否存在
+				 */
+
+				 if ($tagsName != '') {
+				 
+					   $havaTags = $this->Tags->select('tags','*',array('name'=>$tagsName),'',1);
+					   //var_dump($havaTags);
+					   //return;
+					   if ($havaTags == null)
+					   {
+						   $tagsId = $this->Tags->insert('tags',array('name'=>$tagsName));
+						   //var_dump($tagsId);
+					   }else
+					   {
+						   $tagsId=$havaTags[0]->id;
+						   //var_dump($tagsId);
+					   }
+					   
+					   $re_publish_tags['tags_id'] = $tagsId;
+					   $this->Tags->insert('re_publish_tags',$re_publish_tags);
+				   }
+
+			}
+
+			//删除Country 重新添加re表
+			$this->Publish->delete("re_publish_country",$whereRe);
+			/**
+			 * 国家和发布关联
+			 */
+			for ($i=0; $i <count($countryId) ; $i++) { 
+				$re_country_data = array(
+					'publish_id' => $id,
+					'country_id'=>$countryId[$i]
+				);
+
+				//判断这个数据是否存在 
+				$hava = $this->Publish->count('re_publish_country',$re_country_data);
+				if ($hava == 0)
+				{
+					$this->Publish->insert('re_publish_country',$re_country_data);
+				}
+			}
+
              $this->Publish->update('publish',$data,$where);
 
             echo '{"success":true,"message":"操作成功","jump":"/admin/publish/"}';
