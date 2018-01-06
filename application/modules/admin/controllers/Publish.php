@@ -58,7 +58,7 @@ class Publish extends ADMIN_Controller
         {
 			$longName = $this->input->post('longName');
 			$code = $this->input->post('code');
-			$shortName = $this->input->post('shortName');
+			//$shortName = $this->input->post('shortName');
 			$yearsId = $this->input->post('yearsId');
 			$countryId = $this->input->post('countryId');
 			$tags = $this->input->post("tags");
@@ -67,7 +67,7 @@ class Publish extends ADMIN_Controller
 			$data = array(
 				'long_name' => $longName,
 				'code'	=> $code,
-				'short_name' => $shortName,
+				//'short_name' => $shortName,
 				'years_id'	=> $yearsId,
 				'introduce' =>$introduce
 			);
@@ -207,7 +207,7 @@ class Publish extends ADMIN_Controller
 			$id = $this->input->post('id');
             $longName = $this->input->post('longName');
 			$code = $this->input->post('code');
-			$shortName = $this->input->post('shortName');
+			//$shortName = $this->input->post('shortName');
 			$yearsId = $this->input->post('yearsId');
 			$countryId = $this->input->post('countryId');
 			$tags = $this->input->post("tags");
@@ -216,7 +216,7 @@ class Publish extends ADMIN_Controller
 			$data = array(
 				'long_name' => $longName,
 				'code'	=> $code,
-				'short_name' => $shortName,
+				//'short_name' => $shortName,
 				'years_id'	=> $yearsId,
 				'introduce' =>$introduce
 			);

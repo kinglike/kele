@@ -41,6 +41,21 @@ class Post_model extends MY_Model {
           return $result[0]->cnt;
        } 
     }
+
+    public function getDataByPublishId($publishId,$limit)
+    {
+
+        $sql = " select b.*,a.username from posts b ,users a where a.id = b.user_id ";
+        
+        $sql.=" and  b.publish_id = '".$publishId."' order by b.id desc";
+        
+    
+        $sql.=" limit 0 ,".$limit."";
+        $query = $this->db->query($sql);
+
+        return $query->result();
+    }
+
 }
 /* End of file '/User_model.php' */
 /* Location: ./application/models//User_model.php */

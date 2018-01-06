@@ -17,7 +17,7 @@
             <li role="presentation" class="active"><a href="#">评论</a></li>
           </ul>
           <div class="bs-callout bs-callout-danger">
-            评论人：<?php echo $users->username?>
+            <p><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <?php echo $users->username?></p>
             <?php
                 echo form_hidden('curUrl', base_url($_SERVER['PHP_SELF']));
                 echo form_hidden('userId', $users->id);
@@ -44,7 +44,8 @@
             # code...
             echo '          <div class="bs-callout bs-callout-warning"';
             echo '<p>'. $value->content.'</p>';
-            echo ' <footer class="blockquote-reverse"> <cite title="Source Title">'.$value->created_at.'</cite></footer>';
+            echo ' <footer class="blockquote-reverse"> <span class="glyphicon glyphicon-user" aria-hidden="true"></span> '.$value->username.'';
+            echo '  <cite title="Source Title">'.$value->created_at.'</cite></footer>';
             echo '</div>';
         }
 

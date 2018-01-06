@@ -28,7 +28,7 @@ class Post extends MX_Controller {
             'deleted'   =>0,
         );
 
-        $post = $this->Post->select('posts','*',$where,'id desc','5');
+        $post = $this->Post->getDataByPublishId($param['publishId'],'5');
 
         $data['post'] = $post;
         $this->load->view('post/index_view',$data);

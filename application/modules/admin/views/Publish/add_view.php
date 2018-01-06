@@ -50,22 +50,22 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
             ?>
         </div>
         <div class="text-danger"></div>
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="name" >发行名称（简称）</label>
             <?php
-            $data = array(
-                'name'      => 'shortName',
-                'id'        => 'shortName',
-                'class'     =>'form-control',
-                'placeholder'=>'发行名称（简称）',
-                'maxlength' => '20',
-                'size'      => '50',
-                'style'     => 'width:50%'
-            );
-            echo form_input($data);
+            // $data = array(
+            //     'name'      => 'shortName',
+            //     'id'        => 'shortName',
+            //     'class'     =>'form-control',
+            //     'placeholder'=>'发行名称（简称）',
+            //     'maxlength' => '20',
+            //     'size'      => '50',
+            //     'style'     => 'width:50%'
+            // );
+            // echo form_input($data);
             ?>
         </div>
-        <div class="text-danger"></div>
+        <div class="text-danger"></div> -->
 
         <div class="form-group">
             <label for="name" >发行编号</label>

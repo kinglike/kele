@@ -8,9 +8,9 @@ echo modules::run('layout/header/index',array('menu'=>'index'));
 	<div class="row" >
 
 		<div class="col-sm-2" style="border-right:5px solid #DE0025;">
+				<?php echo modules::run('layout/years/index');?>
 
 				<?php echo modules::run('layout/country/index');?>
-				<?php echo modules::run('layout/years/index');?>
 
 
 		</div>
@@ -56,7 +56,7 @@ echo modules::run('layout/header/index',array('menu'=>'index'));
 				</div>
 
 				<div class="panel panel-success">
-						<div class="panel-heading">最受关注</div>
+						<div class="panel-heading">新品发布</div>
 						<div class="panel-body">
 
 						<?php
@@ -72,7 +72,7 @@ echo modules::run('layout/header/index',array('menu'=>'index'));
 								echo '</a>';
 						
 								echo '<div class="caption" style="padding-bottom:20px;">';
-								echo '<h5 >'.$value->short_name.'</h5>';
+								echo '<h5 >'.$value->long_name.'</h5>';
 								// echo '<p>'.$value->long_name.'</p>';
 								echo '<p>';
 								echo '<a href="#" class="btn btn-danger btn-xs" role="button" data-toggle="tooltip" data-placement="top" title="'.$value->long_name.'">详细</a> ';

@@ -11,7 +11,7 @@ class Country extends MX_Controller {
     }
 	public function index()
 	{
-        $country = $this->Country->select('country','*','','',18);
+        $country = $this->Country->select('country','*','','',25);
         $data['country'] = $country;
         $this->load->view('country/index_view',$data);
     }
