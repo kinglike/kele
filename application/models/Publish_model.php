@@ -18,8 +18,10 @@ class Publish_model extends MY_Model {
 
         $offset = ($page<=1) ? 0 : ($page-1)*$limit;
 
-        $sql = " select a.*,b.name from publish a ,country b,re_publish_country c ";
-        $sql.= " where a.id= c.publish_id and b.id=c.country_id ";
+        // $sql = " select a.*,b.name from publish a ,country b,re_publish_country c ";
+        // $sql.= " where a.id= c.publish_id and b.id=c.country_id ";
+        $sql = " select a.*,b.name,s.* from publish a ,country b,re_publish_country c ,series s ";
+        $sql.= " where a.p_id= c.publish_id and b.id=c.country_id and a.series_id=s.id ";
 
         if ($country!='') {
             $sql.=" and c.country_id =  ".$country."";
@@ -30,7 +32,7 @@ class Publish_model extends MY_Model {
             $sql.=" and a.years_id = ".$year." ";
         }
 
-        $sql.=" GROUP BY a.id  order by a.id desc";
+        $sql.=" GROUP BY a.p_id  order by a.p_id desc";
     
         $sql.=" limit ".$offset ." ,".$limit."";
         $query = $this->db->query($sql);
@@ -43,8 +45,8 @@ class Publish_model extends MY_Model {
     {
  
         $sql = " select count(*) cnt from (";
-        $sql.= " select a.id cnt from publish a ,country b,re_publish_country c ";
-        $sql.= " where a.id= c.publish_id and b.id=c.country_id ";
+        $sql.= " select a.*,b.name,s.* from publish a ,country b,re_publish_country c ,series s ";
+        $sql.= " where a.p_id= c.publish_id and b.id=c.country_id and a.series_id=s.id ";
 
         if ($country!='') {
             $sql.=" and c.country_id =  ".$country."";
@@ -55,7 +57,7 @@ class Publish_model extends MY_Model {
             $sql.=" and a.years_id = ".$year." ";
         }
 
-        $sql.=" GROUP BY a.id  order by a.id  ";
+        $sql.=" GROUP BY a.p_id  order by a.p_id desc ";
     
         $sql.= ") f";
         $query = $this->db->query($sql);
@@ -74,7 +76,7 @@ class Publish_model extends MY_Model {
     public function getDetail($id)
     {
         # code...
-        $sql = "select * from publish where id = ".$id."";
+        $sql = "select * from publish a,series b  where p_id = ".$id." and a.series_id = b.id";
         $query = $this->db->query($sql);
 
         return $query->result();

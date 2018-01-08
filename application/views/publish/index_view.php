@@ -49,16 +49,13 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
     foreach ($publish as $key => $value) {
         # code...
         echo '<div class="col-xs-6  col-md-2 " style="text-align: center;border-top:1px solid #E5e5e5;">';
-        echo '<a href="/publish/detail/'.$value->id.'" class="thumbnail" style="border:0px;padding:20px 0 0px 0;">';
-        echo '<img src="/uploads/'.$value->main_pic.'" alt="'.$value->long_name.'" style="width:70px;height:200px;">';
+        echo '<a href="/publish/detail/'.$value->p_id.'" class="thumbnail"  data-toggle="tooltip" data-placement="bottom" title="'.$value->name_cn.''.$value->p_name_cn.'" style="border:0px;padding:20px 0 0px 0;">';
+        echo '<img src="/uploads/'.$value->main_pic.'" alt="'.$value->name_cn.'" style="width:70px;height:200px;">';
         echo '</a>';
 
         echo '<div class="caption" style="padding-bottom:20px;">';
-        echo '<h5 style="height:38px;line-height:20px;">'.$value->long_name.'</h5>';
-        // echo '<p>'.$value->long_name.'</p>';
-        echo '<p>';
-        echo '<a href="#" class="btn btn-danger btn-xs" role="button" data-toggle="tooltip" data-placement="top" title="'.$value->long_name.'">详细</a> ';
-        echo '<a href="#" class="btn btn-default btn-xs" role="button">'.$value->years_id.'年</a> ';
+  
+        echo '<a href="#" class="btn btn-danger btn-xs" role="button">'.$value->code.''.$value->p_code.'</a> ';
         // if ($this->ion_auth->is_admin()) {
         //     echo '<button class="btn btn-success btn-xs"><span class="glyphicon glyphicon-ok" ></span></button>';
         // }

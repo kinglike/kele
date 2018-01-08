@@ -6,7 +6,7 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
 <div class="container">
 
 <?php
-    // echo var_dump($info);
+    //echo var_dump($publish);
     if ($publish==null)
     {
       echo "没有信息";
@@ -18,7 +18,7 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
 <ol class="breadcrumb">
   <li><a href="/">首页</a></li>
   <li><a href="/publish">资料库</a></li>
-  <li class="active"><?php echo $value->long_name;?></li>
+  <li class="active"><?php echo $value->name_cn;?><?php echo ($value->p_name_cn!='') ? (' - '.$value->p_name_cn ) :'' ;?></li>
 </ol>
 <div class="row">
 
@@ -28,7 +28,7 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
 
   <div class="row">
         <div class="col-md-4 pull-left" >
-            <img src="/uploads/<?php echo $value->main_pic;?>" alt="<?php echo $value->short_name;?>" class="center-block " style="height:200px;width:70px;">
+            <img src="/uploads/<?php echo $value->main_pic;?>" alt="<?php echo $value->name_cn;?>" class="center-block " style="height:200px;width:70px;">
         </div>
         
         <div class="col-md-7">
@@ -40,7 +40,7 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
                     发行名称
                     </div>
                     <div class="col-md-8" style="line-height:30px;">
-                    <?php echo $value->long_name;?>
+                    <?php echo $value->name_cn;?><?php echo ($value->p_name_cn!='') ? (' - '.$value->p_name_cn ) :'' ;?>
                     </div>
               </div>
               <div class="row" style="margin-bottom:8px;">
@@ -50,7 +50,7 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
                   </div>
                   <div class="col-md-8" style="line-height:30px;">
                     <button type="button" class="btn btn-default btn-sm">
-                          <?php echo $value->id;?>
+                          <?php echo $value->code.$value->p_code;?>
                     </button>
 
                   </div>
@@ -132,7 +132,9 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
                   <li role="presentation" class="active"><a href="#">介绍</a></li>
                 </ul> -->
                 <div class="bs-callout bs-callout-danger">
-                  <p style="font-size:16px;line-height:28px;magrin-top:100px;word-wrap:break-word; white-space:normal; word-break:break-all;"><?php echo $value->introduce;?></p>
+                  <p style="font-size:16px;line-height:28px;magrin-top:100px;word-wrap:break-word; white-space:normal; word-break:break-all;">
+                  <?php echo $value->introduce_cn;?>
+                  </p>
                 </div>
           </div>
        </div>

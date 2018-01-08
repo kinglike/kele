@@ -11,7 +11,7 @@ class Country_model extends MY_Model {
     public function getCountry($publishId)
     {
         $sql=" select c.name from publish a , re_publish_country b ,country c ";
-        $sql.=" where a.id=b.publish_id and b.country_id=c.id and a.id='".$publishId."'";
+        $sql.=" where a.p_id=b.publish_id and b.country_id=c.id and a.p_id='".$publishId."'";
         $query = $this->db->query($sql);
 
         return $query->result();

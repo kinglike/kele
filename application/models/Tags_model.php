@@ -5,7 +5,7 @@ class Tags_model extends MY_Model {
     public function getTags($publishId)
     {
         $sql="select c.id,c.name from publish a , re_publish_tags b ,tags c ";
-        $sql.=" where a.id=b.publish_id and b.tags_id=c.id and a.id='".$publishId."'";
+        $sql.=" where a.p_id=b.publish_id and b.tags_id=c.id and a.p_id='".$publishId."'";
         $query = $this->db->query($sql);
 
         return $query->result();
