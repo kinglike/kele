@@ -32,7 +32,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
                 </form>
 
                     <a href="/admin/series/add">
-                    <button type="button "  class="btn btn-primary disabled">新增专辑</button>
+                    <button type="button "  class="btn btn-primary ">新增专辑</button>
                     </a>
 
             </div>
@@ -40,8 +40,12 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
             <!-- Table -->
             <table class="table table-hover">
                 <tr>
-                <td>序号</td>
-                <td>名称</td>
+                <td width=50>ID</td>
+                <td width=150>系列编号</td>
+                <td width="30%">中文名称</td>
+                <td width="30%">英文名称</td>
+                <td width="100">瓶子数量</td>
+                <td width="100">添加日期</td>
                 <td>操作</td>
                 </tr>
                     <?php
@@ -49,8 +53,11 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
                     foreach ($series as $key => $value) {
                         echo '<tr>';
                         echo '<td>'. $value->id.'</td>';
-                        echo '<td>'. $value->name.'</td>';
-                    
+                        echo '<td>'. $value->code.'</td>';
+                        echo '<td>'. $value->name_cn.'</td>';
+                        echo '<td>'. $value->name_en.'</td>';
+                        echo '<td>'. $value->cnt.'</td>';
+                        echo '<td>'. $value->created_at.'</td>';
                         echo '<td>';
 
                         echo '<a href="/admin/series/edit/'.$value->id.'">';
@@ -89,12 +96,11 @@ echo modules::run('layout/footer/index');
                 okValue: ' 确定 ',
                 ok: function () {
                     //提示确定后执行
-
                     $.ajax({
                         url: "/admin/series/del/",
                         type: "post",
                         dataType: "json",
-                        data:{CountryId:CountryId},
+                        data:{SeriesId:SeriesId,jump:'<?php echo $_SERVER['HTTP_REFERER']?>'},
                         success: function (data) {
                             dialog({
                                 title: '提示',

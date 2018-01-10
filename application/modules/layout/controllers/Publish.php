@@ -6,12 +6,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Publish extends MX_Controller {
     function __construct() {
         parent::__construct();  
-        $this->load->model('layout/M_Publish_model', 'M_Publish');
+        $this->load->model('layout/Layout_publish_model', 'Layout_publish_model');
     }
 
 
     public function index($param){
-        $publish = $this->M_Publish->getIndex($param['type'],$param['limit']);
+        $publish = $this->Layout_publish_model->getIndex($param['type'],$param['limit']);
 
         $data['publish'] = $publish;
 

@@ -9,11 +9,13 @@ class Series_model extends MY_Model {
     {
         $offset = ($page<=1) ? 0 : ($page-1)*$limit;
 
-        $sql = " select * from series b ";
+        $sql = " select *,(select count(*) from publish where series_id = b.id) cnt from series b ";
         
         if ($keywork!='') {
-            $sql.=" where  b.name like '%".$keywork."%' ";
+            $sql.=" where  b.name_cn like '%".$keywork."%' ";
         }
+
+        $sql.=" order by id desc";
     
         $sql.=" limit ".$offset ." ,".$limit."";
         $query = $this->db->query($sql);
@@ -27,7 +29,7 @@ class Series_model extends MY_Model {
         $sql = " select count(*) cnt from series b ";
 
         if ($keywork!='') {
-            $sql.=" where b.name like '%".$keywork."%' ";
+            $sql.=" where b.name_cn like '%".$keywork."%' ";
         }
 
         $query = $this->db->query($sql);

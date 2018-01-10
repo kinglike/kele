@@ -83,20 +83,22 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
     foreach ($publish as $key => $value) {
         # code...
         echo '<div class="col-xs-6  col-md-2 " style="text-align: center;border-top:1px solid #E5e5e5;">';
-        echo '<a href="/publish/detail/'.$value->id.'" class="thumbnail" style="border:0px;padding:20px 0 10px 0;">';
-        echo '<img src="/uploads/'.$value->main_pic.'" alt="'.$value->long_name.'" style="width:70px;height:200px;">';
+        echo '<a href="/publish/detail/'.$value->p_id.'" class="thumbnail" style="border:0px;padding:20px 0 10px 0;">';
+        echo '<img src="/uploads/'.$value->main_pic.'" alt="'.$value->name_cn.'" style="width:70px;height:200px;">';
         echo '</a>';
 
         echo '<div class="caption" style="padding-bottom:20px;">';
-        echo '<h5 style="height:30px;">'.$value->long_name.'</h5>';
+        echo '<h5 style="height:30px;">'.$value->name_cn.'';
+        echo ($value->p_name_cn!='') ? (' - '.$value->p_name_cn ) :'';
+        echo '</h5>';
         // echo '<p>'.$value->long_name.'</p>';
         echo '<p>';
-        echo '<a href="#" class="btn btn-default btn-xs" role="button">编号:'.$value->id.'00000000</a> ';
+        echo '<a href="#" class="btn btn-default btn-xs" role="button">编号:'.$value->code.''.$value->p_code.'</a> ';
         echo '</p>';        
         echo '<p>';
-        echo '<a href="/admin/publish/edit/'.$value->id.'" class="btn btn-primary btn-xs" role="button" >编辑</a> ';
+        echo '<a href="/admin/publish/edit/'.$value->p_id.'" class="btn btn-primary btn-xs" role="button" >编辑</a> ';
 
-        echo '<a href="javascript:;" class="btn btn-danger btn-xs" role="button" onclick="del_publish(\''.$value->id.'\')">';
+        echo '<a href="javascript:;" class="btn btn-danger btn-xs" role="button" onclick="del_publish(\''.$value->p_id.'\')">';
         echo '删除 ';
         echo '</a>';
         echo '</p>';
