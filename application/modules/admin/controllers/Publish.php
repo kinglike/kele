@@ -188,6 +188,7 @@ class Publish extends ADMIN_Controller
             //echo modules::run('admin/message/index',$param);
         }else
         {
+			$SeriesId=$this->uri->segment(4,0);
 			$years = $this->Years->select('years','id');
 			$country = $this->Country->select('country','id,name');
 			$data['country'] =  $country;

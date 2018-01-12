@@ -41,11 +41,13 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
             <table class="table table-hover">
                 <tr>
                 <td width=50>ID</td>
-                <td width=150>系列编号</td>
+                <td width=100>系列编号</td>
                 <td width="30%">中文名称</td>
-                <td width="30%">英文名称</td>
+                <!-- <td width="30%">英文名称</td> -->
                 <td width="100">瓶子数量</td>
                 <td width="100">添加日期</td>
+                <td width="100">更新日期</td>
+
                 <td>操作</td>
                 </tr>
                     <?php
@@ -55,18 +57,20 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
                         echo '<td>'. $value->id.'</td>';
                         echo '<td>'. $value->code.'</td>';
                         echo '<td>'. $value->name_cn.'</td>';
-                        echo '<td>'. $value->name_en.'</td>';
+                        // echo '<td>'. $value->name_en.'</td>';
                         echo '<td>'. $value->cnt.'</td>';
                         echo '<td>'. $value->created_at.'</td>';
+                        echo '<td>'. $value->updated_at.'</td>';
+
                         echo '<td>';
 
-                        echo '<a href="/admin/series/edit/'.$value->id.'">';
-                        echo '<button type="button" class="btn btn-primary  btn-xs">编辑</button> ';
-                        echo '</a>';
+                        echo "<button type='button' onclick=location='/admin/publish/add/".$value->id."' class='btn btn-info btn-xs'>添加瓶子</button> ";
 
-                        echo '<a href="javascript:;" onclick="del_series(\''.$value->id.'\')">';
-                        echo '<button type="button" class="btn btn-danger  btn-xs">删除</button>';
-                        echo '</a>';
+                        echo "<button type='button' onclick=location='/admin/series/edit/".$value->id."' class='btn btn-primary btn-xs'>系列编辑</button> ";
+
+                        if ($value->cnt == 0) {
+                            echo '<button type="button" onclick="del_series(\''.$value->id.'\')" class="btn btn-danger  btn-xs">系列删除</button>';
+                        }
 
                         echo '</td>';
                         echo '</tr>';

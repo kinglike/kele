@@ -35,13 +35,13 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
   <div class="panel-body">
 
   <div class="form-group">
-            <label for="name" >发行名称（全称）</label>
+            <label for="name" >瓶子名称（中文）如果和系列名称相同，可以不填</label>
             <?php
             $data = array(
-                'name'      => 'longName',
-                'id'        => 'longName',
+                'name'      => 'p_name_cn',
+                'id'        => 'p_name_cn',
                 'class'     =>'form-control',
-                'placeholder'=>'发行名称（全称）',
+                'placeholder'=>'瓶子名称（中文）',
                 'maxlength' => '20',
                 'size'      => '50',
                 'style'     => 'width:50%'
@@ -50,31 +50,31 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
             ?>
         </div>
         <div class="text-danger"></div>
-        <!-- <div class="form-group">
-            <label for="name" >发行名称（简称）</label>
+        <div class="form-group">
+            <label for="name" >瓶子名称（英文）如果和系列名称相同，可以不填</label>
             <?php
-            // $data = array(
-            //     'name'      => 'shortName',
-            //     'id'        => 'shortName',
-            //     'class'     =>'form-control',
-            //     'placeholder'=>'发行名称（简称）',
-            //     'maxlength' => '20',
-            //     'size'      => '50',
-            //     'style'     => 'width:50%'
-            // );
-            // echo form_input($data);
+             $data = array(
+                 'name'      => 'p_name_en',
+                 'id'        => 'p_name_en',
+                 'class'     =>'form-control',
+                 'placeholder'=>'瓶子名称（中文）',
+                 'maxlength' => '20',
+                 'size'      => '50',
+                 'style'     => 'width:50%'
+             );
+             echo form_input($data);
             ?>
         </div>
-        <div class="text-danger"></div> -->
+        <div class="text-danger"></div> 
 
         <div class="form-group">
-            <label for="name" >发行编号</label>
+            <label for="name" >瓶子编号(2位瓶子编号，前面的系列号不填)</label>
             <?php
             $data = array(
                 'name'      => 'code',
                 'id'        => 'code',
                 'class'     =>'form-control',
-                'placeholder'=>'发行编号',
+                'placeholder'=>'瓶子编号',
                 'maxlength' => '20',
                 'size'      => '50',
                 'style'     => 'width:50%'
@@ -162,18 +162,16 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
         <div class="form-group">
             <label for="name" >铝瓶介绍</label>
             <?php
-              // $data = array (
-              //   'name'  =>'aaa',
-              //   'class'=>'form-control',
-              //   'style' => 'width:50%',
-              //   'rows' =>'3',
-              //   'id'  =>'editor'
-              // );
+              $data = array (
+                'name'  =>'introduce',
+                'class'=>'form-control',
+                'style' => 'width:50%',
+                'rows' =>'3',
+                'id'  =>'introduce'
+              );
 
-              // echo form_textarea($data);
+              echo form_textarea($data);
             ?>
-            <div id="editor"></div>
-            <textarea id="introduce" name="introduce" class="hidden"></textarea>
 
         </div>
         <div class="text-danger"></div>
@@ -200,67 +198,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 <script type="text/javascript">
 
         $.extend($.validator.defaults,{ignore:""});
-        var E = window.wangEditor;
-        var editor = new E('#editor');
-
-        //var editor = new E('#div1')
-        var $introduce = $('#introduce');
-        editor.customConfig.onchange = function (html) {
-            // 监控变化，同步更新到 textarea
-            $introduce.val(html);
-        }
-        //editor.create()
-        // 初始化 textarea 的值
-        //$text1.val(editor.txt.html())
-        // 或者 var editor = new E( document.getElementById('editor') )
-        editor.customConfig.uploadImgServer = '/admin/upload';  // 上传图片到服务器
-       // editor.customConfig.showLinkImg = false;
-        // editor.customConfig.debug=true;
-        // editor.customConfig.debug = location.href.indexOf('wangeditor_debug_mode=1') > 0
-        // editor.customConfig.customAlert = function (info) {
-        // // info 是需要提示的内容
-        //     alert('自定义提示：' + info)
-        // }
-
-
-        editor.customConfig.uploadImgHooks = {
-            
-                // 如果服务器端返回的不是 {errno:0, data: [...]} 这种格式，可使用该配置
-                // （但是，服务器端返回的必须是一个 JSON 格式字符串！！！否则会报错）
-                customInsert: function (insertImg, result, editor) {
-                    // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
-                    // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
-            
-                    // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
-                    if (result.success == "true")
-                    {
-                        var url = result.data;
-                        insertImg(url);
-                    }else 
-                    {
-                        dialog({
-                            id: 'picfalse',
-                            title: '信息提示',
-                            width:300,
-                            content: result.data,
-                            okValue: '确 定',
-                            zIndex:'12222',
-                            ok: function () {
-                               
-                            },
-                            cancel: false
-                        }).showModal();
-
-                    }
-
-                    // result 必须是一个 JSON 格式字符串！！！否则报错
-                }
-        }
-
-        editor.create()
-
-
-
+       
 
             $("#PublishForm").validate({
                 debug:true,
