@@ -34,7 +34,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
     <?php echo form_open('/admin/series/add',array('id'=>'SeriesForm','name'=>'SeriesForm')); ?>
 
     <div class="form-group">
-            <label>系列编号（2位年+3为系列号）</label>
+            <label>系列编号（2位年+2为系列号）</label>
             <?php
             $data = array(
                 'name'      => 'code',

@@ -34,6 +34,36 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
   </div>
   <div class="panel-body">
 
+
+
+
+  <div class="form-group">
+            <label for="name" >所属系列</label>
+            <?php 
+    
+            $options =array(
+                '' =>'请选择'
+            );
+
+            foreach ($series as $key => $value) {
+                $options[$value->id]=$value->code.'|'.$value->name_cn;
+            }
+            $data=array(
+                'class'=>'form-control',
+                'style'     => 'width:50%',
+                'id'        => 'seriesId',
+                'onChange'=>'some_function();'
+
+            );
+            echo form_dropdown('seriesId', $options,$SeriesId,$data);
+            ?>
+        </div>
+        <div class="text-danger"></div>
+
+
+
+
+
   <div class="form-group">
             <label for="name" >瓶子名称（中文）如果和系列名称相同，可以不填</label>
             <?php
@@ -67,22 +97,38 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
         </div>
         <div class="text-danger"></div> 
 
-        <div class="form-group">
-            <label for="name" >瓶子编号(2位瓶子编号，前面的系列号不填)</label>
+        <div class="form-group ">
+            <label for="name" >瓶子编号(只填2位瓶子编号) 系列编号根据选择变更</label>
+            <div class="form-inline">
             <?php
+
+            $data = array(
+                'name'      => 'seriesCode',
+                'id'        => 'seriesCode',
+                'class'     =>'form-control',
+                'placeholder'=>'系列编号',
+                'maxlength' => '10',
+                'size'      => '10',
+                'style'     => 'width:10%',
+                'readonly'  =>true
+            );
+            echo form_input($data);
+
+
             $data = array(
                 'name'      => 'code',
                 'id'        => 'code',
                 'class'     =>'form-control',
                 'placeholder'=>'瓶子编号',
-                'maxlength' => '20',
+                'maxlength' => '2',
                 'size'      => '50',
-                'style'     => 'width:50%'
+                'style'     => 'width:25%'
             );
             echo form_input($data);
-            ?>
+            ?></div>
+            <div class="text-danger"></div>
+
         </div>
-        <div class="text-danger"></div>
 
 
         <div class="form-group">
@@ -93,8 +139,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
                 'id'        => 'tags',
                 'class'     =>'form-control',
                 'placeholder'=>'Tags标签',
-                'maxlength' => '20',
-                'size'      => '50',
+                'size'      => '20',
                 'style'     => 'width:50%'
             );
             echo form_input($data);
@@ -160,10 +205,10 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
         </div>
 
         <div class="form-group">
-            <label for="name" >铝瓶介绍</label>
+            <label for="name" >铝瓶介绍（中文）如果和系列相同,可以不填，是针对这个瓶子的补充</label>
             <?php
               $data = array (
-                'name'  =>'introduce',
+                'name'  =>'introduce_cn',
                 'class'=>'form-control',
                 'style' => 'width:50%',
                 'rows' =>'3',
@@ -175,7 +220,22 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 
         </div>
         <div class="text-danger"></div>
+        <div class="form-group">
+            <label for="name" >铝瓶介绍（英文）如果和系列相同,可以不填，是针对这个瓶子的补充</label>
+            <?php
+              $data = array (
+                'name'  =>'introduce_en',
+                'class'=>'form-control',
+                'style' => 'width:50%',
+                'rows' =>'3',
+                'id'  =>'introduce'
+              );
 
+              echo form_textarea($data);
+            ?>
+
+        </div>
+        <div class="text-danger"></div>
 
         <div class="form-group">
             <label for="name" >铝瓶图片</label>
@@ -198,26 +258,34 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 <script type="text/javascript">
 
         $.extend($.validator.defaults,{ignore:""});
-       
-
+        
+            function some_function() {
+                var selSeriesId = $("#seriesId").val();
+                var selSeriesName =$("#seriesId").find("option:selected").text();
+                var arr = selSeriesName.split('|');
+                $("#seriesCode").val(arr[0]);
+                //alert(arr[1]);
+            }
             $("#PublishForm").validate({
                 debug:true,
                 rules: {
-                    longName:{required:true},
-                    shortName:{required:true},
+                    seriesCode:{required:true},
+                    seriesId:{required:true},
                     code:{required:true},
+                    tags:{required:true},
                     yearsId:{required:true},
                     'countryId[]':{required:true},
-                    introduce:{required:true},
+                    //introduce:{required:true},
                     mainPic:{required:true}
                 },
                 messages: {
-                    longName:{required:"长名称必须填写"},
-                    shortName:{required:"短名称必须填写"},
+                    seriesCode:{required:"系列编号必须填写 "},
+                    seriesId:{required:"系列必须选择"},
                     code:{required:"铝瓶编号必须填"},
+                    tags:{required:"Tags标签必须填,请用逗号隔开"},
                     yearsId:{required:"年份必须选择"},
                     'countryId[]':{required:"发行国家必须选择"},
-                    introduce:{required:"简介信息必须填写"},
+                    //introduce:{required:"简介信息必须填写"},
                     mainPic:{required:"图片必须上传"}
                 },
                 errorPlacement: function(error, element) {

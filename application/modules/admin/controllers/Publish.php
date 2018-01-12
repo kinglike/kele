@@ -189,10 +189,14 @@ class Publish extends ADMIN_Controller
         }else
         {
 			$SeriesId=$this->uri->segment(4,0);
+			$series = $this->Years->select('series','id,code,name_cn');
 			$years = $this->Years->select('years','id');
 			$country = $this->Country->select('country','id,name');
 			$data['country'] =  $country;
 			$data['years'] =  $years;
+			$data['series'] =  $series;
+			$data['SeriesId'] =  $SeriesId;
+			
 
             $this->load->view('publish/add_view',$data);
         }
