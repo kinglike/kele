@@ -70,9 +70,12 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
                         echo '<button type="button" class="btn btn-primary  btn-xs">编辑</button> ';
                         echo '</a>';
 
-                        echo '<a href="javascript:;" onclick="del_country(\''.$value->id.'\')">';
-                        echo '<button type="button" class="btn btn-danger  btn-xs">删除</button>';
-                        echo '</a>';
+                        if ($value->cnt == 0) {
+                            echo '<a href="javascript:;" onclick="del_country(\''.$value->id.'\')">';
+                            echo '<button type="button" class="btn btn-danger  btn-xs">删除</button>';
+                            echo '</a>';
+                        }
+
 
                         echo '</td>';
                         echo '</tr>';

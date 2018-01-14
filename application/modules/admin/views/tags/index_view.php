@@ -31,9 +31,6 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
                     </div>
                 </form>
 
-                    <a href="/admin/tags/add">
-                    <button type="button " class="btn btn-primary disabled">新增Tags</button>
-                    </a>
 
             </div>
 
@@ -42,6 +39,8 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
                 <tr>
                 <td>序号</td>
                 <td>名称</td>
+                <td>铝瓶数量</td>
+
                 <td>操作</td>
                 </tr>
                     <?php
@@ -50,17 +49,20 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
                         echo '<tr>';
                         echo '<td>'. $value->id.'</td>';
                         echo '<td>'. $value->name.'</td>';
-                        
+                        echo '<td>'. $value->cnt.'</td>';
+
 
                         echo '<td>';
+                            echo '<a href="/admin/tags/edit/'.$value->id.'">';
+                            echo '<button type="button" class="btn btn-primary  btn-xs">编辑</button> ';
+                            echo '</a>';            
+                        if ($value->cnt == 0) {
+                                echo '<a href="javascript:;" onclick="del_tags(\''.$value->id.'\')">';
+                            echo '<button type="button" class="btn btn-danger  btn-xs">删除</button>';
+                            echo '</a>';
+                        }
 
-                        echo '<a href="/admin/tags/edit/'.$value->id.'">';
-                        echo '<button type="button" class="btn btn-primary  btn-xs">编辑</button> ';
-                        echo '</a>';
 
-                        echo '<a href="javascript:;" onclick="del_tags(\''.$value->id.'\')">';
-                        echo '<button type="button" class="btn btn-danger  btn-xs">删除</button>';
-                        echo '</a>';
 
                         echo '</td>';
                         echo '</tr>';
@@ -81,7 +83,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 echo modules::run('layout/footer/index');
 ?>
 <script type="text/javascript">
-        function del_tags(TagsId)
+        function del_tags(tagsId)
         {
             dialog({
                 title: '提示',
@@ -95,7 +97,7 @@ echo modules::run('layout/footer/index');
                         url: "/admin/tags/del/",
                         type: "post",
                         dataType: "json",
-                        data:{CountryId:CountryId},
+                        data:{tagsId:tagsId,jump:'<?php echo $_SERVER['HTTP_REFERER']?>'},
                         success: function (data) {
                             dialog({
                                 title: '提示',

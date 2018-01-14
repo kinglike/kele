@@ -48,6 +48,9 @@ class Tags extends ADMIN_Controller
     
     public function del()
     {
-        # code...
-    }
+        $tagsId=$this->input->post("tagsId");
+        $jump=$this->input->post("jump");
+        $where=array("id"=>$tagsId);
+        $this->Tags->delete("tags",$where);
+        echo '{"success":true,"message":"操作成功","jump":"'.$jump.'"}';    }
 }

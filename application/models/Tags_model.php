@@ -19,7 +19,7 @@ class Tags_model extends MY_Model {
     {
         $offset = ($page<=1) ? 0 : ($page-1)*$limit;
 
-        $sql = " select * from tags b ";
+        $sql = " select * ,(select count(*) from re_publish_tags where b.id = tags_id) cnt from tags b ";
         
         if ($keywork!='') {
             $sql.=" where  b.name like '%".$keywork."%' ";
