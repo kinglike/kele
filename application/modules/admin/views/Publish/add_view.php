@@ -46,7 +46,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
             );
 
             foreach ($series as $key => $value) {
-                $options[$value->id]=$value->code.'|'.$value->name_cn;
+                $options[$value->id]=$value->code.'|('.$value->years_id.')'.$value->name_cn;
             }
             $data=array(
                 'class'=>'form-control',
@@ -262,12 +262,26 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 
         $.extend($.validator.defaults,{ignore:""});
         
+        function getPublish() {
+                var seriesId = $("#seriesId").val();
+                $.get("/admin/publish/series/"+seriesId, function(result){
+                    //alert(result);
+                    var code = yearsId.substring(2,4)+result; 
+                    $("#code").val(code);
+                });
+            }
+            
         some_function();
             function some_function() {
                 var selSeriesId = $("#seriesId").val();
                 var selSeriesName =$("#seriesId").find("option:selected").text();
                 var arr = selSeriesName.split('|');
                 $("#seriesCode").val(arr[0]);
+
+                $.get("/admin/publish/series/"+selSeriesId, function(result){
+                    $("#p_code").val(result);
+                });
+
                 //alert(arr[1]);
             }
             $("#PublishForm").validate({

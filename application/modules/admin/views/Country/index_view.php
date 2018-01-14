@@ -42,7 +42,11 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
                 <tr>
                 <td>序号</td>
                 <td>名称</td>
+                <td>铝瓶数量</td>
+
                 <td>国旗</td>
+                <td>创建日期</td>
+                <td>更新日期</td>
                 <td>操作</td>
                 </tr>
                     <?php
@@ -51,12 +55,17 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
                         echo '<tr>';
                         echo '<td>'. $value->id.'</td>';
                         echo '<td>'. $value->name.'</td>';
-                        
+                        echo '<td>'. $value->cnt.'</td>';
+
+
                         echo '<td>';
                         echo "<img src=/uploads".$value->banner." style='width:32px;height:21px;'>";
                         echo '</td>';
-                        echo '<td>';
+                        
+                        echo '<td>'. $value->created_at.'</td>';
+                        echo '<td>'. $value->updated_at.'</td>';
 
+                        echo '<td>';
                         echo '<a href="/admin/country/edit/'.$value->id.'">';
                         echo '<button type="button" class="btn btn-primary  btn-xs">编辑</button> ';
                         echo '</a>';

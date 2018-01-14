@@ -63,6 +63,16 @@ class Publish extends ADMIN_Controller
 		$this->load->view('publish/index_view',$data);  
 	}
 	
+
+	public function series()
+    {
+       if ($this->IS_AJAX) {
+        $seriesId=$this->uri->segment(4,0);
+        $cnt = $this->Years->count('publish',array('series_id'=>$seriesId));
+        echo  sprintf("%02d", $cnt+1);;
+        }
+	}
+	
 	public function add()
     {
         if($this->IS_POST)
@@ -83,7 +93,7 @@ class Publish extends ADMIN_Controller
 				'p_code'	=> $p_code,
 				'series_id'	=>$seriesId,
 				'p_name_en' => $p_name_en,
-				'years_id'	=> $yearsId,
+				'p_years_id'	=> $yearsId,
 				'p_introduce_cn' =>$p_introduce_cn,
 				'p_introduce_en' =>$p_introduce_en
 			);
@@ -205,7 +215,7 @@ class Publish extends ADMIN_Controller
         }else
         {
 			$SeriesId=$this->uri->segment(4,0);
-			$series = $this->Years->select('series','id,code,name_cn');
+			$series = $this->Years->select('series','id,code,years_id,name_cn','','years_id desc,code');
 			$years = $this->Years->select('years','id');
 			$country = $this->Country->select('country','id,name');
 			$data['country'] =  $country;
@@ -237,12 +247,15 @@ class Publish extends ADMIN_Controller
 			$tags = $this->input->post("tags");
 			$p_introduce_cn = $this->input->post('p_introduce_cn');
 			$p_introduce_en = $this->input->post('p_introduce_en');
+
+			$jump=$this->input->post("jump");
+
 			$data = array(
 				'p_name_cn' => $p_name_cn,
 				'p_code'	=> $p_code,
 				'series_id'	=>$seriesId,
 				'p_name_en' => $p_name_en,
-				'years_id'	=> $yearsId,
+				'p_years_id'	=> $yearsId,
 				'p_introduce_cn' =>$p_introduce_cn,
 				'p_introduce_en' =>$p_introduce_en
 			);
@@ -355,9 +368,9 @@ class Publish extends ADMIN_Controller
 				}
 			}
 
-             $this->Publish->update('publish',$data,$where);
+             $this->Publish->update('publish',$data,$where,true);
 
-            echo '{"success":true,"message":"操作成功","jump":"/admin/publish/"}';
+            echo '{"success":true,"message":"操作成功","jump":"'.$jump.'"}';
 
 
 

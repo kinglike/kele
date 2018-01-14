@@ -36,8 +36,10 @@ class Publish_model extends MY_Model {
             $sql.=" and a.p_years_id = ".$year." ";
         }
 
-        $sql.=" GROUP BY a.p_id  order by a.p_id desc";
-    
+        $sql.=" GROUP BY a.p_id ";
+        $sql.= " order by s.code ,a.p_code";
+
+
         $sql.=" limit ".$offset ." ,".$limit."";
         $query = $this->db->query($sql);
 
@@ -64,9 +66,9 @@ class Publish_model extends MY_Model {
             $sql.=" and a.p_years_id = ".$year." ";
         }
 
-        $sql.=" GROUP BY a.p_id  order by a.p_id desc ";
+        $sql.=" GROUP BY a.p_id  ";
     
-        $sql.= ") f";
+        $sql.= ") f ";
         $query = $this->db->query($sql);
         //return $this->db->count_all_results();
 		if( ($query->row_array())==null ){

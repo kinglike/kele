@@ -26,7 +26,7 @@ class Country_model extends MY_Model {
     {
         $offset = ($page<=1) ? 0 : ($page-1)*$limit;
 
-        $sql = " select * from country b ";
+        $sql = " select *,(select count(*) from re_publish_country where country_id=b.id) cnt from country b ";
         
         if ($keywork!='') {
             $sql.=" where  b.name like '%".$keywork."%' ";

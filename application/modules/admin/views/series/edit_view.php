@@ -62,7 +62,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
         </div>
         <div class="text-danger"></div>
     <div class="form-group">
-            <label>系列编号（2位年+2为系列号）</label>
+        <label>系列编号（2位年+2为系列号）<span class="text-danger"> 选择年份后,系统会根据年份已存在记录自动计算出当前编号</span></label>
             <?php
             $data = array(
                 'name'      => 'code',
