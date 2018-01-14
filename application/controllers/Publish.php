@@ -21,12 +21,27 @@ class Publish extends HOME_Controller {
 		
 		//var_dump($country['data']);
 
-		$limit = 12;	//每页几个
-		$page_get = $this->input->get('page');//$this->uri->segment(3, 0);
-		$year_get = $this->input->get('year');
-		$keyword_get = $this->input->get('keyword');
-		$country_get = $this->input->get('country');
-		$series_get	= $this->input->get('series');
+		$limit = 24;	//每页几个
+		// $page_get = $this->input->get('page');//$this->uri->segment(3, 0);
+		// $year_get = $this->input->get('year');
+		// $keyword_get = $this->input->get('keyword');
+		// $country_get = $this->input->get('country');
+		// $series_get	= $this->input->get('series');
+
+		if ($this->IS_POST) {
+			$page_get = $this->input->post('page');//$this->uri->segment(3, 0);
+			$year_get = $this->input->post('year');
+			$keyword_get = $this->input->post('keyword');
+			$country_get = $this->input->post('country');
+			$series_get	= $this->input->post('series');		
+		} else 
+		{
+			$page_get = $this->input->get('page');//$this->uri->segment(3, 0);
+			$year_get = $this->input->get('year');
+			$keyword_get = $this->input->get('keyword');
+			$country_get = $this->input->get('country');
+			$series_get	= $this->input->get('series');
+		}
 
 
 		$publish = $this->Publish->getData($country_get,$year_get,$series_get,$keyword_get,$limit,$page_get);
@@ -64,10 +79,13 @@ class Publish extends HOME_Controller {
 		$id = $this->uri->segment(3, 0);;
 		$publish = $this->Publish->getDetail($id);
 		$country = $this->Country->getCountry($id);
+		$publishPic = $this->Publish->select('publish_pic','*',array('publish_id'=>$id));
 		$tags = $this->Tags->getTags($id);
 		//var_dump($tags);
 		$data['id'] = $id;
 		$data['publish'] = $publish;
+		$data['publishPic'] = $publishPic;
+
 		$data['tags'] = $tags;
 		$data['country'] = $country;
 

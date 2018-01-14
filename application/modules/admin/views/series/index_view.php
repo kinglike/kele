@@ -24,7 +24,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 
                 <form>
                     <div class="col-xs-3">
-                        <input type="text" class="form-control" name="keyword" placeholder="输入名称"> 
+                        <input type="text" class="form-control" name="keyword" value="<?php echo $keyword;?>" placeholder="输入中文名称或编号"> 
                     </div>
                     <div class="col-xs-3">
                     <button type="submit" class="btn btn-default">查询</button>
@@ -42,6 +42,8 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
                 <tr>
                 <td width=50>ID</td>
                 <td width=100>系列编号</td>
+                <td width=100>系列年份</td>
+
                 <td width="30%">中文名称</td>
                 <!-- <td width="30%">英文名称</td> -->
                 <td width="100">瓶子数量</td>
@@ -56,6 +58,8 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
                         echo '<tr>';
                         echo '<td>'. $value->id.'</td>';
                         echo '<td>'. $value->code.'</td>';
+                        echo '<td>'. $value->years_id.'</td>';
+
                         echo '<td>'. $value->name_cn.'</td>';
                         // echo '<td>'. $value->name_en.'</td>';
                         echo '<td>'. $value->cnt.'</td>';

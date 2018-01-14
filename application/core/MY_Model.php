@@ -9,8 +9,11 @@ class MY_Model extends CI_Model
      * @param  [type] $data  [插入数据]
      * @return [type]        [返回插入ID]
      */
-    public function insert($table,$data)
+    public function insert($table,$data,$at=false)
     {
+        if ($at) {
+            $data['created_at']=date('y-m-d H:i:s',time());
+        }
         $this->db->insert($table,$data);
         return $this->db->insert_id();
     }
@@ -22,8 +25,11 @@ class MY_Model extends CI_Model
      * @param  [type] $where [更新的条件]
      * @return [type]        [返回影响结果int]
      */
-   public function update($table,$data,$where)
+   public function update($table,$data,$where,$at=false)
     {
+        if ($at) {
+            $data['updated_at']=date('y-m-d H:i:s',time());
+        }
         $this->db->where($where);
         $this->db->update($table,$data);
         return $this->db->affected_rows();

@@ -124,6 +124,8 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
 
           
       </div>
+
+
       <!-- 第二行 -->
       <div class="row" >
 
@@ -135,13 +137,45 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
                   <p style="font-size:16px;line-height:28px;magrin-top:100px;word-wrap:break-word; white-space:normal; word-break:break-all;">
                   <?php echo $value->introduce_cn;?>
                   </p>
+                  <p>
+                  <?php echo $value->p_introduce_cn;?>
+                  </p>
+                  <p style="text-align:center;margin:0 auto;">
+
+                  <?php
+                  //var_dump($publishPic);
+                  foreach ($publishPic as $key => $pic) {
+                    if ($pic->pic_type == 1) {
+                      echo '<img src="/uploads/'.$pic->pic_url.'">';
+                    }
+                  }
+                  ?>
+                  </p>
+
                 </div>
           </div>
        </div>
 
+
+
+
+      <!-- 相关系列 -->
+      <div class="row">
+       <div class="col-md-12">
+
+       <?php
+        //加载模版Layout
+        if ($value->cnt >1)
+        {
+          echo modules::run('layout/series/index',array('type'=>'series','type_name'=>'相关系列','seriesId'=>$value->series_id));
+        }
+        ?>
+        </div>
+      </div>
+
       <!-- 第二行 -->
       <?php
-      //加载模版Layout
+      //加载模版 评论
       echo modules::run('layout/post/index',array('publishId'=>$value->id));
       ?>
 

@@ -42,61 +42,100 @@ foreach ($publish as $key => $info) {?>
   <div class="panel-body">
 
   <div class="form-group">
-            <label for="name" >发行名称（全称）</label>
-            <?php
-            $data = array(
-                'name'      => 'longName',
-                'id'        => 'longName',
-                'class'     =>'form-control',
-                'placeholder'=>'发行名称（全称）',
-                'maxlength' => '20',
-                'size'      => '50',
-                'style'     => 'width:50%',
-                'value'     => $info->long_name
+            <label for="name" >所属系列</label>
+            <?php 
+    
+            $options =array(
+                '' =>'请选择'
             );
-            echo form_input($data);
 
-            echo form_hidden('id', $info->id);
+            foreach ($series as $key => $value){
+                $options[$value->id]=$value->code.'|'.$value->name_cn;
+            }
+            $data=array(
+                'class'=>'form-control',
+                'style'     => 'width:50%',
+                'id'        => 'seriesId',
+                'onChange'=>'some_function();'
+
+            );
+            echo form_dropdown('seriesId', $options,$info->series_id,$data);
+            echo form_hidden('p_id', $info->p_id);
+            echo form_hidden('jump', $_SERVER['HTTP_REFERER']);
+
             ?>
         </div>
         <div class="text-danger"></div>
-        <!-- <div class="form-group">
-            <label for="name" >发行名称（简称）</label>
-            <?php
-            // $data = array(
-            //     'name'      => 'shortName',
-            //     'id'        => 'shortName',
-            //     'class'     =>'form-control',
-            //     'placeholder'=>'发行名称（简称）',
-            //     'maxlength' => '20',
-            //     'size'      => '50',
-            //     'style'     => 'width:50%',
-            //     'value'     => $info->short_name
-            // );
-            // echo form_input($data);
-            ?>
-        </div>
-        <div class="text-danger"></div> -->
 
         <div class="form-group">
-            <label for="name" >发行编号</label>
+            <label for="name" >瓶子名称（中文）如果和系列名称相同，可以不填</label>
             <?php
             $data = array(
-                'name'      => 'code',
-                'id'        => 'code',
+                'name'      => 'p_name_cn',
+                'id'        => 'p_name_cn',
                 'class'     =>'form-control',
-                'placeholder'=>'发行编号',
+                'placeholder'=>'瓶子名称（中文）',
                 'maxlength' => '20',
                 'size'      => '50',
                 'style'     => 'width:50%',
-                'value'     => $info->code
-
+                'value'     =>$info->p_name_cn
             );
             echo form_input($data);
             ?>
         </div>
         <div class="text-danger"></div>
+        
+        <div class="form-group">
+            <label for="name" >瓶子名称（英文）如果和系列名称相同，可以不填</label>
+            <?php
+             $data = array(
+                 'name'      => 'p_name_en',
+                 'id'        => 'p_name_en',
+                 'class'     =>'form-control',
+                 'placeholder'=>'瓶子名称（中文）',
+                 'maxlength' => '20',
+                 'size'      => '50',
+                 'style'     => 'width:50%',
+                 'value'     =>$info->p_name_en
+             );
+             echo form_input($data);
+            ?>
+        </div>
+        <div class="text-danger"></div> 
 
+        <div class="form-group ">
+            <label for="name" >瓶子编号(只填2位瓶子编号) 系列编号根据选择变更</label>
+            <div class="form-inline">
+            <?php
+
+            $data = array(
+                'name'      => 'seriesCode',
+                'id'        => 'seriesCode',
+                'class'     =>'form-control',
+                'placeholder'=>'系列编号',
+                'maxlength' => '10',
+                'size'      => '10',
+                'style'     => 'width:10%',
+                'readonly'  =>true
+            );
+            echo form_input($data);
+
+
+            $data = array(
+                'name'      => 'p_code',
+                'id'        => 'p_code',
+                'class'     =>'form-control',
+                'placeholder'=>'瓶子编号',
+                'maxlength' => '2',
+                'size'      => '50',
+                'style'     => 'width:25%',
+                'value'     =>$info->p_code
+            );
+            echo form_input($data);
+            ?></div>
+            <div class="text-danger"></div>
+
+        </div>
 
         <div class="form-group">
             <label for="name" >Tags标签（用逗号隔开）</label>
@@ -138,7 +177,7 @@ foreach ($publish as $key => $info) {?>
                 'id'        => $valueY->id,
                 'value'     => $valueY->id,
                );
-               if ($info->years_id == $valueY->id)
+               if ($info->p_years_id == $valueY->id)
                {
                    $data['checked'] = 'TRUE';
                }
@@ -194,12 +233,37 @@ foreach ($publish as $key => $info) {?>
         </div>
 
         <div class="form-group">
-            <label for="name" >铝瓶介绍</label>
-            <div id="editor"><p><?php echo $info->introduce;?><p></div>
-            <textarea id="introduce" name="introduce" class="hidden"></textarea>
+        <label for="name" >铝瓶介绍（中文）如果和系列相同,可以不填，是针对这个瓶子的补充</label>
+        <?php
+          $data = array (
+            'name'  =>'p_introduce_cn',
+            'class'=>'form-control',
+            'style' => 'width:50%',
+            'rows' =>'3',
+            'id'  =>'p_introduce_cn'
+          );
 
-        </div>
-        <div class="text-danger"></div>
+          echo form_textarea($data);
+        ?>
+
+    </div>
+    <div class="text-danger"></div>
+    <div class="form-group">
+        <label for="name" >铝瓶介绍（英文）如果和系列相同,可以不填，是针对这个瓶子的补充</label>
+        <?php
+          $data = array (
+            'name'  =>'p_introduce_en',
+            'class'=>'form-control',
+            'style' => 'width:50%',
+            'rows' =>'3',
+            'id'  =>'p_introduce_en'
+          );
+
+          echo form_textarea($data);
+        ?>
+
+    </div>
+    <div class="text-danger"></div>
 
 
         <div class="row">
@@ -249,6 +313,14 @@ foreach ($publish as $key => $info) {?>
 
 <script type="text/javascript">
 
+    some_function();
+    function some_function() {
+        var selSeriesId = $("#seriesId").val();
+        var selSeriesName =$("#seriesId").find("option:selected").text();
+        var arr = selSeriesName.split('|');
+        $("#seriesCode").val(arr[0]);
+        //alert(arr[1]);
+    }
 
    //在input file内容改变的时候触发事件
    $('#mainPic').change(function(){

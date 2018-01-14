@@ -16,12 +16,23 @@ class Publish extends ADMIN_Controller
     
     public function index()
     {
-        $limit = 12;	//每页几个
-		$page_get = $this->input->get('page');//$this->uri->segment(3, 0);
-		$year_get = $this->input->get('year');
-		$keyword_get = $this->input->get('keyword');
-		$country_get = $this->input->get('country');
-		$series_get	= $this->input->get('series');
+		$limit = 12;	//每页几个
+		
+		if ($this->IS_POST) {
+			$page_get = $this->input->post('page');//$this->uri->segment(3, 0);
+			$year_get = $this->input->post('year');
+			$keyword_get = $this->input->post('keyword');
+			$country_get = $this->input->post('country');
+			$series_get	= $this->input->post('series');		
+		} else 
+		{
+			$page_get = $this->input->get('page');//$this->uri->segment(3, 0);
+			$year_get = $this->input->get('year');
+			$keyword_get = $this->input->get('keyword');
+			$country_get = $this->input->get('country');
+			$series_get	= $this->input->get('series');
+		}
+
 
 
 		$publish = $this->Publish->getData($country_get,$year_get,$series_get,$keyword_get,$limit,$page_get);
@@ -56,20 +67,25 @@ class Publish extends ADMIN_Controller
     {
         if($this->IS_POST)
         {
-			$longName = $this->input->post('longName');
-			$code = $this->input->post('code');
-			//$shortName = $this->input->post('shortName');
+			$p_code = $this->input->post('p_code');
+			$seriesId = $this->input->post('seriesId');
+
+			
+			$p_name_cn = $this->input->post('p_name_cn');
+			$p_name_en = $this->input->post('p_name_en');
 			$yearsId = $this->input->post('yearsId');
 			$countryId = $this->input->post('countryId');
 			$tags = $this->input->post("tags");
-			$introduce = $this->input->post('introduce');
-
+			$p_introduce_cn = $this->input->post('p_introduce_cn');
+			$p_introduce_en = $this->input->post('p_introduce_en');
 			$data = array(
-				'long_name' => $longName,
-				'code'	=> $code,
-				//'short_name' => $shortName,
+				'p_name_cn' => $p_name_cn,
+				'p_code'	=> $p_code,
+				'series_id'	=>$seriesId,
+				'p_name_en' => $p_name_en,
 				'years_id'	=> $yearsId,
-				'introduce' =>$introduce
+				'p_introduce_cn' =>$p_introduce_cn,
+				'p_introduce_en' =>$p_introduce_en
 			);
 			//var_dump($data);
 
@@ -209,21 +225,26 @@ class Publish extends ADMIN_Controller
 
         if($this->IS_POST)
         {
-			$id = $this->input->post('id');
-            $longName = $this->input->post('longName');
-			$code = $this->input->post('code');
-			//$shortName = $this->input->post('shortName');
+			$p_id = $this->input->post('p_id');
+			$p_code = $this->input->post('p_code');
+			$seriesId = $this->input->post('seriesId');
+
+			
+			$p_name_cn = $this->input->post('p_name_cn');
+			$p_name_en = $this->input->post('p_name_en');
 			$yearsId = $this->input->post('yearsId');
 			$countryId = $this->input->post('countryId');
 			$tags = $this->input->post("tags");
-			$introduce = $this->input->post('introduce');
-
+			$p_introduce_cn = $this->input->post('p_introduce_cn');
+			$p_introduce_en = $this->input->post('p_introduce_en');
 			$data = array(
-				'long_name' => $longName,
-				'code'	=> $code,
-				//'short_name' => $shortName,
+				'p_name_cn' => $p_name_cn,
+				'p_code'	=> $p_code,
+				'series_id'	=>$seriesId,
+				'p_name_en' => $p_name_en,
 				'years_id'	=> $yearsId,
-				'introduce' =>$introduce
+				'p_introduce_cn' =>$p_introduce_cn,
+				'p_introduce_en' =>$p_introduce_en
 			);
 			//var_dump($_FILES['mainPic']);
 
@@ -269,9 +290,9 @@ class Publish extends ADMIN_Controller
 
 
 
-			 $where=array("id"=>$id);
+			 $where=array("p_id"=>$p_id);
 
-			 $whereRe = array('publish_id' => $id);
+			 $whereRe = array('publish_id' => $p_id);
 			 
 			 //删除Tags 重新添加Re表
 			 $this->Publish->delete("re_publish_tags",$whereRe);
@@ -287,7 +308,7 @@ class Publish extends ADMIN_Controller
 				$tagsName = trim($tagsArr[$i]);
 
 				$re_publish_tags = array(
-					'publish_id' => $id
+					'publish_id' => $p_id
 				);
 
 				/**
@@ -322,7 +343,7 @@ class Publish extends ADMIN_Controller
 			 */
 			for ($i=0; $i <count($countryId) ; $i++) { 
 				$re_country_data = array(
-					'publish_id' => $id,
+					'publish_id' => $p_id,
 					'country_id'=>$countryId[$i]
 				);
 
@@ -345,8 +366,12 @@ class Publish extends ADMIN_Controller
 
 
 			$PublishId=$this->uri->segment(4,0);
+
+			$series = $this->Years->select('series','id,code,name_cn');
+			$data['series']=$series;
+
 			
-			$PublishInfo=$this->Publish->select("publish","*",array("id"=>$PublishId));
+			$PublishInfo=$this->Publish->select("publish","*",array("p_id"=>$PublishId));
 			$data['publish']=$PublishInfo;
 
 			$years = $this->Years->select('years','id');
@@ -372,7 +397,7 @@ class Publish extends ADMIN_Controller
     {
 		//删除Publish表
         $PublishId=$this->input->post("PublishId");
-        $where=array("id"=>$PublishId);
+        $where=array("p_id"=>$PublishId);
 		$this->Publish->delete("publish",$where);
 		
 		//删除Publish对应关联表 country 和 tags

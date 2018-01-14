@@ -12,10 +12,10 @@ class Series_model extends MY_Model {
         $sql = " select *,(select count(*) from publish where series_id = b.id) cnt from series b ";
         
         if ($keywork!='') {
-            $sql.=" where  b.name_cn like '%".$keywork."%' ";
+            $sql.=" where  b.name_cn like '%".$keywork."%' or  b.code like '%".$keywork."%'";
         }
 
-        $sql.=" order by id desc";
+        $sql.=" order by years_id desc,code";
     
         $sql.=" limit ".$offset ." ,".$limit."";
         $query = $this->db->query($sql);

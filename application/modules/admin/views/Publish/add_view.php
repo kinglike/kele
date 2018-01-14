@@ -56,6 +56,8 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 
             );
             echo form_dropdown('seriesId', $options,$SeriesId,$data);
+            echo form_hidden('jump', $_SERVER['HTTP_REFERER']);
+
             ?>
         </div>
         <div class="text-danger"></div>
@@ -80,6 +82,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
             ?>
         </div>
         <div class="text-danger"></div>
+
         <div class="form-group">
             <label for="name" >瓶子名称（英文）如果和系列名称相同，可以不填</label>
             <?php
@@ -116,8 +119,8 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 
 
             $data = array(
-                'name'      => 'code',
-                'id'        => 'code',
+                'name'      => 'p_code',
+                'id'        => 'p_code',
                 'class'     =>'form-control',
                 'placeholder'=>'瓶子编号',
                 'maxlength' => '2',
@@ -208,11 +211,11 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
             <label for="name" >铝瓶介绍（中文）如果和系列相同,可以不填，是针对这个瓶子的补充</label>
             <?php
               $data = array (
-                'name'  =>'introduce_cn',
+                'name'  =>'p_introduce_cn',
                 'class'=>'form-control',
                 'style' => 'width:50%',
                 'rows' =>'3',
-                'id'  =>'introduce'
+                'id'  =>'p_introduce_cn'
               );
 
               echo form_textarea($data);
@@ -224,11 +227,11 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
             <label for="name" >铝瓶介绍（英文）如果和系列相同,可以不填，是针对这个瓶子的补充</label>
             <?php
               $data = array (
-                'name'  =>'introduce_en',
+                'name'  =>'p_introduce_en',
                 'class'=>'form-control',
                 'style' => 'width:50%',
                 'rows' =>'3',
-                'id'  =>'introduce'
+                'id'  =>'p_introduce_en'
               );
 
               echo form_textarea($data);
@@ -259,6 +262,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 
         $.extend($.validator.defaults,{ignore:""});
         
+        some_function();
             function some_function() {
                 var selSeriesId = $("#seriesId").val();
                 var selSeriesName =$("#seriesId").find("option:selected").text();

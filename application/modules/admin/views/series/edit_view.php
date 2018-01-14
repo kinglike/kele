@@ -38,7 +38,29 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
         # code...
         
      echo form_open('/admin/series/edit',array('id'=>'SeriesForm','name'=>'SeriesForm')); ?>
+    <div class="form-group">
+            <label for="name" >所属年份</label>
+            <?php 
+    
+            $options =array(
+                '' =>'请选择'
+            );
 
+            foreach ($years as $key => $Yvalue) {
+                $options[$Yvalue->id]=$Yvalue->id;
+            }
+            $data=array(
+                'class'=>'form-control',
+                'style'     => 'width:50%',
+                'id'        => 'yearsId',
+                'onChange'=>'getPublish();'
+
+            );
+            echo form_dropdown('yearsId', $options,$value->years_id,$data);
+
+            ?>
+        </div>
+        <div class="text-danger"></div>
     <div class="form-group">
             <label>系列编号（2位年+2为系列号）</label>
             <?php
@@ -47,7 +69,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
                 'id'        => 'code',
                 'class'     =>'form-control',
                 'placeholder'=>'输入系列编号',
-                'maxlength' => '20',
+                'maxlength' => '6',
                 'size'      => '50',
                 'value'     =>$value->code,
                 'style'     => 'width:50%'
@@ -68,7 +90,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
                 'value'     =>$value->name_cn,
                 'class'     =>'form-control',
                 'placeholder'=>'系列名称',
-                'maxlength' => '20',
+                //'maxlength' => '20',
                 'size'      => '50',
                 'style'     => 'width:50%'
             );
@@ -85,7 +107,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
                 'value'     =>$value->name_en,
                 'class'     =>'form-control',
                 'placeholder'=>'系列名称(英文)',
-                'maxlength' => '20',
+                //'maxlength' => '20',
                 'size'      => '50',
                 'style'     => 'width:50%'
             );
@@ -201,7 +223,14 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
             editor_en.create();
             $introduce_en.val(editor_en.txt.html());
 
-
+            function getPublish() {
+                var yearsId = $("#yearsId").val();
+                $.get("/admin/series/years/"+yearsId, function(result){
+                    //alert(result);
+                    var code = yearsId.substring(2,4)+result; 
+                    $("#code").val(code);
+                });
+            }
         $(function(){
 
 
@@ -211,14 +240,14 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
             rules: {
                 code:{required:true},
                 name_cn:{required:true},
-                name_en:{required:true},
+                //name_en:{required:true},
                 introduce_cn:{required:true},
                 introduce_en:{required:true}
             },
             messages: {
                 code:{required:"系列编号必须填写"},
                 name_cn:{required:"系列名称(中文)必须填写"},
-                name_en:{required:"系列名称(英文)必须填写"},
+                //name_en:{required:"系列名称(英文)必须填写"},
                 introduce_cn:{required:"简介信息(中文)必须填写"},
                 introduce_en:{required:"简介信息(英文)必须填写"}
             },

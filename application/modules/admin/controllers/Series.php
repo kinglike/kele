@@ -6,6 +6,8 @@ class Series extends ADMIN_Controller
     {
         parent::__construct();
         $this->load->model('Series_model', 'Series');
+        $this->load->model('Years_model', 'Years');
+
 		$this->load->library('pagination');
 
     }
@@ -13,8 +15,14 @@ class Series extends ADMIN_Controller
     public function index()
     {
         $limit = 10;	//每页几个
-		$page_get = $this->input->get('page');//$this->uri->segment(3, 0);
-		$keyword_get = $this->input->get('keyword');
+        if ($this->IS_POST) {
+            $page_get = $this->input->post('page');//$this->uri->segment(3, 0);
+            $keyword_get = $this->input->post('keyword');
+        }else{
+            $page_get = $this->input->get('page');//$this->uri->segment(3, 0);
+            $keyword_get = $this->input->get('keyword');
+        }
+
 
 
 		$series = $this->Series->getData($keyword_get,$limit,$page_get);
@@ -27,6 +35,9 @@ class Series extends ADMIN_Controller
         $config['num_links'] = 4;
 
         $data['series'] = $series;
+        $data['keyword'] = $keyword_get;
+        $data['page'] = $page_get;
+
 
         $this->pagination->initialize($config);
 
@@ -60,10 +71,21 @@ class Series extends ADMIN_Controller
 
         }else
         {
-            $this->load->view('series/add_view');
+            $years = $this->Years->select('years','id','','id desc');
+            $data['years'] =  $years;
+            $this->load->view('series/add_view',$data);
         }
         
     } 
+
+    public function years()
+    {
+       if ($this->IS_AJAX) {
+        $yearsId=$this->uri->segment(4,0);
+        $cnt = $this->Years->count('series',array('years_id'=>$yearsId));
+        echo  sprintf("%02d", $cnt+1);;
+        }
+    }
 
     function edit()
     {
@@ -72,7 +94,9 @@ class Series extends ADMIN_Controller
         {
 
             $SeriesId=$this->input->post("SeriesId");
-            $code=$this->input->post("code");
+            $code=$this->input->post("code"); 
+            $yearsId=$this->input->post("yearsId");
+
             $name_cn=$this->input->post("name_cn");
             $name_en=$this->input->post("name_en");
             $introduce_cn=$this->input->post("introduce_cn");
@@ -82,6 +106,7 @@ class Series extends ADMIN_Controller
 
             $data = array(
                 'code'  =>$code,
+                'years_id'=>$yearsId,
                 'name_cn'   =>$name_cn,
                 'name_en'   =>$name_en,
                 'introduce_cn'=>$introduce_cn,
@@ -104,7 +129,8 @@ class Series extends ADMIN_Controller
 
             $SeriesId=$this->uri->segment(4,0);
             $SeriesInfo=$this->Series->select("series","*",array("id"=>$SeriesId));
-
+            $years = $this->Years->select('years','id','','id desc');
+            $data['years'] =  $years;
             $data['series']=$SeriesInfo;
 
             $this->load->view('admin/series/edit_view',$data);

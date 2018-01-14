@@ -18,9 +18,6 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 <blockquote>
 <div class="row" style="text-algin:left">
 
-
-
-
     <?php
     echo modules::run('layout/country/admin',$country);
     ?>
@@ -47,14 +44,30 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
                 <button type="submit" disabled class="btn btn-default">铝瓶列表</button>
                 </div>
 
-                <div class="col-xs-3">
-                    <input type="text" class="form-control" placeholder=""> 
-                </div>
+                <?php echo form_open('/admin/publish/index',array('class'=>'form-inline')); ?>
 
-                <div class="col-xs-3">
+                <div class="col-xs-6">
+                <?php 
+                echo form_hidden('year', $year);
+                echo form_hidden('page', $page);
+                echo form_hidden('country', $country);
+                echo form_hidden('series', $series);
+                $data = array(
+                    'name'      => 'keyword',
+                    'id'        => 'keyword',
+                    'class'     =>'form-control',
+                    'placeholder'=>'名称',
+                    'maxlength' => '20',
+                    'size'      => '50',
+                    'style'     => 'width:50%',
+                    'value'    =>$keyword
+                );
+                echo form_input($data);
+                
+                ?>
                 <button type="submit" class="btn btn-default">查询</button>
                 </div>
-
+                </form>
                 <button type="button" class="btn btn-danger"><?php echo "共 ".$total." 个"; ?></button>
 
                 <a href="/admin/publish/add">

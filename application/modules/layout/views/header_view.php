@@ -66,11 +66,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<li>
 					<a href="#">关于</a>
 				</li>
-				<form class="navbar-form navbar-left">
+        <?php echo form_open('/publish/index',array('class'=>'navbar-form navbar-left')); ?>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="名称">
+        <?php 
+        // echo form_hidden('year', $year);
+        // echo form_hidden('page', $page);
+        // echo form_hidden('country', $country);
+        // echo form_hidden('series', $series);
+        $data = array(
+            'name'      => 'keyword',
+            'id'        => 'keyword',
+            'class'     =>'form-control',
+            'placeholder'=>'名称',
+            'maxlength' => '20',
+            'size'      => '30',
+            'style'     => 'width:50%'
+        );
+        echo form_input($data);
+        
+        ?>       
+        <button type="submit" class="btn btn-default">搜索</button> 
         </div>
-        <button type="submit" class="btn btn-default">搜索</button>
       </form>
       </ul>
 
