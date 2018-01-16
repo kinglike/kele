@@ -13,7 +13,13 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 </div>
 
 <div class="col-sm-10">
-
+<div class="row">
+<ol class="breadcrumb">
+  <li><a href="#">后台首页</a></li>
+  <li><a href="#">铝瓶系列</a></li>
+  <li class="active">列表</li>
+</ol>
+</div>
     <div class="panel panel-default">
             <!-- Default panel contents -->
             <div class="panel-heading">
@@ -68,7 +74,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 
                         echo '<td>';
 
-                        echo "<button type='button' onclick=location='/admin/publish/add/".$value->id."' class='btn btn-info btn-xs'>添加瓶子</button> ";
+                        echo "<button type='button' onclick=location='/admin/series/publish?series=".$value->id."' class='btn btn-warning btn-xs'>瓶子管理</button> ";
 
                         echo "<button type='button' onclick=location='/admin/series/edit/".$value->id."' class='btn btn-primary btn-xs'>系列编辑</button> ";
 

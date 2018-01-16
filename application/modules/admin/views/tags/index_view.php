@@ -16,17 +16,17 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 
     <div class="panel panel-default">
             <!-- Default panel contents -->
-            <div class="panel-heading">
+            <div class="panel-heading" style="height:55px;">
 
                 <div class="col-xs-3">
-                <button type="submit" disabled class="btn btn-default">标签列表</button>
+                <button  class="btn btn-default pull-left">标签列表</button>
                 </div>
 
                 <form>
-                    <div class="col-xs-3">
+                    <div class="col-xs-4">
                         <input type="text" class="form-control" name="keyword" placeholder="输入名称"> 
                     </div>
-                    <div class="col-xs-3">
+                    <div class="col-xs-5">
                     <button type="submit" class="btn btn-default">查询</button>
                     </div>
                 </form>
@@ -61,8 +61,6 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
                             echo '<button type="button" class="btn btn-danger  btn-xs">删除</button>';
                             echo '</a>';
                         }
-
-
 
                         echo '</td>';
                         echo '</tr>';

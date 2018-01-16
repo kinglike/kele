@@ -5,8 +5,11 @@ class Series extends ADMIN_Controller
 	function __construct()
     {
         parent::__construct();
-        $this->load->model('Series_model', 'Series');
-        $this->load->model('Years_model', 'Years');
+        $this->load->model('Country_model', 'Country');
+		$this->load->model('Publish_model', 'Publish');
+		$this->load->model('Years_model', 'Years');
+		$this->load->model('Tags_model', 'Tags');
+		$this->load->model('Series_model', 'Series');
 
 		$this->load->library('pagination');
 
@@ -147,5 +150,54 @@ class Series extends ADMIN_Controller
         echo '{"success":true,"message":"操作成功","jump":"'.$jump.'"}';
 
 
+    }
+
+    public function publish()
+    {
+        $limit = 12;	//每页几个
+		
+		if ($this->IS_POST) {
+			$page_get = $this->input->post('page');//$this->uri->segment(3, 0);
+			$year_get = $this->input->post('year');
+			$keyword_get = $this->input->post('keyword');
+			$country_get = $this->input->post('country');
+			$series_get	= $this->input->post('series');		
+		} else 
+		{
+			$page_get = $this->input->get('page');//$this->uri->segment(3, 0);
+			$year_get = $this->input->get('year');
+			$keyword_get = $this->input->get('keyword');
+			$country_get = $this->input->get('country');
+			$series_get	= $this->input->get('series');
+		}
+
+
+
+		$publish = $this->Publish->getData($country_get,$year_get,$series_get,$keyword_get,$limit,$page_get);
+		$total =  $this->Publish->getDataCount($country_get,$year_get,$series_get,$keyword_get);
+
+
+	
+
+		$config['base_url'] = '/admin/series/publish/?year='.$year_get.'&keyword='.$keyword_get.'&country='.$country_get.'&series='.$series_get;
+		$config['total_rows'] = $total;
+		$config['per_page'] = $limit;
+		$config['num_links'] = 4;
+
+
+		$data['publish'] = $publish;
+
+
+		$data['total'] = $total;
+		$data['page'] = $page_get;
+		$data['year'] = $year_get;
+		$data['keyword'] = $keyword_get;
+		$data['country'] = $country_get;
+		$data['series'] = $series_get;
+
+		$this->pagination->initialize($config);
+
+		//var_dump($year);
+        $this->load->view('series/publish_view',$data);      
     }
 }

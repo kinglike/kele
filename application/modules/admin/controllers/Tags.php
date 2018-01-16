@@ -43,7 +43,40 @@ class Tags extends ADMIN_Controller
 
     public function edit()
     {
-        # code...
+        if($this->IS_POST)
+        {
+
+            $tagsId=$this->input->post("tagsId");
+            $name=$this->input->post("tagsName"); 
+
+            $jump=$this->input->post("jump");
+
+
+            $data = array(
+                'name'  =>$name,
+                'updated_at'    =>$this->TIME
+            );
+
+
+
+            $where=array("id"=>$tagsId);
+            $this->Tags->update('tags',$data,$where);
+
+            echo '{"success":true,"message":"操作成功","jump":"'.$jump.'"}';
+
+
+
+        }else
+        {
+
+
+            $tagsId=$this->uri->segment(4,0);
+            $tagsInfo=$this->Tags->select("tags","*",array("id"=>$tagsId));
+            $data['tags']=$tagsInfo;
+
+            $this->load->view('admin/tags/edit_view',$data);
+
+        }    
     }
     
     public function del()

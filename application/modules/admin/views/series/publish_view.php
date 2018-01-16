@@ -9,84 +9,32 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
   <div class="col-sm-3 col-md-2 sidebar"  >
     <?php
     //加载模版Layout
-    echo modules::run('admin/menu/index',array('menu'=>'publish'));
+    echo modules::run('admin/menu/index',array('menu'=>'series'));
     ?>
 </div>
 
 <div class="col-sm-9">
 
-<blockquote>
-<div class="row" style="text-algin:left">
-
-    <?php
-    echo modules::run('layout/country/admin',$country);
-    ?>
-</div>
-
-
 <div class="row">
-
-    <?php
-        echo modules::run('layout/years/admin',$year);
-    ?>
-
+<ol class="breadcrumb">
+  <li><a href="#">后台首页</a></li>
+  <li><a href="/admin/series/">铝瓶系列</a></li>
+  <li class="active">列表</li>
+</ol>
 </div>
-
-<?php if ($keyword!="") {?>
-<div class="row">
-    <div class="pull-left" style="padding-left:4px;">
-    <button  class="btn btn-danger btn-xs">
-        <?php echo $keyword?>
-    </button>
-    <button type="button" class="close" aria-label="Close">
-        <a href="<?php echo "/admin/publish/index/?year=".$year."&keyword=&country=".$country."&page=1";?>"
-        <span aria-hidden="true">×</span>
-    </a>
-    </button>
-</div>
-</div>
-<?php }?>
-
-</blockquote>
-
-
-
 <div class="row">
     <div class="panel panel-default">
         <div class="panel-body">
 
                 <div class="col-xs-3">
-                <button type="submit" disabled class="btn btn-default">铝瓶列表</button>
+                <a  href="/admin/series/" class="btn btn-default">返回列表</a>
                 </div>
 
-                <?php echo form_open('/admin/publish/index',array('class'=>'form-inline')); ?>
-
-                <div class="col-xs-6">
-                <?php 
-                echo form_hidden('year', $year);
-                echo form_hidden('page', $page);
-                echo form_hidden('country', $country);
-                echo form_hidden('series', $series);
-                $data = array(
-                    'name'      => 'keyword',
-                    'id'        => 'keyword',
-                    'class'     =>'form-control',
-                    'placeholder'=>'名称',
-                    'maxlength' => '20',
-                    'size'      => '50',
-                    'style'     => 'width:50%',
-                    'value'    =>$keyword
-                );
-                echo form_input($data);
                 
-                ?>
-                <button type="submit" class="btn btn-default">查询</button>
-                </div>
-                </form>
                 <button type="button" class="btn btn-danger"><?php echo "共 ".$total." 个"; ?></button>
 
-                <a href="/admin/publish/add">
-                <button type="button " class="btn btn-primary">新增铝瓶</button>
+                <a href="/admin/publish/add/<?php echo $series;?>">
+                <button type="button " class="btn btn-primary">新增该系列的铝瓶</button>
                 </a>
         </div>
     </div>
@@ -140,9 +88,6 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
   ?>
 </div>
 <div class="row" style="text-align: center;border-top:1px solid #E5e5e5;" > 
-    <div class="col-xs-2" style="margin:20px 0;">
-    <button type="button" class="btn btn-danger"><?php echo "共 ".$total." 个"; ?></button>
-    </div>
     <div >
     <?php echo $this->pagination->create_links();?>
     </div>

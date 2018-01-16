@@ -35,6 +35,9 @@ class Publish_model extends MY_Model {
         if ($year!='') {
             $sql.=" and a.p_years_id = ".$year." ";
         }
+        if ($series!='') {
+            $sql.=" and a.series_id = ".$series." ";
+        }
 
         $sql.=" GROUP BY a.p_id ";
         $sql.= " order by s.code ,a.p_code";
@@ -65,7 +68,9 @@ class Publish_model extends MY_Model {
         if ($year!='') {
             $sql.=" and a.p_years_id = ".$year." ";
         }
-
+        if ($series!='') {
+            $sql.=" and a.series_id = ".$series." ";
+        }
         $sql.=" GROUP BY a.p_id  ";
     
         $sql.= ") f ";

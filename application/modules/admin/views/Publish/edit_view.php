@@ -51,6 +51,9 @@ foreach ($publish as $key => $info) {?>
 
             foreach ($series as $key => $value){
                 $options[$value->id]=$value->code.'|'.$value->name_cn;
+                if ($value->id==$info->series_id) {
+                    echo form_hidden('seriesYears', $value->years_id);
+                }
             }
             $data=array(
                 'class'=>'form-control',
@@ -61,6 +64,7 @@ foreach ($publish as $key => $info) {?>
             );
             echo form_dropdown('seriesId', $options,$info->series_id,$data);
             echo form_hidden('p_id', $info->p_id);
+            echo form_hidden('main_pic', $info->main_pic);
             echo form_hidden('jump', $_SERVER['HTTP_REFERER']);
 
             ?>

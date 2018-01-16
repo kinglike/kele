@@ -41,7 +41,7 @@ class Publish extends ADMIN_Controller
 
 	
 
-		$config['base_url'] = '/admin/publish/index/?year='.$year_get.'&keyword='.$keyword_get.'&country='.$country_get;
+		$config['base_url'] = '/admin/publish/index/?year='.$year_get.'&keyword='.$keyword_get.'&country='.$country_get.'&series='.$series_get;
 		$config['total_rows'] = $total;
 		$config['per_page'] = $limit;
 		$config['num_links'] = 4;
@@ -88,6 +88,9 @@ class Publish extends ADMIN_Controller
 			$tags = $this->input->post("tags");
 			$p_introduce_cn = $this->input->post('p_introduce_cn');
 			$p_introduce_en = $this->input->post('p_introduce_en');
+
+
+			 
 			$data = array(
 				'p_name_cn' => $p_name_cn,
 				'p_code'	=> $p_code,
@@ -238,7 +241,8 @@ class Publish extends ADMIN_Controller
 			$p_id = $this->input->post('p_id');
 			$p_code = $this->input->post('p_code');
 			$seriesId = $this->input->post('seriesId');
-
+			$seriesCode = $this->input->post('seriesCode');
+			$seriesYears = $this->input->post('seriesYears');
 			
 			$p_name_cn = $this->input->post('p_name_cn');
 			$p_name_en = $this->input->post('p_name_en');
@@ -249,6 +253,17 @@ class Publish extends ADMIN_Controller
 			$p_introduce_en = $this->input->post('p_introduce_en');
 
 			$jump=$this->input->post("jump");
+
+
+
+
+			/**
+			 * 临时处理图片路径问题
+			 */
+			$main_pic = $this->input->post('main_pic');
+			$this->doPic($seriesYears,$seriesCode,$p_code,$main_pic);
+
+
 
 			$data = array(
 				'p_name_cn' => $p_name_cn,
@@ -380,7 +395,7 @@ class Publish extends ADMIN_Controller
 
 			$PublishId=$this->uri->segment(4,0);
 
-			$series = $this->Years->select('series','id,code,name_cn');
+			$series = $this->Years->select('series','id,code,years_id,name_cn');
 			$data['series']=$series;
 
 			
@@ -402,6 +417,52 @@ class Publish extends ADMIN_Controller
             $this->load->view('admin/publish/edit_view',$data);
 
         }
+	}
+
+
+	public function doPic($series_years,$seriesId,$p_code,$main_pic)
+	{
+		# code...
+		#判断某字符串中是否包含某字符串的方法
+		//echo $main_pic;
+		if(strpos($main_pic,'PicKele') !== false){
+			//echo $main_pic;
+
+			preg_match('/\/([^\/]+\.[a-z]+)[^\/]*$/',$main_pic,$match); 
+			//var_dump($match);
+
+			$file = getcwd()."/uploads".$main_pic;
+			$new_path = getcwd()."/uploads/publish/".$series_years.'/'.$seriesId.$p_code.'/';
+			//echo $new_path;
+			if (!file_exists($new_path))
+			{
+				mkdir($new_path, 0777,true);
+			}
+
+			$new_file = $new_path.$match[1];
+			//echo $new_file;
+
+			if (file_exists($new_file) == true) {
+				//$result_d = @unlink ($new_file); 
+			} else {
+				if (file_exists($file) == true)
+				{
+				 //die ('文件不在,无法复制');
+				 echo "file:".$file;
+				 echo "new_file:".$new_file;
+				 copy("uploads/PicKele/3/a7a45713130a47caa770103d38a40668.gif","uploads/publish/2005/050101/a7a45713130a47caa770103d38a40668.gif");
+				 //$result = copy($file,$new_file);
+				}
+
+				if ($result == false)
+				{
+				 //echo '复制成功';
+				}
+			}
+
+		}else{
+			//echo '不包含';
+		}
 	}
 	
 
