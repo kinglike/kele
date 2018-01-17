@@ -261,7 +261,7 @@ class Publish extends ADMIN_Controller
 			 * 临时处理图片路径问题
 			 */
 			$main_pic = $this->input->post('main_pic');
-			$this->doPic($seriesYears,$seriesCode,$p_code,$main_pic);
+			$this->doPic($p_id,$seriesYears,$seriesCode,$p_code,$main_pic);
 
 
 
@@ -420,7 +420,7 @@ class Publish extends ADMIN_Controller
 	}
 
 
-	public function doPic($series_years,$seriesId,$p_code,$main_pic)
+	public function doPic($p_id,$series_years,$seriesId,$p_code,$main_pic)
 	{
 		# code...
 		#判断某字符串中是否包含某字符串的方法
@@ -431,34 +431,37 @@ class Publish extends ADMIN_Controller
 			preg_match('/\/([^\/]+\.[a-z]+)[^\/]*$/',$main_pic,$match); 
 			//var_dump($match);
 
-			$file = getcwd()."/uploads".$main_pic;
-			$new_path = getcwd()."/uploads/publish/".$series_years.'/'.$seriesId.$p_code.'/';
+			$file = "/uploads".$main_pic;
+			$new_path = "/publish/".$series_years.'/'.$seriesId.$p_code.'/';
 			//echo $new_path;
-			if (!file_exists($new_path))
+			if (!file_exists(getcwd().'/uploads'.$new_path))
 			{
-				mkdir($new_path, 0777,true);
+				mkdir(getcwd().'/uploads'.$new_path, 0777,true);
 			}
 
 			$new_file = $new_path.$match[1];
 			//echo $new_file;
 
-			if (file_exists($new_file) == true) {
-				//$result_d = @unlink ($new_file); 
+			if (file_exists(getcwd().'/uploads'.$new_file) == true) {
+				$result_d = @unlink (getcwd().'/uploads'.$new_file); 
 			} else {
-				if (file_exists($file) == true)
+
+				if (file_exists(getcwd().$file) == true)
 				{
 				 //die ('文件不在,无法复制');
-				 echo "file:".$file;
-				 echo "new_file:".$new_file;
-				 copy("uploads/PicKele/3/a7a45713130a47caa770103d38a40668.gif","uploads/publish/2005/050101/a7a45713130a47caa770103d38a40668.gif");
-				 //$result = copy($file,$new_file);
+				 //echo "file:".$file;
+				 //echo "new_file:".$new_file;
+				 //copy("uploads/PicKele/3/a7a45713130a47caa770103d38a40668.gif","uploads/publish/2005/050101/a7a45713130a47caa770103d38a40668.gif");
+				 $result = copy(getcwd().$file,getcwd().'/uploads'.$new_file);
+				// echo  $result;
+				
+
 				}
 
-				if ($result == false)
-				{
-				 //echo '复制成功';
-				}
+
 			}
+			$this->Publish->update('publish',array('main_pic'=>$new_file),array('p_id'=>$p_id));
+			
 
 		}else{
 			//echo '不包含';
