@@ -152,33 +152,27 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 
         <div class="form-group">
             <label for="name" >发行年份（单选）</label>
-             <div class="row">
-
-            <?php
-            //var_dump($years);
-
+             <?php 
+    
+            $options =array(
+                '' =>'请选择'
+            );
 
             foreach ($years as $key => $value) {
-              $data = array(
-                'name'      => 'yearsId',
-                'type'    =>'radio',
-                'id'        => $value->id,
-                'value'     => $value->id,
-               );
-              echo '  <div class="col-md-2">';
-              echo form_label(form_input ($data).$value->id);
-              echo '</div>';
-
+                $options[$value->id]=$value->id;
             }
+            $data=array(
+                'class'=>'form-control',
+                'style'     => 'width:50%',
+                'id'        => 'yearsId',
+                //'onChange'=>'some_function();'
 
-            // echo form_checkbox($data);
-
+            );
+            echo form_dropdown('yearsId', $options,'',$data);
             ?>
-            </div>
-            <div class="text-danger"></div>
-
-
         </div>
+        <div class="text-danger"></div>
+
 
         <div class="form-group">
             <label for="name" >发行国家（多选）</label>

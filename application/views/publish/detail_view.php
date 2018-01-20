@@ -140,7 +140,7 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
                   <p>
                   <?php echo $value->p_introduce_cn;?>
                   </p>
-                  <p style="text-align:center;margin:0 auto;">
+                  <p style="text-align:center;margin:10 auto;">
 
                   <?php
                   //var_dump($publishPic);

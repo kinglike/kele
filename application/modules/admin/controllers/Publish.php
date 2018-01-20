@@ -439,7 +439,7 @@ class Publish extends ADMIN_Controller
 				mkdir(getcwd().'/uploads'.$new_path, 0777,true);
 			}
 
-			$new_file = $new_path.$match[1];
+			$new_file = $new_path.$p_code.'_'.$match[1];
 			//echo $new_file;
 
 			if (file_exists(getcwd().'/uploads'.$new_file) == true) {

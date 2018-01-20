@@ -9,7 +9,9 @@ class Series_model extends MY_Model {
     {
         $offset = ($page<=1) ? 0 : ($page-1)*$limit;
 
-        $sql = " select *,(select count(*) from publish where series_id = b.id) cnt from series b ";
+        $sql = " select *,(select count(*) from publish where series_id = b.id) cnt ";
+        $sql.=" ,(select count(*) from picture where data_id = b.id and pic_type=2) pcnt ";
+        $sql.=" from series b ";
         
         if ($keywork!='') {
             $sql.=" where  b.name_cn like '%".$keywork."%' or  b.code like '%".$keywork."%'";

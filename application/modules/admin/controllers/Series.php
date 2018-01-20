@@ -90,6 +90,11 @@ class Series extends ADMIN_Controller
         }
     }
 
+    public function pic()
+    {
+        # code...
+    }
+
     function edit()
     {
 

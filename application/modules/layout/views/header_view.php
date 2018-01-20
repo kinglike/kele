@@ -31,7 +31,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="/assets/js/dialog-min.js"></script>
     <script src="/assets/js/jquery.validate.min.js"></script>
     <script src="/assets/js/jquery-form.js"></script>
-	
+    <script src="/assets/js/mp.mansory.min.js"></script> 
 <body>
 <nav class="navbar navbar-default navbar-fixed-top site-navbar">
   <div class="container-fluid">

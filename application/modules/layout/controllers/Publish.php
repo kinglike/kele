@@ -18,7 +18,7 @@ class Publish extends MX_Controller {
         $data['type'] = $param['type'];
         $data['type_name'] = $param['type_name'];
         $this->load->view('publish/index_view',$data);
-    }
+    } 
 
 
 }

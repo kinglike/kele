@@ -51,8 +51,10 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
                 <td width=100>系列年份</td>
 
                 <td width="30%">中文名称</td>
-                <!-- <td width="30%">英文名称</td> -->
                 <td width="100">瓶子数量</td>
+                <td width="50">资料图片</td>
+
+                
                 <td width="100">添加日期</td>
                 <td width="100">更新日期</td>
 
@@ -69,17 +71,21 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
                         echo '<td>'. $value->name_cn.'</td>';
                         // echo '<td>'. $value->name_en.'</td>';
                         echo '<td>'. $value->cnt.'</td>';
+                        echo '<td>'. $value->pcnt.'</td>';
+                        
                         echo '<td>'. $value->created_at.'</td>';
                         echo '<td>'. $value->updated_at.'</td>';
 
                         echo '<td>';
 
-                        echo "<button type='button' onclick=location='/admin/series/publish?series=".$value->id."' class='btn btn-warning btn-xs'>瓶子管理</button> ";
+                        echo "<button type='button' onclick=location='/admin/series/publish?series=".$value->id."' class='btn btn-warning btn-sm'>瓶子管理</button> ";
 
-                        echo "<button type='button' onclick=location='/admin/series/edit/".$value->id."' class='btn btn-primary btn-xs'>系列编辑</button> ";
+                        echo "<button type='button' onclick=location='/admin/series/edit/".$value->id."' class='btn btn-primary btn-sm'>系列编辑</button> ";
+
+                        echo "<button type='button' onclick=location='/admin/picture/index/2/".$value->id."?redirect_uri=".urlencode($this->curPageURL)."' class='btn btn-info btn-sm'>资料图片</button> ";
 
                         if ($value->cnt == 0) {
-                            echo '<button type="button" onclick="del_series(\''.$value->id.'\')" class="btn btn-danger  btn-xs">系列删除</button>';
+                            echo '<button type="button" onclick="del_series(\''.$value->id.'\')" class="btn btn-danger  btn-sm">系列删除</button>';
                         }
 
                         echo '</td>';

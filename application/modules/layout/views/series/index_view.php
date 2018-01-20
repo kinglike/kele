@@ -1,6 +1,6 @@
 <div class="panel panel-danger">
 					<div class="panel-heading"><?php echo $type_name;?></div>
-					<div class="panel-body">
+					<div class="panel-body" style="padding:0px;">
 
 					<?php
 						//var_dump($publish);

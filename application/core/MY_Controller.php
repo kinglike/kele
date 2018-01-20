@@ -11,6 +11,7 @@ class BAS_Controller extends MX_Controller{
         $this->INTDATE  =time();
         $this->TIME     =date('y-m-d H:i:s',time());
         $this->IP       =$this->input->ip_address();
+        $this->curPageURL  =$this->curPageURL();
 
         //$this->IS_POST  =is_post_request();
         $this->IS_AJAX  =$this->input->is_ajax_request();
@@ -30,6 +31,31 @@ class BAS_Controller extends MX_Controller{
         {
             return false;
         }
+    }
+
+
+    function curPageURL() 
+    {
+    $pageURL = 'http';
+    //var_dump($_SERVER);
+    if (array_key_exists("HTTPS",$_SERVER)) 
+    {
+        if (  $_SERVER["HTTPS"] == "on" ) {
+            $pageURL .= "s";
+        }
+       
+    }
+    $pageURL .= "://";
+    
+    if ($_SERVER["SERVER_PORT"] != "80") 
+    {
+        $pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
+    } 
+    else
+    {
+        $pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+    }
+    return $pageURL;
     }
 
 
