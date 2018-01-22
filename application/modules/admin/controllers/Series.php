@@ -11,7 +11,7 @@ class Series extends ADMIN_Controller
 		$this->load->model('Tags_model', 'Tags');
 		$this->load->model('Series_model', 'Series');
 
-		$this->load->library('pagination');
+        $this->load->library('pagination');
 
     }
 
@@ -53,10 +53,13 @@ class Series extends ADMIN_Controller
         {
 
             $code=$this->input->post("code");
+            $yearsId=$this->input->post("yearsId");
+            
             $name_cn=$this->input->post("name_cn");
             $name_en=$this->input->post("name_en");
             $introduce_cn=$this->input->post("introduce_cn");
             $introduce_en=$this->input->post("introduce_en");
+
 
             $jump=$this->input->post("jump");
 
@@ -64,6 +67,7 @@ class Series extends ADMIN_Controller
                 'code'  =>$code,
                 'name_cn'   =>$name_cn,
                 'name_en'   =>$name_en,
+                'years_id'  =>$yearsId,
                 'introduce_cn'=>$introduce_cn,
                 'introduce_en'  =>$introduce_en,
                 'created_at'    =>$this->TIME
@@ -90,10 +94,6 @@ class Series extends ADMIN_Controller
         }
     }
 
-    public function pic()
-    {
-        # code...
-    }
 
     function edit()
     {

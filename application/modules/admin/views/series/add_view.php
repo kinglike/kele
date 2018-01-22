@@ -226,17 +226,17 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
                 yearsId:{required:true},
                 code:{required:true},
                 name_cn:{required:true},
-                name_en:{required:true},
+                //name_en:{required:true},
                 introduce_cn:{required:true},
-                introduce_en:{required:true}
+                //introduce_en:{required:true}
             },
             messages: {
                 yearsId:{required:"系列年份必须选择"},
                 code:{required:"系列编号必须填写"},
                 name_cn:{required:"系列名称(中文)必须填写"},
-                name_en:{required:"系列名称(英文)必须填写"},
+                //name_en:{required:"系列名称(英文)必须填写"},
                 introduce_cn:{required:"简介信息(中文)必须填写"},
-                introduce_en:{required:"简介信息(英文)必须填写"}
+                //introduce_en:{required:"简介信息(英文)必须填写"}
             },
             errorPlacement: function(error, element) {
                     if (element.is(":radio"))

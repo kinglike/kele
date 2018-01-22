@@ -326,7 +326,7 @@
         //$("#seriesCode").val(arr[0]);
         $("#seriesCode").val(arr[0]);
 
-        if (selSeriesIdOld != selSeriesId) {
+        if ((selSeriesIdOld != selSeriesId) ){
             $.get("/admin/publish/series/"+selSeriesId, function(result){
             $("#p_code").val(result);
             });

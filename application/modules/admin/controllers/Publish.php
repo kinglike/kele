@@ -263,7 +263,15 @@ class Publish extends ADMIN_Controller
 			 */
 			$main_pic = $this->input->post('main_pic');
 
-			$this->doPic($p_id,$seriesYears,$seriesCode,$p_code,$main_pic,'publish');
+			$selSeriesInfo = $this->Publish->select('series','*',array('id'=>$seriesId));
+
+			$selSeriesYears = $selSeriesInfo[0]->years_id;
+			$selSeriesCode =  $selSeriesInfo[0]->code;
+
+			//var_dump($selSeriesInfo);
+			//return;
+
+			$this->doPic($p_id,$selSeriesYears,$selSeriesCode,$p_code,$main_pic,'publish');
 
 			/***
 			 * 根据p_id 查询 picture 中的大图，移动到指定目录
@@ -273,7 +281,7 @@ class Publish extends ADMIN_Controller
 			foreach ($picInfo as $key => $value) {
 				# code...
 				//$bigPic=$value->pic_url;
-				$this->doPic($p_id,$seriesYears,$seriesCode,$p_code,$value->pic_url,'picture');
+				$this->doPic($p_id,$selSeriesYears,$selSeriesCode,$p_code,$value->pic_url,'picture');
 
 			}
 
