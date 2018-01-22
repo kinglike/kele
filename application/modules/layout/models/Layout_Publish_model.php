@@ -43,6 +43,20 @@ class Layout_publish_model extends MY_Model {
         return $query->result();
     }
 
+    public function getPicture($type,$id)
+    {
+        # code...
+        $sql ="";
+
+        if ($type == 'series')
+        {
+            $sql = "select * from picture a where a.pic_type='2'  and a.data_id = $id ";
+        }
+
+        $query = $this->db->query($sql);
+
+        return $query->result();
+    }
 
 }
 /* End of file '/User_model.php' */

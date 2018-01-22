@@ -20,5 +20,13 @@ class Series extends MX_Controller {
         $this->load->view('series/index_view',$data);
     }
 
+    public function picture($param){
+        $picture = $this->Layout_publish_model->getPicture($param['type'],$param['seriesId']);
 
+        $data['picture'] = $picture;
+
+        $data['type'] = $param['type'];
+        $data['type_name'] = $param['type_name'];
+        $this->load->view('series/picture_view',$data);
+    }
 }

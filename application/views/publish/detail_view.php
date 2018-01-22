@@ -149,6 +149,12 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
                       echo '<img src="/uploads/'.$pic->pic_url.'">';
                     }
                   }
+                  var_dump($seriesPic);
+                  foreach ($seriesPic as $key => $pic) {
+                    if ($pic->pic_type == 2) {
+                      echo '<img src="/uploads/'.$pic->pic_url.'">';
+                    }
+                  }
                   ?>
                   </p>
 
@@ -165,11 +171,18 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
 
        <?php
         //加载模版Layout
-        if ($value->cnt >1)
+        if ($value->cnt >0)
         {
           echo modules::run('layout/series/index',array('type'=>'series','type_name'=>'相关系列','seriesId'=>$value->series_id));
         }
         ?>
+           <?php
+        //加载模版Layout
+        if ($value->pcnt >0)
+        {
+          echo modules::run('layout/series/picture',array('type'=>'series','type_name'=>'资料图片','seriesId'=>$value->series_id));
+        }
+        ?>    
         </div>
       </div>
 

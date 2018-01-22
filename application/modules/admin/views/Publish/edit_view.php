@@ -55,18 +55,19 @@
 
         foreach ($series as $key => $value){
         $options[$value->id]=$value->code.'|'.$value->name_cn;
-        if ($value->id==$info->series_id) {
-        echo form_hidden('seriesYears', $value->years_id);
-        }
+            if ($value->id==$info->series_id) {
+                echo form_hidden('seriesYears', $value->years_id);
+            }
         }
         $data=array(
         'class'=>'form-control',
         'style'     => 'width:50%',
         'id'        => 'seriesId',
         'onChange'=>'some_function();'
-
         );
         echo form_dropdown('seriesId', $options,$info->series_id,$data);
+        echo form_input(array('type'=>'hidden','name'=>'seriesIdOld','value'=>$info->series_id,'id'=>'seriesIdOld'));
+
         echo form_hidden('p_id', $info->p_id);
         echo form_hidden('main_pic', $info->main_pic);
         echo form_hidden('jump', $_SERVER['HTTP_REFERER']);
@@ -78,36 +79,36 @@
                 <div class="form-group">
                     <label for="name">瓶子名称（中文）如果和系列名称相同，可以不填</label>
                     <?php
-        $data = array(
-        'name'      => 'p_name_cn',
-        'id'        => 'p_name_cn',
-        'class'     =>'form-control',
-        'placeholder'=>'瓶子名称（中文）',
-        'maxlength' => '20',
-        'size'      => '50',
-        'style'     => 'width:50%',
-        'value'     =>$info->p_name_cn
-        );
-        echo form_input($data);
-        ?>
+                        $data = array(
+                        'name'      => 'p_name_cn',
+                        'id'        => 'p_name_cn',
+                        'class'     =>'form-control',
+                        'placeholder'=>'瓶子名称（中文）',
+                        'maxlength' => '20',
+                        'size'      => '50',
+                        'style'     => 'width:50%',
+                        'value'     =>$info->p_name_cn
+                        );
+                        echo form_input($data);
+                        ?>
                 </div>
                 <div class="text-danger"></div>
 
                 <div class="form-group">
                     <label for="name">瓶子名称（英文）如果和系列名称相同，可以不填</label>
                     <?php
-        $data = array(
-        'name'      => 'p_name_en',
-        'id'        => 'p_name_en',
-        'class'     =>'form-control',
-        'placeholder'=>'瓶子名称（中文）',
-        'maxlength' => '20',
-        'size'      => '50',
-        'style'     => 'width:50%',
-        'value'     =>$info->p_name_en
-        );
-        echo form_input($data);
-        ?>
+                        $data = array(
+                        'name'      => 'p_name_en',
+                        'id'        => 'p_name_en',
+                        'class'     =>'form-control',
+                        'placeholder'=>'瓶子名称（中文）',
+                        'maxlength' => '20',
+                        'size'      => '50',
+                        'style'     => 'width:50%',
+                        'value'     =>$info->p_name_en
+                        );
+                        echo form_input($data);
+                        ?>
                 </div>
                 <div class="text-danger"></div>
 
@@ -116,31 +117,32 @@
                     <div class="form-inline">
                         <?php
 
-        $data = array(
-        'name'      => 'seriesCode',
-        'id'        => 'seriesCode',
-        'class'     =>'form-control',
-        'placeholder'=>'系列编号',
-        'maxlength' => '10',
-        'size'      => '10',
-        'style'     => 'width:10%',
-        'readonly'  =>true
-        );
-        echo form_input($data);
+                            $dataSeriesCode = array(
+                            'name'      => 'seriesCode',
+                            'id'        => 'seriesCode',
+                            'class'     =>'form-control',
+                            'placeholder'=>'系列编号',
+                            'maxlength' => '10',
+                            'size'      => '10',
+                            'style'     => 'width:10%',
+                            'readonly'  =>true
+                            );
+                            echo form_input($dataSeriesCode);
 
 
-        $data = array(
-        'name'      => 'p_code',
-        'id'        => 'p_code',
-        'class'     =>'form-control',
-        'placeholder'=>'瓶子编号',
-        'maxlength' => '2',
-        'size'      => '50',
-        'style'     => 'width:25%',
-        'value'     =>$info->p_code
-        );
-        echo form_input($data);
-        ?>
+                            $data = array(
+                            'name'      => 'p_code',
+                            'id'        => 'p_code',
+                            'class'     =>'form-control',
+                            'placeholder'=>'瓶子编号',
+                            'maxlength' => '2',
+                            'size'      => '50',
+                            'style'     => 'width:25%',
+                            'value'     =>$info->p_code
+                            );
+                            echo form_input($data);
+                            echo form_input(array('type'=>'hidden','name'=>'p_code_old','value'=>$info->p_code,'id'=>'p_code_old'));
+                            ?>
                     </div>
                     <div class="text-danger"></div>
 
@@ -150,47 +152,47 @@
                     <label for="name">Tags标签（用逗号隔开）</label>
                     <?php
 
-        //var_dump($re_tags);
-        $curTags ='';
-        foreach ($re_tags as $key => $tValue) {
-        $curTags.=$tValue->name.',';
-        }
+                        //var_dump($re_tags);
+                        $curTags ='';
+                        foreach ($re_tags as $key => $tValue) {
+                        $curTags.=$tValue->name.',';
+                        }
 
-        $data = array(
-        'name'      => 'tags',
-        'id'        => 'tags',
-        'class'     =>'form-control',
-        'placeholder'=>'Tags标签',
-        'maxlength' => '20',
-        'size'      => '50',
-        'style'     => 'width:50%',
-        'value'     =>substr($curTags,0,-1)
-        );
-        echo form_input($data);
-        ?>
+                        $data = array(
+                        'name'      => 'tags',
+                        'id'        => 'tags',
+                        'class'     =>'form-control',
+                        'placeholder'=>'Tags标签',
+                        'maxlength' => '20',
+                        'size'      => '50',
+                        'style'     => 'width:50%',
+                        'value'     =>substr($curTags,0,-1)
+                        );
+                        echo form_input($data);
+                    ?>
                 </div>
                 <div class="text-danger"></div>
 
                 <div class="form-group">
         <label for="name" >发行年份（单选）</label>
-        <?php 
+            <?php 
 
-        $options =array(
-        '' =>'请选择'
-        );
+            $options =array(
+            '' =>'请选择'
+            );
 
-        foreach ($years as $key => $value) {
-        $options[$value->id]=$value->id;
-        }
-        $data=array(
-        'class'=>'form-control',
-        'style'     => 'width:50%',
-        'id'        => 'yearsId',
-        //'onChange'=>'some_function();'
+            foreach ($years as $key => $value) {
+            $options[$value->id]=$value->id;
+            }
+            $data=array(
+            'class'=>'form-control',
+            'style'     => 'width:50%',
+            'id'        => 'yearsId',
+            //'onChange'=>'some_function();'
 
-        );
-        echo form_dropdown('yearsId', $options,$info->p_years_id,$data);
-        ?>
+            );
+            echo form_dropdown('yearsId', $options,$info->p_years_id,$data);
+            ?>
         </div>
         <div class="text-danger"></div>
 
@@ -279,7 +281,7 @@
                         <div class="form-group">
                             <label for="exampleInputFile">当前图片</label>
                             <p>
-                                <img src="<?php echo " /uploads ".$info->main_pic?>" style="width:70px;height:200px;">
+                                <img src="<?php echo " /uploads".$info->main_pic?>" style="width:70px;height:200px;">
                             </p>
                         </div>
                     </div>
@@ -312,11 +314,28 @@
         <script type="text/javascript">
 
         some_function();
-        function some_function() {
+
+        function some_function() 
+        {
         var selSeriesId = $("#seriesId").val();
+        var selSeriesIdOld = $("#seriesIdOld").val();
+        console.log(selSeriesIdOld);
+
         var selSeriesName = $("#seriesId").find("option:selected").text();
         var arr = selSeriesName.split('|');
+        //$("#seriesCode").val(arr[0]);
         $("#seriesCode").val(arr[0]);
+
+        if (selSeriesIdOld != selSeriesId) {
+            $.get("/admin/publish/series/"+selSeriesId, function(result){
+            $("#p_code").val(result);
+            });
+        }else 
+        {
+            var p_code_old =  $("#p_code_old").val();
+            $("#p_code").val(p_code_old);
+        }
+
         //alert(arr[1]);
         }
 

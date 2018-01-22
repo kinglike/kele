@@ -79,12 +79,15 @@ class Publish extends HOME_Controller {
 		$id = $this->uri->segment(3, 0);;
 		$publish = $this->Publish->getDetail($id);
 		$country = $this->Country->getCountry($id);
-		$publishPic = $this->Publish->select('publish_pic','*',array('publish_id'=>$id));
+		$publishPic = $this->Publish->select('picture','*',array('data_id'=>$id,'pic_type'=>'1'));
+		$seriesPic = $this->Publish->select('picture','*',array('data_id'=>$publish[0]->series_id,'pic_type'=>'2'));
+
 		$tags = $this->Tags->getTags($id);
 		//var_dump($tags);
 		$data['id'] = $id;
 		$data['publish'] = $publish;
 		$data['publishPic'] = $publishPic;
+		$data['seriesPic'] = $seriesPic;
 
 		$data['tags'] = $tags;
 		$data['country'] = $country;

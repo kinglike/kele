@@ -90,7 +90,9 @@ class Publish_model extends MY_Model {
     public function getDetail($id)
     {
         # code...
-        $sql = "select * ,(select count(*) from publish where series_id=a.series_id) cnt from publish a,series b  where p_id = ".$id." and a.series_id = b.id";
+        $sql = "select * ,(select count(*) from publish where series_id=a.series_id) cnt ";
+        $sql.=" ,(select count(*) from picture where data_id = a.series_id and pic_type='2') pcnt";
+        $sql.= " from publish a,series b  where p_id = ".$id." and a.series_id = b.id";
         $query = $this->db->query($sql);
 
         return $query->result();

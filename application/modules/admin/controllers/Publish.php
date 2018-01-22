@@ -259,10 +259,23 @@ class Publish extends ADMIN_Controller
 
 			/**
 			 * 临时处理图片路径问题
+			 * bug?如果选择其他年份的系列，需要吧图片放在新的系列对应的年份上面。
 			 */
 			$main_pic = $this->input->post('main_pic');
-			$this->doPic($p_id,$seriesYears,$seriesCode,$p_code,$main_pic);
 
+			$this->doPic($p_id,$seriesYears,$seriesCode,$p_code,$main_pic,'publish');
+
+			/***
+			 * 根据p_id 查询 picture 中的大图，移动到指定目录
+			 */
+			$picInfo=$this->Publish->select('picture','*',array('data_id'=>$p_id,'pic_type'=>'1'));
+
+			foreach ($picInfo as $key => $value) {
+				# code...
+				//$bigPic=$value->pic_url;
+				$this->doPic($p_id,$seriesYears,$seriesCode,$p_code,$value->pic_url,'picture');
+
+			}
 
 
 			$data = array(
@@ -420,7 +433,7 @@ class Publish extends ADMIN_Controller
 	}
 
 
-	public function doPic($p_id,$series_years,$seriesId,$p_code,$main_pic)
+	public function doPic($p_id,$series_years,$seriesCode,$p_code,$main_pic,$table)
 	{
 		# code...
 		#判断某字符串中是否包含某字符串的方法
@@ -432,7 +445,7 @@ class Publish extends ADMIN_Controller
 			//var_dump($match);
 
 			$file = "/uploads".$main_pic;
-			$new_path = "/publish/".$series_years.'/'.$seriesId.$p_code.'/';
+			$new_path = "/publish/".$series_years.'/'.$seriesCode.'/';
 			//echo $new_path;
 			if (!file_exists(getcwd().'/uploads'.$new_path))
 			{
@@ -460,8 +473,15 @@ class Publish extends ADMIN_Controller
 
 
 			}
-			$this->Publish->update('publish',array('main_pic'=>$new_file),array('p_id'=>$p_id));
-			
+
+			if ($table=='publish')
+			{
+				$this->Publish->update('publish',array('main_pic'=>$new_file),array('p_id'=>$p_id));
+			}
+			if ($table=='picture')
+			{
+				$this->Publish->update('picture',array('pic_url'=>$new_file),array('data_id'=>$p_id,'pic_type'=>1));
+			}			
 
 		}else{
 			//echo '不包含';
