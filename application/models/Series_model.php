@@ -17,7 +17,7 @@ class Series_model extends MY_Model {
             $sql.=" where  b.name_cn like '%".$keywork."%' or  b.code like '%".$keywork."%'";
         }
 
-        $sql.=" order by years_id desc,code";
+        $sql.=" order by updated_at desc,years_id desc,code";
     
         $sql.=" limit ".$offset ." ,".$limit."";
         $query = $this->db->query($sql);

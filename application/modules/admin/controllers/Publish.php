@@ -102,6 +102,13 @@ class Publish extends ADMIN_Controller
 			);
 			//var_dump($data);
 
+
+			$selSeriesInfo = $this->Publish->select('series','*',array('id'=>$seriesId));
+
+			$selSeriesYears = $selSeriesInfo[0]->years_id;
+			$selSeriesCode =  $selSeriesInfo[0]->code;
+
+
 			if ($_FILES['mainPic']['name']<>"")
             {
                 //初始化文件和目录
@@ -111,8 +118,8 @@ class Publish extends ADMIN_Controller
                 $fileType=pathinfo($_FILES['mainPic']['name'], PATHINFO_EXTENSION);
                 $file_name=strtolower(md5($CREATETIME)).".".$fileType;
 
-                $picPath="/Publish/".$yearsId."/".$file_name;
-                $path=getcwd()."/Uploads/Publish/".$yearsId."/";
+                $picPath="/publish/".$selSeriesYears."/".$selSeriesCode."/".$p_code."_".$file_name;
+                $path=getcwd()."/uploads/publish/".$yearsId."/".$selSeriesCode."/";
                 if (!file_exists($path))
                 {
                     mkdir($path, 0777,true);

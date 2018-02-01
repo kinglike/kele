@@ -109,7 +109,7 @@ class Series extends ADMIN_Controller
             $name_en=$this->input->post("name_en");
             $introduce_cn=$this->input->post("introduce_cn");
             $introduce_en=$this->input->post("introduce_en");
-            $jump=$this->input->post("jump");
+            $jump="/admin/series/publish?series=".$SeriesId;//$this->input->post("jump");
 
 
             $data = array(
