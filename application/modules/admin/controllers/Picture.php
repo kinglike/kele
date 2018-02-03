@@ -6,6 +6,9 @@ class Picture extends ADMIN_Controller
     {
         parent::__construct();
         $this->load->model('Picture_model', 'Picture');
+        $this->load->model('Publish_model', 'Publish');
+
+        
 		//$this->load->library('pagination');
 
     }
@@ -84,6 +87,16 @@ class Picture extends ADMIN_Controller
             $dataId=$this->uri->segment(5,0);
             $picInfo=$this->Picture->getData($picType,$dataId);
             $picTypeName=($picType==1)?'铝瓶管理':'铝瓶系列';
+
+            //如果是类型1 根据dataId查询publish表，获取系列ID和序号
+            if ($picType == 1) {
+                $publishInfo = $this->Publish->select();
+                $publishCode ="";
+                $seriesCode = "";
+            } else {
+                $publishCode ="";
+                $seriesCode = "";
+            }
         
             $redirect_uri = $this->input->get('redirect_uri')?$this->input->get('redirect_uri'):$this->input->post('redirect_uri');
             //echo  $redirect_uri;

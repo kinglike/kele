@@ -69,7 +69,7 @@
         echo form_input(array('type'=>'hidden','name'=>'seriesIdOld','value'=>$info->series_id,'id'=>'seriesIdOld'));
 
         echo form_hidden('p_id', $info->p_id);
-        echo form_hidden('main_pic', $info->main_pic);
+        //echo form_hidden('main_pic', $info->main_pic);
         echo form_hidden('jump', $_SERVER['HTTP_REFERER']);
 
         ?>
@@ -281,7 +281,8 @@
                         <div class="form-group">
                             <label for="exampleInputFile">当前图片</label>
                             <p>
-                                <img src="<?php echo " /uploads".$info->main_pic?>" style="width:70px;height:200px;">
+                                <input type="text" name="oldMainPic" id="oldMainPic" value=<?php echo $info->main_pic?>>
+                                <img src="<?php echo "/uploads".$info->main_pic?>" style="width:70px;height:200px;">
                             </p>
                         </div>
                     </div>

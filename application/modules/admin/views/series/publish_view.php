@@ -73,6 +73,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
         echo '</p>';        
         echo '<p>';
         echo '<a href="/admin/publish/edit/'.$value->p_id.'" class="btn btn-primary btn-xs" role="button" >编辑</a> ';
+        echo "<button type='button' onclick=location='/admin/picture/index/1/".$value->p_id."?redirect_uri=".urlencode($this->curPageURL)."' class='btn btn-info btn-xs'>图片</button> ";
 
         echo '<a href="javascript:;" class="btn btn-danger btn-xs" role="button" onclick="del_publish(\''.$value->p_id.'\')">';
         echo '删除 ';

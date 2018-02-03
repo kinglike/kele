@@ -114,12 +114,12 @@ class Publish extends ADMIN_Controller
                 //初始化文件和目录
 
                 //文件名根据时间MD5
-                $CREATETIME=date("Y-m-d H:i:s");
-                $fileType=pathinfo($_FILES['mainPic']['name'], PATHINFO_EXTENSION);
-                $file_name=strtolower(md5($CREATETIME)).".".$fileType;
+                $CREATETIME = date("Y-m-d H:i:s");
+                $fileType = pathinfo($_FILES['mainPic']['name'], PATHINFO_EXTENSION);
+                $file_name = $p_code."_".strtolower(md5($CREATETIME)).".".$fileType;
 
-                $picPath="/publish/".$selSeriesYears."/".$selSeriesCode."/".$p_code."_".$file_name;
-                $path=getcwd()."/uploads/publish/".$yearsId."/".$selSeriesCode."/";
+                $picPath = "/publish/".$selSeriesYears."/".$selSeriesCode."/".$file_name;
+                $path = getcwd()."/uploads/publish/".$yearsId."/".$selSeriesCode."/";
                 if (!file_exists($path))
                 {
                     mkdir($path, 0777,true);
@@ -259,39 +259,43 @@ class Publish extends ADMIN_Controller
 			$p_introduce_cn = $this->input->post('p_introduce_cn');
 			$p_introduce_en = $this->input->post('p_introduce_en');
 
-			$jump=$this->input->post("jump");
+			$jump="/admin/series/publish?series=".$seriesId;//$this->input->post("jump");
 
+
+			//l老图片
+			$oldMainPic=$this->input->post("oldMainPic");
+
+
+
+			//如果修改系列了。要根据系列获取年和系列目录
+			$selSeriesInfo = $this->Publish->select('series','*',array('id'=>$seriesId));
+			$selSeriesYears = $selSeriesInfo[0]->years_id;
+			$selSeriesCode =  $selSeriesInfo[0]->code;
 
 
 
 			/**
 			 * 临时处理图片路径问题
-			 * bug?如果选择其他年份的系列，需要吧图片放在新的系列对应的年份上面。
 			 */
-			$main_pic = $this->input->post('main_pic');
-
-			$selSeriesInfo = $this->Publish->select('series','*',array('id'=>$seriesId));
-
-			$selSeriesYears = $selSeriesInfo[0]->years_id;
-			$selSeriesCode =  $selSeriesInfo[0]->code;
+			//$main_pic = $this->input->post('main_pic');
 
 			//var_dump($selSeriesInfo);
 			//return;
-
-			$this->doPic($p_id,$selSeriesYears,$selSeriesCode,$p_code,$main_pic,'publish');
-
+			//$this->doPic($p_id,$selSeriesYears,$selSeriesCode,$p_code,$main_pic,'publish');
 			/***
 			 * 根据p_id 查询 picture 中的大图，移动到指定目录
 			 */
-			$picInfo=$this->Publish->select('picture','*',array('data_id'=>$p_id,'pic_type'=>'1'));
 
-			foreach ($picInfo as $key => $value) {
+			//$picInfo=$this->Publish->select('picture','*',array('data_id'=>$p_id,'pic_type'=>'1'));
+
+			//foreach ($picInfo as $key => $value) {
 				# code...
 				//$bigPic=$value->pic_url;
-				$this->doPic($p_id,$selSeriesYears,$selSeriesCode,$p_code,$value->pic_url,'picture');
-
-			}
-
+				//this->doPic($p_id,$selSeriesYears,$selSeriesCode,$p_code,$value->pic_url,'picture');
+			//}
+			/**
+			 * 临时转移老图片到新目录已经处理完毕，不需要在用了
+			 */
 
 			$data = array(
 				'p_name_cn' => $p_name_cn,
@@ -302,19 +306,25 @@ class Publish extends ADMIN_Controller
 				'p_introduce_cn' =>$p_introduce_cn,
 				'p_introduce_en' =>$p_introduce_en
 			);
-			//var_dump($_FILES['mainPic']);
 
 			if (!empty($_FILES['mainPic']['name']))
             {
+
+				//删除老的图片
+				$this->unlink_file(getcwd()."/uploads/".$oldMainPic);
+
                 //初始化文件和目录
 
                 //文件名根据时间MD5
                 $CREATETIME=date("Y-m-d H:i:s");
-                $fileType=pathinfo($_FILES['mainPic']['name'], PATHINFO_EXTENSION);
-                $file_name=strtolower(md5($CREATETIME)).".".$fileType;
+				$fileType=pathinfo($_FILES['mainPic']['name'], PATHINFO_EXTENSION);
+				
+                $file_name=$p_code."_".strtolower(md5($CREATETIME)).".".$fileType;
 
-                $picPath="/Publish/".$yearsId."/".$file_name;
-                $path=getcwd()."/Uploads/Publish/".$yearsId."/";
+                $picPath="/publish/".$selSeriesYears."/".$selSeriesCode."/".$file_name;
+				$path=getcwd()."/uploads/publish/".$selSeriesYears."/".$selSeriesCode."/";
+				
+
                 if (!file_exists($path))
                 {
                     mkdir($path, 0777,true);
@@ -519,5 +529,25 @@ class Publish extends ADMIN_Controller
 		$this->Publish->delete("re_publish_tags",$whereRe);
         echo '{"success":true,"message":"操作成功","jump":"/admin/publish/"}';
 
-    }
+	}
+	
+
+	private  function check_exist($filename)    
+	{
+		if(file_exists($filename))
+		{
+			return true;
+		}else   return false;
+	}
+
+
+	//删除文件
+	function unlink_file($filename)    
+	{
+	     if($this->check_exist($filename) and is_file($filename))
+	     {
+	        return unlink($filename);
+	     }else  return false;
+	}
+	
 }
