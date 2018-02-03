@@ -98,7 +98,8 @@ class Publish extends ADMIN_Controller
 				'p_name_en' => $p_name_en,
 				'p_years_id'	=> $yearsId,
 				'p_introduce_cn' =>$p_introduce_cn,
-				'p_introduce_en' =>$p_introduce_en
+				'p_introduce_en' =>$p_introduce_en,
+				'created_at'	=>$this->TIME
 			);
 			//var_dump($data);
 
@@ -304,7 +305,8 @@ class Publish extends ADMIN_Controller
 				'p_name_en' => $p_name_en,
 				'p_years_id'	=> $yearsId,
 				'p_introduce_cn' =>$p_introduce_cn,
-				'p_introduce_en' =>$p_introduce_en
+				'p_introduce_en' =>$p_introduce_en,
+				'updated_at'	=>$this->TIME
 			);
 
 			if (!empty($_FILES['mainPic']['name']))

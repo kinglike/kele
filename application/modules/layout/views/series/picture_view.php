@@ -10,8 +10,8 @@
 						foreach ($picture as $key => $value) {
 							# code...
 						//border:1px solid #E5e5e5;background:#ffffff;border-radius:10px;box-shadow: 1px 1px 1px 1px #E5e5e5;padding-top:15px;margin:15px;
-						echo '<div class="col-xs-3  col-md-1 " style="text-align: center;">';
-						echo '<a href="/uploads/'.$value->pic_url.'" data-lightbox="example-'.$i.'" data-title="Optional caption." rel="flowers" data-toggle="tooltip" data-placement="bottom" title="'.$value->pic_name_cn.'" class="thumbnail" style="border:0px;padding:20px 0 0px 0;">';
+						echo '<div class="col-xs-3  col-md-2 " style="text-align: center;">';
+						echo '<a href="/uploads/'.$value->pic_url.'" data-lightbox="example-'.$i.'" data-title="'.$value->pic_name_cn.'"  data-toggle="tooltip" data-placement="bottom"  class="thumbnail" style="border:0px;padding:20px 0 0px 0;">';
 						echo '<img src="/uploads/'.$value->pic_url.'" alt="'.$value->pic_name_cn.'" style="width:200px;">';
 						echo '</a>';
 				
