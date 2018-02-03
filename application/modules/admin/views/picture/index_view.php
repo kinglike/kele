@@ -68,6 +68,11 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
             <input type="file"  name="Banner" id="Banner" >
 
         </div>
+        <?php //var_dump($publishInfo)?>
+        <?php echo form_hidden('years_id', $publishInfo[0]->years_id);?>
+        <?php echo form_hidden('code', $publishInfo[0]->code);?>
+        <?php echo form_hidden('p_code', $publishInfo[0]->p_code);?>
+
         <?php echo form_hidden('pic_type', $pic_type);?>
         <?php echo form_hidden('data_id', $data_id);?>
         <?php echo form_hidden('redirect_uri', $redirect_uri);?>

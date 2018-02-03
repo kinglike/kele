@@ -15,6 +15,27 @@ class Picture_model extends MY_Model {
         return $query->result();
     }
 
+
+    /**
+     * 根据类型Id和dataId获取保存目录的seriesCode 和 publishCode
+     */
+    public function getPublishSeries($type,$dataId)
+    {
+        # code...
+        $sql = "";
+        if ($type == 1) {
+            $sql.= "select b.years_id,b.code,p_code from publish a left join series b on a.series_id=id where p_id = $dataId";
+        }
+
+        if ($type == 2) {
+            $sql.="select years_id,code,'' p_code from series where id=$dataId";
+        }
+
+        $query = $this->db->query($sql);
+
+        return $query->result();
+    }
+
    
 }
 /* End of file '/User_model.php' */

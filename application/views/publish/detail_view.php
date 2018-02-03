@@ -3,6 +3,7 @@
 echo modules::run('layout/header/index',array('menu'=>'publish'));
 ?>
 
+
 <div class="container">
 
 <?php
@@ -150,11 +151,11 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
                     }
                   }
                   //var_dump($seriesPic);
-                  foreach ($seriesPic as $key => $pic) {
-                    if ($pic->pic_type == 2) {
-                      echo '<img src="/uploads/'.$pic->pic_url.'">';
-                    }
-                  }
+                  // foreach ($seriesPic as $key => $pic) {
+                  //   if ($pic->pic_type == 2) {
+                  //     echo '<img src="/uploads/'.$pic->pic_url.'">';
+                  //   }
+                  // }
                   ?>
                   </p>
 

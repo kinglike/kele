@@ -13,6 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Bootstrap -->
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/css/style.css" rel="stylesheet">
+    <link href="/assets/css/lightbox.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -32,6 +33,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="/assets/js/jquery.validate.min.js"></script>
     <script src="/assets/js/jquery-form.js"></script>
     <script src="/assets/js/mp.mansory.min.js"></script> 
+    <script src="/assets/js/lightbox.min.js"></script>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top site-navbar">
   <div class="container-fluid">

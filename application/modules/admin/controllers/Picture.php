@@ -6,7 +6,6 @@ class Picture extends ADMIN_Controller
     {
         parent::__construct();
         $this->load->model('Picture_model', 'Picture');
-        $this->load->model('Publish_model', 'Publish');
 
         
 		//$this->load->library('pagination');
@@ -25,6 +24,13 @@ class Picture extends ADMIN_Controller
             $pic_type = $this->input->post("pic_type");
             $redirect_uri = $this->input->post("redirect_uri");
             $jump = $this->input->post("jump");
+
+            
+            //文件保存的路径 years_id/code/p_code_filename.jpg 如果是类型2 p_code是空  文件是_xxxx.jpg
+            $years_id = $this->input->post("years_id");
+            $code = $this->input->post("code");
+            $p_code = $this->input->post("p_code");
+
             $data = array(
                 'data_id'=>$data_id,
                 'pic_name_cn'=>$pic_name_cn,
@@ -39,10 +45,15 @@ class Picture extends ADMIN_Controller
                 //文件名根据时间MD5
                 $CREATETIME=date("Y-m-d H:i:s");
                 $fileType=pathinfo($_FILES['Banner']['name'], PATHINFO_EXTENSION);
-                $file_name=strtolower(md5($CREATETIME)).".".$fileType;
+                $file_name=$p_code.'_'.strtolower(md5($CREATETIME)).".".$fileType;
 
-                $picPath="/test/".$file_name;
-                $path=getcwd()."/uploads/test/";
+
+                $picPath="/publish/".$years_id."/".$code."/".$file_name;
+				$path=getcwd()."/uploads/publish/".$years_id."/".$code."/";
+
+
+                //$picPath="/test/".$file_name;
+                //$path=getcwd()."/uploads/test/";
                 if (!file_exists($path))
                 {
                     mkdir($path, 0777,true);
@@ -89,14 +100,8 @@ class Picture extends ADMIN_Controller
             $picTypeName=($picType==1)?'铝瓶管理':'铝瓶系列';
 
             //如果是类型1 根据dataId查询publish表，获取系列ID和序号
-            if ($picType == 1) {
-                $publishInfo = $this->Publish->select();
-                $publishCode ="";
-                $seriesCode = "";
-            } else {
-                $publishCode ="";
-                $seriesCode = "";
-            }
+            $publishInfo = $this->Picture->getPublishSeries($picType,$dataId);
+
         
             $redirect_uri = $this->input->get('redirect_uri')?$this->input->get('redirect_uri'):$this->input->post('redirect_uri');
             //echo  $redirect_uri;
@@ -106,6 +111,7 @@ class Picture extends ADMIN_Controller
             $data['picTypeName']=$picTypeName;
             $data['data_id']=$dataId;
             $data['picInfo']=$picInfo;
+            $data['publishInfo']=$publishInfo;
 
 
             $this->load->view('picture/index_view',$data);
