@@ -35,7 +35,13 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
         <div class="form-group">
         <label >系列信息</label>
         <?php echo $publishInfo[0]->name_cn;?>
-        <img src="/uploads/<?php echo $publishInfo[0]->main_pic;?>">
+        <?php 
+            if ($publishInfo[0]->main_pic != "")
+            {
+                echo '<img src="/uploads/'.$publishInfo[0]->main_pic.'">';
+            }
+        ?>
+        
 
         </div>
 

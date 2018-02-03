@@ -28,7 +28,7 @@ class Picture_model extends MY_Model {
         }
 
         if ($type == 2) {
-            $sql.="select years_id,code,'' p_code,b.name_cn, '' main_pic from series where id=$dataId";
+            $sql.="select years_id,code,'' p_code, name_cn, '' main_pic from series where id=$dataId";
         }
 
         $query = $this->db->query($sql);
