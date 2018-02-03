@@ -172,6 +172,20 @@
                     ?>
                 </div>
                 <div class="text-danger"></div>
+                <div class="form-group">
+            <label for="name" >选择Tags</label>
+        <p>
+            <?php foreach ($tags as $key => $value) {
+                # code...
+                echo '<button type="button" onclick="addtags(\''.$value->name.'\')" class="btn btn-warning btn-xs">';
+                echo $value->name;
+                echo '</button>';
+                echo " ";
+            }?>
+            </p>
+        </div>
+        <div class="text-danger"></div>
+
 
                 <div class="form-group">
         <label for="name" >发行年份（单选）</label>
@@ -315,6 +329,22 @@
         <script type="text/javascript">
 
         some_function();
+
+        var selectTags = [];
+
+        function addtags(tagName) {
+
+            if (selectTags.indexOf(tagName) == -1)
+            {
+                selectTags.push(tagName);
+            }
+            var strTags=selectTags.join(","); 
+
+
+            //var curTags=$("#tags").val();
+            $("#tags").val(strTags);
+            //alert(tagName);
+        }
 
         function some_function() 
         {

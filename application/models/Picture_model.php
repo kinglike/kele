@@ -24,11 +24,11 @@ class Picture_model extends MY_Model {
         # code...
         $sql = "";
         if ($type == 1) {
-            $sql.= "select b.years_id,b.code,p_code from publish a left join series b on a.series_id=id where p_id = $dataId";
+            $sql.= "select b.years_id,b.code,p_code,b.name_cn,main_pic from publish a left join series b on a.series_id=id where p_id = $dataId";
         }
 
         if ($type == 2) {
-            $sql.="select years_id,code,'' p_code from series where id=$dataId";
+            $sql.="select years_id,code,'' p_code,b.name_cn, '' main_pic from series where id=$dataId";
         }
 
         $query = $this->db->query($sql);

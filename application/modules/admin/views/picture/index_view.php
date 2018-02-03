@@ -33,6 +33,14 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
   <div class="panel-body">
     <?php echo form_open('/admin/picture/index',array('id'=>'CountryForm','name'=>'CountryForm')); ?>
         <div class="form-group">
+        <label >系列信息</label>
+        <?php echo $publishInfo[0]->name_cn;?>
+        <img src="/uploads/<?php echo $publishInfo[0]->main_pic;?>">
+
+        </div>
+
+
+        <div class="form-group">
         <label >中文说明</label>
         <?php
                 $data = array(

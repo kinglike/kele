@@ -31,6 +31,20 @@ class Tags_model extends MY_Model {
         return $query->result();
     }
 
+
+    public function getDataAll($keywork="") {
+   
+        $sql = " select * ,(select count(*) from re_publish_tags where b.id = tags_id) cnt from tags b ";
+        
+        if ($keywork!='') {
+            $sql.=" where  b.name like '%".$keywork."%' ";
+        }
+        $sql.= " order by cnt desc";
+        $query = $this->db->query($sql);
+
+        return $query->result();     
+    }
+
     public function getDataTotal($keywork)
     {
 

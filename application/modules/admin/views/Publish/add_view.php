@@ -150,6 +150,21 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
         </div>
         <div class="text-danger"></div>
 
+
+        <div class="form-group">
+            <label for="name" >选择Tags</label>
+        <p>
+            <?php foreach ($tags as $key => $value) {
+                # code...
+                echo '<button type="button" onclick="addtags(\''.$value->name.'\')" class="btn btn-default btn-xs">';
+                echo $value->name;
+                echo '</button>';
+                echo " ";
+            }?>
+            </p>
+        </div>
+        <div class="text-danger"></div>
+
         <div class="form-group">
             <label for="name" >发行年份（单选）</label>
              <?php 
@@ -168,7 +183,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
                 //'onChange'=>'some_function();'
 
             );
-            echo form_dropdown('yearsId', $options,'',$data);
+            echo form_dropdown('yearsId', $options,$curSeriesInfo[0]->years_id,$data);
             ?>
         </div>
         <div class="text-danger"></div>
@@ -255,7 +270,21 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
 <script type="text/javascript">
 
         $.extend($.validator.defaults,{ignore:""});
-        
+        var selectTags = [];
+
+        function addtags(tagName) {
+
+            if (selectTags.indexOf(tagName) == -1)
+            {
+                selectTags.push(tagName);
+            }
+            var strTags=selectTags.join(","); 
+
+
+            //var curTags=$("#tags").val();
+            $("#tags").val(strTags);
+            //alert(tagName);
+        }
         function getPublish() {
                 var seriesId = $("#seriesId").val();
                 $.get("/admin/publish/series/"+seriesId, function(result){
@@ -284,7 +313,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
                     seriesCode:{required:true},
                     seriesId:{required:true},
                     code:{required:true},
-                    tags:{required:true},
+                    //tags:{required:true},
                     yearsId:{required:true},
                     'countryId[]':{required:true},
                     //introduce:{required:true},
@@ -294,7 +323,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
                     seriesCode:{required:"系列编号必须填写 "},
                     seriesId:{required:"系列必须选择"},
                     code:{required:"铝瓶编号必须填"},
-                    tags:{required:"Tags标签必须填,请用逗号隔开"},
+                    //tags:{required:"Tags标签必须填,请用逗号隔开"},
                     yearsId:{required:"年份必须选择"},
                     'countryId[]':{required:"发行国家必须选择"},
                     //introduce:{required:"简介信息必须填写"},

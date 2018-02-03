@@ -55,8 +55,8 @@ class Country extends ADMIN_Controller
                 $fileType=pathinfo($_FILES['Banner']['name'], PATHINFO_EXTENSION);
                 $file_name=strtolower(md5($CREATETIME)).".".$fileType;
 
-                $picPath="/PicCountry1/".$file_name;
-                $path=getcwd()."/Uploads/PicCountry1/";
+                $picPath="/country/".$file_name;
+                $path=getcwd()."/uploads/country/";
                 if (!file_exists($path))
                 {
                     mkdir($path, 0777,true);
@@ -81,7 +81,11 @@ class Country extends ADMIN_Controller
                     return;
                 }else
                 {
-                     $data=array('name'=>$CountryName,'banner'=>$picPath);
+                     $data=array(
+                         'name'=>$CountryName,'
+                         banner'=>$picPath,
+                        'created_at' => $this->TIME
+                    );
 
                      $this->Country->insert('country',$data);
 
@@ -121,19 +125,24 @@ class Country extends ADMIN_Controller
         {
             $CountryName=$this->input->post("CountryName");
             $CountryId=$this->input->post("CountryId");
+            $oldBanner = $this->input->post("oldBanner");
 
-            $data=array('name'=>$CountryName);
+            $data=array(
+                'name'=>$CountryName,
+                'updated_at' => $this->TIME
+            );
 
             //echo $_FILES['Banner']['name'];
             if (!empty($_FILES['Banner']['name']))
             {
-                //初始化文件和目录
-                $CREATETIME=date("Y-m-d H:i:s");
-                $fileType=pathinfo($_FILES['Banner']['name'], PATHINFO_EXTENSION);
-                $file_name=strtolower(md5($CREATETIME)).".".$fileType;
 
-                $picPath="/PicCountry1/".$file_name;
-                $path=getcwd()."/Uploads/PicCountry1/";
+                //初始化文件和目录
+                $CREATETIME = date("Y-m-d H:i:s");
+                $fileType = pathinfo($_FILES['Banner']['name'], PATHINFO_EXTENSION);
+                $file_name = strtolower(md5($CREATETIME)).".".$fileType;
+
+                $picPath="/country/".$file_name;
+                $path = getcwd()."/uploads/country/";
                 if (!file_exists($path))
                 {
                     mkdir($path, 0777,true);
@@ -159,6 +168,10 @@ class Country extends ADMIN_Controller
                 }else
                 {
                     $data['banner']=$picPath;
+
+                    //删除以前的图片
+                    $this->unlink_file(getcwd()."/uploads/".$oldBanner);
+
                 }
             }
 
@@ -192,5 +205,21 @@ class Country extends ADMIN_Controller
 
     }
 
+	private  function check_exist($filename)    
+	{
+		if(file_exists($filename))
+		{
+			return true;
+		}else   return false;
+	}
 
+
+	//删除文件
+	function unlink_file($filename)    
+	{
+	     if($this->check_exist($filename) and is_file($filename))
+	     {
+	        return unlink($filename);
+	     }else  return false;
+	}
 }

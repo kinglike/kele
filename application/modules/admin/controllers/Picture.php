@@ -62,9 +62,9 @@ class Picture extends ADMIN_Controller
                 //上传图片
                 $config['upload_path']= $path;
                 $config['allowed_types']='gif|jpg|png';
-                $config['max_size']='1024';
-                $config['max_width']='800';
-                $config['max_height']='800';
+                $config['max_size']='2048';
+                $config['max_width']='1000';
+                $config['max_height']='1000';
                 $config['overwrite']='true';
 
                 $config['file_name'] = $file_name;// rename.

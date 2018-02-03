@@ -89,6 +89,7 @@ class Publish extends ADMIN_Controller
 			$p_introduce_cn = $this->input->post('p_introduce_cn');
 			$p_introduce_en = $this->input->post('p_introduce_en');
 
+			$jump="/admin/series/publish?series=".$seriesId;
 
 			 
 			$data = array(
@@ -211,7 +212,7 @@ class Publish extends ADMIN_Controller
 				}
 			}
 
-			echo '{"success":true,"message":"操作成功","jump":"/admin/publish/"}';
+            echo '{"success":true,"message":"操作成功","jump":"'.$jump.'"}';
 
 
 			//cho $countryId;
@@ -229,9 +230,16 @@ class Publish extends ADMIN_Controller
 			$series = $this->Years->select('series','id,code,years_id,name_cn','','years_id desc,code');
 			$years = $this->Years->select('years','id');
 			$country = $this->Country->select('country','id,name');
+
+			$tags = $this->Tags->getDataAll();
+
+			$curSeriesInfo=$this->Publish->select("series","*",array("id"=>$SeriesId));
+			$data['curSeriesInfo']=$curSeriesInfo;
+
 			$data['country'] =  $country;
 			$data['years'] =  $years;
 			$data['series'] =  $series;
+			$data['tags'] =  $tags;
 			$data['SeriesId'] =  $SeriesId;
 			
 
@@ -453,6 +461,9 @@ class Publish extends ADMIN_Controller
 
 			$re_tags =  $this->Tags->getTags($PublishId);
 			$data['re_tags'] =  $re_tags;
+
+			$tags = $this->Tags->getDataAll();
+			$data['tags'] =  $tags;
 
             $this->load->view('admin/publish/edit_view',$data);
 

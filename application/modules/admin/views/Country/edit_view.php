@@ -53,6 +53,7 @@ echo modules::run('layout/header/index',array('menu'=>'admin'));
             );
             echo form_input($data);
             echo form_hidden('CountryId', $value->id);
+            echo form_hidden('oldBanner', $value->banner);
 
             ?>
         </div>
