@@ -21,7 +21,7 @@ class Publish_model extends MY_Model {
         // $sql = " select a.*,b.name from publish a ,country b,re_publish_country c ";
         // $sql.= " where a.id= c.publish_id and b.id=c.country_id ";
         // s.id, s.code, s.name_cn, s.name_en, s.introduce_cn, s.introduce_en
-        $sql = " select a.*,b.name,s.code, s.name_cn, s.name_en, s.introduce_cn, s.introduce_en ";
+        $sql = " select CONCAT(s.code,a.p_code) p_code_full,a.*,b.name,s.code, s.name_cn, s.name_en, s.introduce_cn, s.introduce_en ";
         $sql.= " from publish a ,country b,re_publish_country c ,series s ";
         $sql.= " where a.p_id= c.publish_id and b.id=c.country_id and a.series_id=s.id ";
 
@@ -30,7 +30,7 @@ class Publish_model extends MY_Model {
         }
           
         if ($keywork!='') {
-            $sql.=" and s.name_cn like '%".$keywork."%' ";
+            $sql.=" and (s.name_cn like '%".$keywork."%' or CONCAT(s.code,a.p_code)  like '".$keywork."%')  ";
         }    
         if ($year!='') {
             $sql.=" and a.p_years_id = ".$year." ";

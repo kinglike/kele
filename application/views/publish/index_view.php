@@ -25,6 +25,23 @@ echo modules::run('layout/header/index',array('menu'=>'publish'));
 
 </div>
 
+<?php 
+if ($keyword != '') {
+    echo '<div class="row">';
+    echo '<a href="/publish/index/?year='.$year.'&keyword=&country='.$country.'&page='.$page.'">';
+    echo '<button type="button" class="btn btn-danger btn-xs" style="margin:5px;">';
+    echo "清除";
+    echo '</button>';
+    echo '</a>';
+
+    echo '<button type="button" class="btn btn-default  btn-xs" style="margin:5px;">';
+    echo $keyword;
+    echo '</button>';
+    echo '</div>';
+    //echo '</a>';
+}
+?>
+
 </blockquote>
 
 

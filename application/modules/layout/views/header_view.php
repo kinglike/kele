@@ -79,7 +79,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             'name'      => 'keyword',
             'id'        => 'keyword',
             'class'     =>'form-control',
-            'placeholder'=>'名称',
+            'placeholder'=>'名称或编号',
             'maxlength' => '20',
             'size'      => '30',
             'style'     => 'width:50%'
